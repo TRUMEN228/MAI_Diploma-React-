@@ -1,0 +1,92 @@
+#ikar-app-login {
+  padding-top: 120px;
+  padding-bottom: 30px;
+}
+
+.form__title {
+  width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 70px;
+  font-weight: 700;
+  font-size: 50px;
+  color: var(--darker-blue);
+}
+
+.login-form {
+  width: 320px;
+  display: grid;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  grid-template-columns: 50px 250px;
+  grid-template-rows: repeat(3, 35px);
+  grid-template-areas:
+    "label-login login"
+    "label-password password"
+    "btn btn"
+    "register register";
+  row-gap: 30px;
+  column-gap: 20px;
+  align-items: center;
+}
+
+.form__login-label {
+  grid-area: label-login;
+}
+
+.form__login-input {
+  grid-area: login;
+}
+
+.form__password-label {
+  grid-area: label-password;
+}
+
+.form__password-input {
+  grid-area: password;
+}
+
+.form__btn {
+  grid-area: btn;
+}
+
+/* .index-form-forgot-password {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  text-decoration: underline;
+  transition: color 0.2s ease-in-out;
+}
+
+.index-form-forgot-password:hover {
+  color: var(--grey);
+}
+
+.index-form-forgot-password:focus {
+  color: var(--grey);
+}
+
+.index-form-forgot-password:active {
+  color: var(--lighter-grey);
+} */
+
+.form__register {
+  grid-area: register;
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  text-decoration: underline;
+  transition: color 0.2s ease-in-out;
+}
+
+.form__register:hover {
+  color: var(--grey);
+}
+
+.form__register:focus {
+  color: var(--grey);
+}
+
+.form__register:active {
+  color: var(--lighter-grey);
+}
