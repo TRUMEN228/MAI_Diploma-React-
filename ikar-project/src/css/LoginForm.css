@@ -47,6 +47,8 @@
 
 .form__btn {
   grid-area: btn;
+  width: 80px;
+  height: 35px;
 }
 
 /* .index-form-forgot-password {

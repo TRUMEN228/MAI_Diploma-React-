@@ -1,7 +1,11 @@
 import "./css/Button.css"
 
-export const Button = ({type, btnClassName, textContent}) => {
+export const Button = ({
+  type,
+  btnClassName,
+  textContent
+}) => {
   return (
-    <button type={type} className={btnClassName ? 'btn ' + btnClassName : 'btn'}>{textContent}</button>
+    <button type={type ? type : 'button'} className={btnClassName ? 'btn ' + btnClassName : 'btn'}>{textContent}</button>
   );
 };

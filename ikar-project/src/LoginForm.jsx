@@ -4,7 +4,7 @@ import { Button } from './Button';
 
 export const LoginForm = ({getLogin, getPassword, onRegister, onSubmit}) => {
   const handleRegister = () => {
-    onRegister();
+    onRegister("register");
   }
 
   const handleFormSubmit = (event) => {

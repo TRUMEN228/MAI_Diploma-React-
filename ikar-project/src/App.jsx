@@ -4,9 +4,8 @@ import { LoginForm } from './LoginForm';
 import { useModal } from './hooks/useModal'
 import { useLoginForm } from './hooks/useLoginForm';
 
-
 function App() {
-  const {modalActive, modalClose, modalActivate} = useModal();
+  const {modalActive, content, modalClose, modalActivate} = useModal();
   const {errors, userList, user, getLogin, getPassword, formSubmit} = useLoginForm();
 
   return (
@@ -14,6 +13,7 @@ function App() {
       <ModalWindow
         active={modalActive}
         onClose={modalClose}
+        contentType={content}
       />
       <LoginForm
         getLogin={getLogin}
