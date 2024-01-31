@@ -2,7 +2,7 @@ import './css/LoginForm.css';
 import { FormInput } from './FormInput';
 import { Button } from './Button';
 
-export const LoginForm = ({getLogin, getPassword, onRegister, onSubmit}) => {
+export const LoginForm = ({loginInputRef, passwordInputRef, onRegister, onSubmit}) => {
   const handleRegister = () => {
     onRegister("register");
   }
@@ -23,7 +23,7 @@ export const LoginForm = ({getLogin, getPassword, onRegister, onSubmit}) => {
           labelClassName='form__login-label'
           inputClassName='form__login-input'
           textContent='Логин'
-          getValue={getLogin}
+          refInput={loginInputRef}
         />
         <FormInput
           type="password"
@@ -31,7 +31,7 @@ export const LoginForm = ({getLogin, getPassword, onRegister, onSubmit}) => {
           labelClassName='form__password-label'
           inputClassName='form__password-input'
           textContent='Пароль'
-          getValue={getPassword}
+          refInput={passwordInputRef}
         />
         <Button
           type="confirm"
