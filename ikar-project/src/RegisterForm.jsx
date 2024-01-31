@@ -43,7 +43,7 @@ export const RegisterForm = () => {
           inputId="email-reg"
           inputClassName="reg-form__email-input"
           labelClassName="reg-form__email-label"
-          textContent="E_mail"
+          textContent="E-mail"
         />
         <FormInput
           type="text"

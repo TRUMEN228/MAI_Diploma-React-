@@ -18,6 +18,7 @@ export const FormInput = ({
       >
         {textContent + (required ? '*' : '') + ':'}
       </label>
+
       <input
         id={inputId}
         type={type}
@@ -25,6 +26,7 @@ export const FormInput = ({
         className={inputClassName ? 'form__input ' + inputClassName : 'form__input'}
         placeholder={textContent + (required ? '*' : '')}
       />
+
       {errorMsg && <span className='input__error'>{errorMsg}</span>}
     </>
   );

@@ -6,7 +6,7 @@ import { useLoginForm } from './hooks/useLoginForm';
 
 function App() {
   const {modalActive, content, modalClose, modalActivate} = useModal();
-  const {error, userList, user, loginInput, passwordInput, getLogin, getPassword, formSubmit} = useLoginForm();
+  const {error, userList, user, loginInput, passwordInput, formSubmit} = useLoginForm();
 
   return (
     <div id="app">
