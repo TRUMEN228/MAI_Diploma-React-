@@ -1,0 +1,27 @@
+.profile__primary, .profile__primary-label {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.profile__primary {
+  color: var(--grey);
+}
+
+.profile__primary-label {
+  color: var(--darker-grey);
+}
+
+.profile__secondary, .profile__secondary-label {
+  margin: 0;
+  font-style: 20px;
+  font-weight: 400;
+}
+
+.profile__secondary {
+  color: var(--darker-grey);
+}
+
+.profile__secondary-label {
+  color: var(--dark-grey);
+}

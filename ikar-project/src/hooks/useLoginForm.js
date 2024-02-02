@@ -7,8 +7,8 @@ export function useLoginForm() {
   const loginInput = useRef();
   const passwordInput = useRef();
 
-  const [error, setErrors] = useState();
-  const [user, setUser] = useState();
+  const [error, setErrors] = useState({});
+  const [user, setUser] = useState({});
 
   const formSubmit = () => {
     const login = loginInput.current.value;
@@ -44,9 +44,7 @@ export function useLoginForm() {
       }
     }
 
-    if (error) {
-      console.log(error);
-    }
+   console.log(error);
   };
 
   return {

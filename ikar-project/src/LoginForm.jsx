@@ -9,7 +9,6 @@ export const LoginForm = ({loginInputRef, passwordInputRef, onRegister, onSubmit
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-
     onSubmit();
   }
 
