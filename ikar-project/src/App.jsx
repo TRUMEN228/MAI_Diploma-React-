@@ -5,26 +5,29 @@ import { Header } from './Header'
 import { Profile } from './Profile';
 import { useModal } from './hooks/useModal';
 import { useLoginForm } from './hooks/useLoginForm';
+import { useProfile } from './hooks/useProfile';
 
 function App() {
   const {modalActive, content, modalClose, modalActivate} = useModal();
-  const {error, userList, user, loginInput, passwordInput, formSubmit} = useLoginForm();
+  const {loginInput, passwordInput, formSubmit} = useLoginForm();
+  const {user} = useProfile();
 
   return (
     <>
       {/* <Header /> */}
-      {/* <div id="app-main">
+      <div id="app-main">
         <Profile
-          user={{
-            surname: "Коноплин",
-            name: "Денис",
-            lastname: "Викторович",
-            birthday: "2002-04-01",
-            login: "DKonoplin",
-            email: "d_konoplin@mail.ru"
-          }}
+          // user={{
+          //   surname: "Коноплин",
+          //   name: "Денис",
+          //   lastname: "Викторович",
+          //   birthday: "2002-04-01",
+          //   login: "DKonoplin",
+          //   email: "d_konoplin@mail.ru"
+          // }}
+          user={user}
         />
-      </div> */}
+      </div>
       <div id="app">
         <ModalWindow
           active={modalActive}

@@ -7,15 +7,14 @@ export function useLoginForm() {
   const loginInput = useRef();
   const passwordInput = useRef();
 
-  const [error, setErrors] = useState({});
-  const [user, setUser] = useState({});
-
   const formSubmit = () => {
     const login = loginInput.current.value;
     const password = passwordInput.current.value;
 
+    const errorsArr = [];
+
     if (!login || !password) {
-      setErrors({
+      errorsArr.push({
         name: 'empty-fields',
         code: 'emp',
         text: 'Не все поля заполнены'
@@ -25,18 +24,17 @@ export function useLoginForm() {
         const currentUser = userList.find((user) => user.login === login || user.email === login);
 
         if (currentUser.password === password) {
-          setUser(currentUser);
           console.log('pass');
-          console.log(user);
+          localStorage.setItem('currentUser', JSON.stringify(user.id));
         } else {
-          setErrors({
+          errorsArr.push({
             name: 'incorrect-data',
             code: 'inc',
             text: 'Неверный логин или пароль'
           });
         }
       } else {
-        setErrors({
+        errorsArr.push({
           name: 'incorrect-data',
           code: 'inc',
           text: 'Неверный логин или пароль'
@@ -44,13 +42,10 @@ export function useLoginForm() {
       }
     }
 
-   console.log(error);
+    console.log(errorsArr ? errorsArr : null);
   };
 
   return {
-    error,
-    userList,
-    user,
     loginInput,
     passwordInput,
     formSubmit,

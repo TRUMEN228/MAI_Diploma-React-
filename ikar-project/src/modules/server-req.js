@@ -1,5 +1,11 @@
 // ! Запросы на сервер
 
+/** @module Server-req */
+
+/**
+ * Возвращает массив с объектами пользователей
+ * @returns {Array}
+ */
 export async function getUserList() {
   const response = await fetch('http://localhost:3000/api/users');
   const data = await response.json();
@@ -18,6 +24,12 @@ export async function addNewUser(userObj) {
   return data;
 }
 
+
+/**
+ * Возвращает объект пользователя по ID
+ * @param {string} userId - ID пользователя
+ * @returns {object} Объект пользователя
+ */
 export async function getUser(userId) {
   const response = await fetch(`http://localhost:3000/api/users/${userId}`);
   const data = await response.json();
