@@ -1,0 +1,23 @@
+.button {
+  margin: 0 auto;
+  border-radius: 4px;
+  border: 2px solid var(--lighter-blue);
+  background-color: var(--light-blue);
+  color: var(--white);
+  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.button:hover {
+  border-color: var(--darker-blue);
+  background-color: var(--darker-blue);
+}
+
+.button:focus {
+  border-color: var(--dark-blue);
+  background-color: var(--lighter-blue);
+}
+
+.button:active {
+  border-color: var(--lighter-blue);
+  background-color: var(--light-blue);
+}

@@ -1,0 +1,66 @@
+#ikar-app-login {
+  padding-top: 120px;
+  padding-bottom: 30px;
+}
+
+.login-form {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  row-gap: 30px;
+  column-gap: 20px;
+  align-items: center;
+}
+
+.form__btn {
+  width: 80px;
+  height: 35px;
+}
+
+/* .index-form-forgot-password {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  text-decoration: underline;
+  transition: color 0.2s ease-in-out;
+}
+
+.index-form-forgot-password:hover {
+  color: var(--grey);
+}
+
+.index-form-forgot-password:focus {
+  color: var(--grey);
+}
+
+.index-form-forgot-password:active {
+  color: var(--lighter-grey);
+} */
+
+.form__error-message {
+  color: var(--red);
+  font-size: 14px;
+}
+
+.form__register {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  text-decoration: underline;
+  transition: color 0.2s ease-in-out;
+}
+
+.form__register:hover {
+  color: var(--grey);
+}
+
+.form__register:focus {
+  color: var(--grey);
+}
+
+.form__register:active {
+  color: var(--lighter-grey);
+}
