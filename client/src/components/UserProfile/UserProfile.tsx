@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { User, fetchMe, logout } from "../../api/User";
 import { UserProfileLabel } from "../UserProfileLabel";
 import { Button } from "../Button";
@@ -6,6 +6,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient } from "../../api/QueryClient";
 import "./UserProfile.css";
 import { ModalWindow } from "../ModalWindow";
+import { UserProfileEditForm } from "../UserProfileEditForm";
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
@@ -22,6 +23,8 @@ interface IUserProfileProps {
 }
 
 export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
   const meQuery = useQuery({
     queryFn: () => fetchMe(),
     queryKey: ["users", "me"],
@@ -37,7 +40,15 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
 
   const handleClick = () => {
     logoutMutation.mutate();
-    meQuery.refetch()
+    meQuery.refetch();
+  }
+
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  }
+
+  const handleModalClose = () => {
+    setModalOpen(false);
   }
 
   return (
@@ -47,6 +58,12 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
           Профиль пользователя
         </h1>
         <div className="profile__container">
+          <div className="profile__edit-btn" onClick={handleModalOpen}>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 9.5002V12.0002H2.5L9.87333 4.62687L7.37333 2.12687L0 9.5002ZM11.8067 2.69354C12.0667 2.43354 12.0667 2.01354 11.8067 1.75354L10.2467 0.193535C9.98667 -0.0664648 9.56667 -0.0664648 9.30667 0.193535L8.08667 1.41354L10.5867 3.91354L11.8067 2.69354Z" fill="#434343"/>
+            </svg>
+          </div>
+
           <UserProfileLabel
             labelText="Фамилия:"
             userData={user.fullName.split(" ")[0]}
@@ -93,8 +110,9 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
             onClick={handleClick}
             isLoading={logoutMutation.isPending}
           />
-          <ModalWindow isOpened={false}>
-            <span>Это модальное окно</span>
+
+          <ModalWindow isOpened={modalOpen} onModalClose={handleModalClose}>
+            <UserProfileEditForm />
           </ModalWindow>
         </div>
       </div>
