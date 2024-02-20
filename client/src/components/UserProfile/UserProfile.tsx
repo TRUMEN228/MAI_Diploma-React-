@@ -5,6 +5,7 @@ import { Button } from "../Button";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient } from "../../api/QueryClient";
 import "./UserProfile.css";
+import { ModalWindow } from "../ModalWindow";
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
@@ -92,6 +93,9 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
             onClick={handleClick}
             isLoading={logoutMutation.isPending}
           />
+          <ModalWindow isOpened={false}>
+            <span>Это модальное окно</span>
+          </ModalWindow>
         </div>
       </div>
     </div>
