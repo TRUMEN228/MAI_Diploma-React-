@@ -19,6 +19,11 @@ export const Account: FC = () => {
     case "error":
       return <AuthForm />;
     case "success":
-      return <UserProfile user={meQuery.data}/>;
+      return (
+        <>
+          
+          <UserProfile user={meQuery.data}/>
+        </>
+      );
   }
 }
