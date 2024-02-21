@@ -66,19 +66,19 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
 
           <UserProfileLabel
             labelText="Фамилия:"
-            userData={user.fullName.split(" ")[0]}
+            userData={user.surname}
             labelClassName="profile__surname-label"
             dataClassName="profile__surname"
           />
           <UserProfileLabel
             labelText="Имя:"
-            userData={user.fullName.split(" ")[1]}
+            userData={user.name}
             labelClassName="profile__name-label"
             dataClassName="profile__name"
           />
           <UserProfileLabel
             labelText="Отчество:"
-            userData={user.fullName.split(" ")[2]}
+            userData={user.lastname}
             labelClassName="profile__lastname-label"
             dataClassName="profile__lastname"
           />
@@ -112,7 +112,8 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
           />
 
           <ModalWindow isOpened={modalOpen} onModalClose={handleModalClose}>
-            <UserProfileEditForm />
+            <h1 className="edit-form__title">Редактирование профиля</h1>
+            <UserProfileEditForm user={user}/>
           </ModalWindow>
         </div>
       </div>

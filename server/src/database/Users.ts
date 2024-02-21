@@ -6,7 +6,9 @@ export interface IUser {
   accountStatus: string;
   email: string;
   username: string;
-  fullName: string;
+  surname: string;
+  name: string;
+  lastname: string;
   birthday: string;
 }
 
@@ -17,6 +19,10 @@ export const database = await JSONFilePreset<Record<string, IUser>>(
 
 export class Users {
   static getOne(id: string): IUser | undefined {
+    return database.data[id];
+  }
+
+  static getOneToEdit(id: string): IUser {
     return database.data[id];
   }
 
@@ -31,7 +37,9 @@ export class Users {
   static async create(
     email: string,
     username: string,
-    fullName: string,
+    surname: string,
+    name: string,
+    lastname: string,
     birthday: string
   ): Promise<IUser> {
     if (Users.findOne((user) => user.email === email)) {
@@ -43,7 +51,9 @@ export class Users {
       accountStatus: 'student',
       email,
       username,
-      fullName,
+      surname,
+      name,
+      lastname,
       birthday
     };
 
@@ -52,5 +62,35 @@ export class Users {
     });
 
     return user;
+  }
+
+  static async edit(
+    id: string,
+    email?: string,
+    username?: string,
+    surname?: string,
+    name?: string,
+    lastname?: string,
+    birthday?: string
+  ): Promise<void> {
+    if (!Users.findOne((user) => user.id === id)) {
+      throw new Error("Пользователь не найден");
+    }
+
+    const user = Users.getOneToEdit(id);
+
+    const updatedUser: IUser = {
+      ...user,
+      email: email ? email : user.email,
+      username: username ? username : user.username,
+      surname: surname ? surname : user.surname,
+      name: name ? name : user.name,
+      lastname: lastname ? lastname : user.lastname,
+      birthday: birthday ? birthday : user.birthday,
+    }
+
+    await database.update((data) => {
+      data[id] = updatedUser;
+    });
   }
 }

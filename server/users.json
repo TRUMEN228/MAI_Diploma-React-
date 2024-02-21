@@ -4,7 +4,9 @@
     "accountStatus": "student",
     "email": "d_konoplin@mail.ru",
     "username": "KonoplinDV",
-    "fullName": "Коноплин Денис Викторович",
+    "surname": "Коноплин",
+    "name": "Денис",
+    "lastname": "Викторович",
     "birthday": "2002-04-01"
   }
 }

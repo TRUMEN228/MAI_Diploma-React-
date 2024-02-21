@@ -13,7 +13,9 @@ import { Button } from "../Button";
 const CreateUserScheme = z.object({
   email: z.string().email({ message: "E-mail должен содержать символ @"}),
   username: z.string().min(6, "Имя пользователя должно включать не менее 6 символов"),
-  fullName: z.string(),
+  surname: z.string(),
+  name: z.string(),
+  lastname: z.string(),
   birthday: z.string(),
   password: z.string().min(8, "Пароль должен содержать не менее 8 символов")
 });
@@ -33,10 +35,12 @@ export const RegisterForm: FC = () => {
     mutationFn: (data: {
       email: string,
       username: string,
-      fullName: string,
+      surname: string,
+      name: string,
+      lastname: string,
       birthday: string,
       password: string
-    }) => registerUser(data.email, data.username, data.fullName, data.birthday, data.password)
+    }) => registerUser(data.email, data.username, data.surname, data.name, data.lastname, data.birthday, data.password)
   }, queryClient);
 
   return (
@@ -45,11 +49,13 @@ export const RegisterForm: FC = () => {
       onSubmit={handleSubmit(({
         email,
         username,
-        fullName,
+        surname,
+        name,
+        lastname,
         birthday,
         password
       }) => {
-        createUserMutation.mutate({ email, username, fullName, birthday, password })
+        createUserMutation.mutate({ email, username, surname, name, lastname, birthday, password })
       })}
     >
       <FormField
@@ -73,13 +79,33 @@ export const RegisterForm: FC = () => {
         />
       </FormField>
       <FormField
-        labelText="ФИО:"
-        errorMessage={errors.fullName?.message}
+        labelText="Фамилия:"
+        errorMessage={errors.surname?.message}
       >
         <input
           className="form-field__input"
           type="text"
-          {...register("fullName")}
+          {...register("surname")}
+        />
+      </FormField>
+      <FormField
+        labelText="Имя:"
+        errorMessage={errors.name?.message}
+      >
+        <input
+          className="form-field__input"
+          type="text"
+          {...register("name")}
+        />
+      </FormField>
+      <FormField
+        labelText="Отчество:"
+        errorMessage={errors.lastname?.message}
+      >
+        <input
+          className="form-field__input"
+          type="text"
+          {...register("lastname")}
         />
       </FormField>
       <FormField

@@ -5,7 +5,9 @@ export const UserScheme = z.object({
   id: z.string(),
   email: z.string(),
   username: z.string(),
-  fullName: z.string(),
+  surname: z.string(),
+  name: z.string(),
+  lastname: z.string(),
   birthday: z.string(),
 });
 
@@ -20,7 +22,9 @@ export function fetchUser(userId: string): Promise<User> {
 export function registerUser(
   email: string,
   username: string,
-  fullName: string,
+  surname: string,
+  name: string,
+  lastname: string,
   birthday: string,
   password: string
 ): Promise<void> {
@@ -30,7 +34,28 @@ export function registerUser(
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      email, username, fullName, birthday, password
+      email, username, surname, name, lastname, birthday, password
+    })
+  })
+    .then(() => undefined);
+}
+
+export function editUser(
+  id: string,
+  email?: string,
+  username?: string,
+  surname?: string,
+  name?: string,
+  lastname?: string,
+  birthday?: string,
+): Promise<void> {
+  return fetch("/api/edit", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      id, email, username, surname, name, lastname, birthday
     })
   })
     .then(() => undefined);

@@ -9,9 +9,21 @@ export const authRouter = Router();
 const RegisterSchema = z.object({
   email: z.string().email({ message: 'Некорректный формат e-mail' }),
   username: z.string().min(6, "Имя пользователя должно содержать не менее 6 символов"),
-  fullName: z.string().regex(/^[А-я]{1}[а-я]+\s[А-я]{1}[а-я]+\s[А-я]{1}[а-я]+$/, "ФИО должно иметь формат \"Иванов Иван Иванович\""),
+  surname: z.string(),
+  name: z.string(),
+  lastname: z.string(),
   birthday: z.string(),
   password: z.string()
+});
+
+const EditSchema = z.object({
+  id: z.string(),
+  email: z.optional(z.string().email({ message: 'Некорректный формат e-mail' })),
+  username: z.optional(z.string().min(6, "Имя пользователя должно содержать не менее 6 символов")),
+  surname: z.optional(z.string()),
+  name: z.optional(z.string()),
+  lastname: z.optional(z.string()),
+  birthday: z.optional(z.string())
 });
 
 const LoginSchema = z.object({
@@ -26,12 +38,12 @@ authRouter.post("/register", async (req, res) => {
     return res.status(400).send(bodyParseResult.error.issues[0].message);
   }
 
-  const { email, username, fullName, birthday, password } = bodyParseResult.data;
+  const { email, username, surname, name, lastname, birthday, password } = bodyParseResult.data;
 
   let user: IUser;
 
   try {
-    user = await Users.create(email, username, fullName, birthday);
+    user = await Users.create(email, username, surname, name, lastname, birthday);
   } catch (error) {
     return res.status(409).send("Этот email уже занят");
   }
@@ -40,6 +52,22 @@ authRouter.post("/register", async (req, res) => {
 
   authorizeResponse(res, user.id).status(201).json({ id: user.id });
 });
+
+authRouter.post("/edit", async (req, res) => {
+  const bodyParseResult = EditSchema.safeParse(req.body);
+
+  if (!bodyParseResult.success) {
+    return res.status(400).send(bodyParseResult.error.issues[0].message);
+  }
+
+  const { id, email, username, surname, name, lastname, birthday } = bodyParseResult.data;
+
+  try {
+    await Users.edit(id, email, username, surname, name, lastname, birthday)
+  } catch (error) {
+    return res.status(409).send("Пользователь не найден");
+  }
+})
 
 authRouter.post("/login", (req, res) => {
   const bodyParseResult = LoginSchema.safeParse(req.body);
