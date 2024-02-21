@@ -11,13 +11,13 @@ interface IAccountViewProps {
 export const AccountView: FC<IAccountViewProps> = ({ page = "profile", user }) => {
   switch (page) {
     case "news":
-      return <></>;
+      return <>Новости</>;
     case "learning":
-      return <></>;
+      return <>Учеба</>;
     case "messages":
-      return <></>;
+      return <>Сообщения</>;
     case "group":
-      return <></>;
+      return <>Моя группа</>;
     case "profile":
       return <UserProfile user={user}/>
   }
