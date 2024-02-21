@@ -1,21 +1,28 @@
-import { FC, useState } from "react";
-import "./css/AppHeader.css";
+import { FC } from "react";
+import "./AppHeader.css";
 import { AppHeaderItem } from "../AppHeaderItem";
 
-export type HeaderPage = "news" | "learning" | "messages" | "group" | "profile";
+export type Page = "news" | "learning" | "messages" | "group" | "profile";
 
-export const AppHeader: FC = () => {
-  const [currentPage, setCurrentPage] = useState<HeaderPage>("profile");
+interface IAppHeaderProps {
+  currentPage: Page;
+  setPage: React.Dispatch<React.SetStateAction<Page>>;
+}
+
+export const AppHeader: FC<IAppHeaderProps> = ({ currentPage, setPage }) => {
+  const handleClick = (page: Page) => {
+    setPage(page);
+  }
 
   return (
     <header id="app-header">
       <div className="container header__container">
         <ul className="list-reset header__list">
-          <AppHeaderItem id="news" onClick={() => setCurrentPage("news")} currentPage={currentPage}>Новости</AppHeaderItem>
-          <AppHeaderItem id="learning" onClick={() => setCurrentPage("learning")} currentPage={currentPage}>Учеба</AppHeaderItem>
-          <AppHeaderItem id="messages" onClick={() => setCurrentPage("messages")} currentPage={currentPage}>Сообщения</AppHeaderItem>
-          <AppHeaderItem id="group" onClick={() => setCurrentPage("group")} currentPage={currentPage}>Моя группа</AppHeaderItem>
-          <AppHeaderItem id="profile" onClick={() => setCurrentPage("profile")} currentPage={currentPage}>Профиль</AppHeaderItem>
+          <AppHeaderItem id="news" onClick={() => handleClick("news")} currentPage={currentPage}>Новости</AppHeaderItem>
+          <AppHeaderItem id="learning" onClick={() => handleClick("learning")} currentPage={currentPage}>Учеба</AppHeaderItem>
+          <AppHeaderItem id="messages" onClick={() => handleClick("messages")} currentPage={currentPage}>Сообщения</AppHeaderItem>
+          <AppHeaderItem id="group" onClick={() => handleClick("group")} currentPage={currentPage}>Моя группа</AppHeaderItem>
+          <AppHeaderItem id="profile" onClick={() => handleClick("profile")} currentPage={currentPage}>Профиль</AppHeaderItem>
         </ul>
       </div>
     </header>

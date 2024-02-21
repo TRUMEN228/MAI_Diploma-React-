@@ -1,12 +1,12 @@
 import { FC } from "react";
 import "./AppHeaderItem.css";
-import { HeaderPage } from "../AppHeader";
+import { Page } from "../AppHeader";
 
 interface IAppHeaderItemProps {
-  id: HeaderPage;
+  id: Page;
   children: React.ReactNode;
-  onClick: (id: HeaderPage) => void;
-  currentPage: HeaderPage;
+  onClick: (id: Page) => void;
+  currentPage: Page;
 }
 
 export const AppHeaderItem: FC<IAppHeaderItemProps> = ({

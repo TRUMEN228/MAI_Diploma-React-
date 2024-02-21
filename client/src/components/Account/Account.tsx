@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { fetchMe } from "../../api/User";
 import { queryClient } from "../../api/QueryClient";
 import { Loader } from "../Loader";
 import { AuthForm } from "../AuthForm";
-import { UserProfile } from "../UserProfile";
+import { AppHeader } from "../AppHeader";
+import { AccountView } from "../AccountView/AccountView";
+import { Page } from "../AppHeader";
 
 export const Account: FC = () => {
   const meQuery = useQuery({
@@ -12,6 +14,8 @@ export const Account: FC = () => {
     queryKey: ["users", "me"],
     retry: 0
   }, queryClient);
+
+  const [currentPage, setCurrentPage] = useState<Page>("profile");
 
   switch (meQuery.status) {
     case "pending":
@@ -21,8 +25,8 @@ export const Account: FC = () => {
     case "success":
       return (
         <>
-          
-          <UserProfile user={meQuery.data}/>
+          <AppHeader currentPage={currentPage} setPage={setCurrentPage}/>
+          <AccountView user={meQuery.data} page={currentPage}/>
         </>
       );
   }
