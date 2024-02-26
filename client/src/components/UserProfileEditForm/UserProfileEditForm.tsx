@@ -1,128 +1,111 @@
-import { FC } from "react";
+import { FC, useState, FormEventHandler } from "react";
 import { FormField } from "../FormField";
 import "./UserProfileEditForm.css";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { User, editUser } from "../../api/User";
 import { queryClient } from "../../api/QueryClient";
 import { Button } from "../Button";
-
-const EditUserScheme = z.object({
-  id: z.string(),
-  email: z.optional(z.string().email({ message: 'Некорректный формат e-mail' })),
-  username: z.optional(z.string().min(6, "Имя пользователя должно содержать не менее 6 символов")),
-  surname: z.optional(z.string()),
-  name: z.optional(z.string()),
-  lastname: z.optional(z.string()),
-  birthday: z.optional(z.string())
-});
-
-type EditUserForm = z.infer<typeof EditUserScheme>;
+import { useQuery } from "@tanstack/react-query";
+import { fetchMe } from "../../api/User";
 
 interface IUserProfileEditFormProps {
   user: User;
 }
 
 export const UserProfileEditForm: FC<IUserProfileEditFormProps> = ({ user }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<EditUserForm>({
-    resolver: zodResolver(EditUserScheme)
-  });
+  const [surname, setSurname] = useState<string>(user.surname);
+  const [name, setName] = useState<string>(user.name);
+  const [lastname, setLastname] = useState<string>(user.lastname);
+  const [email, setEmail] = useState<string>(user.email);
+  const [birthday, setBirthday] = useState<string>(user.birthday);
+  const [username, setUsername] = useState<string>(user.username);
 
   const editUserMutation = useMutation({
-    mutationFn: (data: {
-      email?: string,
-      username?: string,
-      surname?: string,
-      name?: string,
-      lastname?: string,
-      birthday?: string,
-    }) => editUser(user.id, data.email, data.username, data.surname, data.name, data.lastname, data.birthday)
+    mutationFn: () => editUser(user.id, email, username, surname, name, lastname, birthday)
   }, queryClient);
 
+  const meQuery = useQuery({
+    queryFn: () => fetchMe(),
+    queryKey: ["users", "me"],
+    retry: 0
+  }, queryClient);
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    editUserMutation.mutate();
+
+    meQuery.refetch();
+  }
+
   return (
-    <div className="form__container">
+    <div className="edit-form__container">
       <form
-        onSubmit={handleSubmit(({
-          email,
-          username,
-          surname,
-          name,
-          lastname,
-          birthday
-        }) => {
-          editUserMutation.mutate({ email, username, surname, name, lastname, birthday })
-        })}
+        onSubmit={handleSubmit}
       >
         <FormField
           labelText="Фамилия:"
-          errorMessage={errors.surname?.message}
         >
           <input
             type="text"
             className="form-field__input"
-            value={user.surname}
-            {...register("surname")}
+            name="surname"
+            value={surname}
+            onChange={event => setSurname(event.currentTarget.value)}
           />
         </FormField>
         <FormField
           labelText="Имя:"
-          errorMessage={errors.name?.message}
         >
           <input
             type="text"
             className="form-field__input"
-            value={user.name}
-            {...register("name")}
+            name="name"
+            value={name}
+            onChange={event => setName(event.currentTarget.value)}
           />
         </FormField>
         <FormField
           labelText="Отчество:"
-          errorMessage={errors.lastname?.message}
         >
           <input
             type="text"
             className="form-field__input"
-            value={user.lastname}
-            {...register("lastname")}
+            name="lastname"
+            value={lastname}
+            onChange={event => setLastname(event.currentTarget.value)}
           />
         </FormField>
         <FormField
           labelText="Имя пользователя:"
-          errorMessage={errors.username?.message}
         >
           <input
             type="text"
             className="form-field__input"
-            value={user.username}
-            {...register("username")}
+            name="username"
+            value={username}
+            onChange={event => setUsername(event.currentTarget.value)}
           />
         </FormField>
         <FormField
           labelText="E-mail:"
-          errorMessage={errors.email?.message}
         >
           <input
             type="email"
             className="form-field__input"
-            value={user.email}
-            {...register("email")}
+            name="email"
+            value={email}
+            onChange={event => setEmail(event.currentTarget.value)}
           />
         </FormField>
         <FormField
           labelText="Дата рождения:"
-          errorMessage={errors.birthday?.message}
         >
           <input
             type="date"
             className="form-field__input"
-            value={user.birthday}
-            {...register("birthday")}
+            name="birthday"
+            value={birthday}
+            onChange={event => setBirthday(event.currentTarget.value)}
           />
         </FormField>
         <Button

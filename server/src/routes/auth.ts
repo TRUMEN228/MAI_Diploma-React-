@@ -67,6 +67,8 @@ authRouter.post("/edit", async (req, res) => {
   } catch (error) {
     return res.status(409).send("Пользователь не найден");
   }
+
+  authorizeResponse(res, id).status(201).json({ id });
 })
 
 authRouter.post("/login", (req, res) => {
