@@ -4,6 +4,7 @@ import cors from "cors";
 
 import { usersRouter, authRouter } from "./routes";
 import { sleep } from "./sleep";
+import { institutesRouter } from "./routes/institutes";
 
 const PORT = 4000;
 
@@ -16,4 +17,5 @@ server.listen(PORT, () => {
 server.use(json(), cookieParser(), cors(), sleep([400, 1500]));
 
 server.use('/users', usersRouter);
+server.use('/institutes', institutesRouter);
 server.use('/', authRouter);

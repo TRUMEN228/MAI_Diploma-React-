@@ -9,6 +9,10 @@ export const UserScheme = z.object({
   name: z.string(),
   lastname: z.string(),
   birthday: z.string(),
+  institute: z.string(),
+  cathedra: z.string(),
+  course: z.number(),
+  group: z.string()
 });
 
 export type User = z.infer<typeof UserScheme>;
@@ -26,6 +30,10 @@ export function registerUser(
   name: string,
   lastname: string,
   birthday: string,
+  institute: string,
+  cathedra: string,
+  course: number,
+  group: string,
   password: string
 ): Promise<void> {
   return fetch("/api/register", {
@@ -34,7 +42,7 @@ export function registerUser(
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      email, username, surname, name, lastname, birthday, password
+      email, username, surname, name, lastname, birthday, institute, cathedra, course, group, password
     })
   })
     .then(() => undefined);
@@ -48,6 +56,10 @@ export function editUser(
   name?: string,
   lastname?: string,
   birthday?: string,
+  institute?: string,
+  cathedra?: string,
+  course?: number,
+  group?: string
 ): Promise<void> {
   return fetch("/api/edit", {
     method: "POST",
@@ -55,7 +67,7 @@ export function editUser(
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      id, email, username, surname, name, lastname, birthday
+      id, email, username, surname, name, lastname, birthday, institute, cathedra, course, group
     })
   })
     .then(() => undefined);

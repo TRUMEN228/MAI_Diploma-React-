@@ -1,24 +1,21 @@
 import { FC } from "react";
-import { Page } from "../AppHeader";
-import { UserProfile } from "../UserProfile";
+import { AppHeader } from "../AppHeader";
 import { User } from "../../api/User";
+import { BrowserRouter } from "react-router-dom";
+import "../AppHeader/AppHeader.css";
+import "../AppHeaderItem/AppHeaderItem.css";
+import { AccountRouter } from "../AccountRouter";
 
 interface IAccountViewProps {
-  page?: Page;
   user: User;
 }
 
-export const AccountView: FC<IAccountViewProps> = ({ page = "profile", user }) => {
-  switch (page) {
-    case "news":
-      return <>Новости</>;
-    case "learning":
-      return <>Учеба</>;
-    case "messages":
-      return <>Сообщения</>;
-    case "group":
-      return <>Моя группа</>;
-    case "profile":
-      return <UserProfile user={user}/>
-  }
+export const AccountView: FC<IAccountViewProps> = ({ user }) => {
+  return (
+    <BrowserRouter>
+      <AppHeader />
+
+      <AccountRouter user={user} />
+    </BrowserRouter>
+  );
 }

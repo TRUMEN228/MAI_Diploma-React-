@@ -1,29 +1,19 @@
 import { FC } from "react";
 import "./AppHeaderItem.css";
-import { Page } from "../AppHeader";
+import { Link } from "react-router-dom";
 
 interface IAppHeaderItemProps {
-  id: Page;
   children: React.ReactNode;
-  onClick: (id: Page) => void;
-  currentPage: Page;
+  to: string;
 }
 
 export const AppHeaderItem: FC<IAppHeaderItemProps> = ({
-  id,
-  children,
-  onClick,
-  currentPage
+  to,
+  children
 }) => {
-  const handleClick = () => {
-    onClick(id);
-  };
-
   return (
-    <li key={id} className={currentPage === id ? "header__item " + "header__item-focused" : "header__item"}>
-      <div onClick={handleClick}>
-        {children}
-      </div>
-    </li>
+    <Link to={to} className="header__item">
+      {children}
+    </Link>
   );
 };

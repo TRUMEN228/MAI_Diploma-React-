@@ -4,9 +4,13 @@
     "accountStatus": "student",
     "email": "d_konoplin@mail.ru",
     "username": "DVKonoplin",
-    "surname": "Абоба",
+    "surname": "Коноплин",
     "name": "Денис",
     "lastname": "Викторович",
-    "birthday": "2002-04-01"
+    "birthday": "2002-04-01",
+    "institute": "mai",
+    "cathedra": "s20",
+    "course": 4,
+    "group": "П-41"
   }
 }
