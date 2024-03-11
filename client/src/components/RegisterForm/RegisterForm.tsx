@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { z } from "zod";
 import "./RegisterForm.css";
 
@@ -9,7 +9,7 @@ import { registerUser } from "../../api/User";
 import { queryClient } from "../../api/QueryClient";
 import { FormField } from "../FormField";
 import { Button } from "../Button";
-import { Institute, fetchInstituteList } from "../../api/Institutes";
+import { fetchInstituteList } from "../../api/Institutes";
 
 const CreateUserScheme = z.object({
   email: z.string().email({ message: "E-mail должен содержать символ @"}),
@@ -42,12 +42,10 @@ export const RegisterForm: FC = () => {
     retry: 0
   }, queryClient);
 
-  // const [instituteList, setInstituteList] = useState<Institute[] | undefined>();
-
   const [instituteId, setInstituteId] = useState<string>('');
   const [cathedra, setCathedra] = useState<string | undefined>('');
-  // const [course, setCourse] = useState<number>(1);
-  // const [group, setGroup] = useState<string>('');
+  const [course, setCourse] = useState<string | undefined>('');
+  const [group, setGroup] = useState<string | undefined>('');
 
   const createUserMutation = useMutation({
     mutationFn: (data: {
@@ -184,7 +182,11 @@ export const RegisterForm: FC = () => {
           value={cathedra}
         >
           <option value="">-- Выберите кафедру --</option>
-          {/* {instituteId ? getInstituteListQuery.data?.find((item) => item.id === instituteId)} */}
+          {
+            instituteId ? getInstituteListQuery.data?.find((item) => item.id === instituteId)?.cathedras.map((item) => (
+              <option key={item.shortName} value={item.shortName}>{item.name}</option>
+            )) : null
+          }
         </select>
       </FormField>
       <FormField
@@ -194,8 +196,15 @@ export const RegisterForm: FC = () => {
         <select
           className="form-field__input"
           {...register("course")}
+          onChange={(event) => setCourse(event.currentTarget.value)}
+          value={course}
         >
           <option value="">-- Выберите курс --</option>
+          {
+            cathedra ? getInstituteListQuery.data?.find(item => item.id === instituteId)?.cathedras.find(item => item.shortName === cathedra)?.courses.map(item => (
+              <option key={item.course} value={item.course}>{item.course}</option>
+            )) : null
+          }
         </select>
       </FormField>
       <FormField
@@ -205,8 +214,15 @@ export const RegisterForm: FC = () => {
         <select
           className="form-field__input"
           {...register("group")}
+          onChange={(event) => setGroup(event.currentTarget.value)}
+          value={group}
         >
           <option value="">-- Выберите учебную группу --</option>
+          {
+            cathedra ? getInstituteListQuery.data?.find(item => item.id === instituteId)?.cathedras.find(item => item.shortName === cathedra)?.courses.find(item => item.course === course)?.groups.map(item => (
+              <option key={item.localName} value={item.localName}>{item.localName}</option>
+            )) : null
+          }
         </select>
       </FormField>
       <FormField

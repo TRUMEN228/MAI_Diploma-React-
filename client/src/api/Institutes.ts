@@ -6,12 +6,13 @@ export type Institute = {
 };
 
 export type Cathedra = {
+  shortName: string;
   name: string;
   courses: Course[];
 };
 
 export type Course = {
-  course: number;
+  course: string;
   groups: Group[];
 };
 

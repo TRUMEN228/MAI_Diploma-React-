@@ -6,7 +6,7 @@ type Cathedra = {
 };
 
 type Course = {
-  course: number;
+  course: string;
   groups: Group[];
 };
 
