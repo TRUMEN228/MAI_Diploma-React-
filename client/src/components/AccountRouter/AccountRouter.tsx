@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import { UserProfile } from "../UserProfile";
@@ -9,26 +9,32 @@ interface IAccountRouterProps {
 }
 
 export const AccountRouter: FC<IAccountRouterProps> = ({ user }) => {
+  const PATH = `${user.id}/account/`;
+
+  const [defaultPath, setDefaultPath] = useState("profile");
+
+  // window.location.pathname = PATH + defaultPath;
+
   return (
     <Routes>
       <Route
-        path="/account/news"
+        path={`${user.id}/account/news`}
         element={<>Новости</>}
       />
       <Route
-        path="/account/learning"
+        path={`${user.id}/account/learning`}
         element={<>Обучение</>}
       />
       <Route
-        path="/account/messages"
+        path={`${user.id}/account/messages`}
         element={<>Сообщения</>}
       />
       <Route
-        path="/account/group"
+        path={`${user.id}/account/group`}
         element={<>Моя группа</>}
       />
       <Route
-        path="/account/profile"
+        path={`${user.id}/account/profile`}
         element={<UserProfile user={user} />}
       />
     </Routes>

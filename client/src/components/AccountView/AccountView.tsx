@@ -14,7 +14,7 @@ interface IAccountViewProps {
 export const AccountView: FC<IAccountViewProps> = ({ user }) => {
   return (
     <BrowserRouter>
-      <AppHeader />
+      <AppHeader userId={user.id}/>
 
       <AccountRouter user={user} />
     </BrowserRouter>

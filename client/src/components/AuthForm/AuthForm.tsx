@@ -3,6 +3,7 @@ import { RegisterForm } from "../RegisterForm";
 import { LoginForm } from "../LoginForm";
 
 import "./AuthForm.css";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 
 type AuthFormType = "auth" | "register";
 
@@ -16,19 +17,43 @@ export const AuthForm: FC = () => {
   };
 
   return (
-    <div className="auth-form">
-      <p className="form__title">
-        {authType === "register" ? "Регистрация" : "Авторизация"}
-      </p>
-      {authType === "register" ? <RegisterForm /> : <LoginForm />}
-      <div className="form__switch">
-        <span className="form__switch-text">
-          {authType === "register" ? "Уже есть аккаунт?" : "Ещё нет аккаунта?"}
-        </span>
-        <button className="form__switch-button" onClick={handleClick}>
-          {authType === "register" ? "Войти" : "Зарегистрироваться"}
-        </button>
+    <BrowserRouter>
+      <div className="auth-form">
+        <Routes>
+          <Route
+            path="/register"
+            element={
+              <>
+                <p className="form__title">Регистрация</p>
+                <RegisterForm />
+              </>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <>
+                <p className="form__title">Авторизация</p>
+                <LoginForm />
+              </>
+            }
+          />
+        </Routes>
+        <div className="form__switch">
+          <span className="form__switch-text">
+            {authType === "register" ? "Уже есть аккаунт?" : "Ещё нет аккаунта?"}
+          </span>
+          {
+            authType === "register" ?
+            <Link to={"/"}>
+              <button className="form__switch-button" onClick={handleClick}>Войти</button>
+            </Link> :
+            <Link to={"/register"}>
+              <button className="form__switch-button" onClick={handleClick}>Зарегистрироваться</button>
+            </Link>
+          }
+        </div>
       </div>
-    </div>
+    </BrowserRouter>
   );
 };
