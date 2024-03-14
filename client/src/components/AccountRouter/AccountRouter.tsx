@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import { UserProfile } from "../UserProfile";
 import { User } from "../../api/User";
+import { UserMessages } from "../UserMessages";
 
 interface IAccountRouterProps {
   user: User;
@@ -10,10 +11,6 @@ interface IAccountRouterProps {
 
 export const AccountRouter: FC<IAccountRouterProps> = ({ user }) => {
   const PATH = `${user.id}/account/`;
-
-  const [defaultPath, setDefaultPath] = useState("profile");
-
-  // window.location.pathname = PATH + defaultPath;
 
   return (
     <Routes>
@@ -27,7 +24,7 @@ export const AccountRouter: FC<IAccountRouterProps> = ({ user }) => {
       />
       <Route
         path={`${user.id}/account/messages`}
-        element={<>Сообщения</>}
+        element={<UserMessages user={user} />}
       />
       <Route
         path={`${user.id}/account/group`}
