@@ -17,6 +17,7 @@ export type Course = {
 };
 
 export type Group = {
+  groupId: string;
   direction: string;
   localName: string;
   globalName?: string;
@@ -28,12 +29,7 @@ export function fetchInstituteList(): Promise<Institute[]> {
     .then(data => data[0]);
 };
 
-export function fetchInstitute(id: string): Promise<Institute> {
-  return fetch(`/api/institutes/${id}`)
-    .then(response => response.json());
-}
-
-// export function fetchCathedraList(id: string): Promise<Cathedra[]> {
-//   return fetch(`/api/institutes/${id}/cathedras`)
+// export function fetchInstitute(id: string): Promise<Institute> {
+//   return fetch(`/api/institutes/${id}`)
 //     .then(response => response.json());
 // }

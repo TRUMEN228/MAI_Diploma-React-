@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, MouseEventHandler, useState } from "react";
 import { z } from "zod";
 import "./RegisterForm.css";
 
@@ -18,10 +18,7 @@ const CreateUserScheme = z.object({
   name: z.string(),
   lastname: z.string(),
   birthday: z.string(),
-  institute: z.string(),
-  cathedra: z.string(),
-  course: z.number(),
-  group: z.string(),
+  groupId: z.string(),
   password: z.string().min(8, "Пароль должен содержать не менее 8 символов")
 });
 
@@ -55,10 +52,7 @@ export const RegisterForm: FC = () => {
       name: string,
       lastname: string,
       birthday: string,
-      institute: string,
-      cathedra: string,
-      course: number,
-      group: string,
+      groupId: string,
       password: string
     }) => registerUser(
       data.email,
@@ -67,13 +61,16 @@ export const RegisterForm: FC = () => {
       data.name,
       data.lastname,
       data.birthday,
-      data.institute,
-      data.cathedra,
-      data.course,
-      data.group,
+      data.groupId,
       data.password
     )
   }, queryClient);
+
+  const handleClick: MouseEventHandler<HTMLButtonElement> = () => {
+    if (createUserMutation.isSuccess) {
+      window.location.pathname = "/";
+    }
+  }
 
   return (
     <form
@@ -85,13 +82,10 @@ export const RegisterForm: FC = () => {
         name,
         lastname,
         birthday,
-        institute,
-        cathedra,
-        course,
-        group,
+        groupId,
         password
       }) => {
-        createUserMutation.mutate({ email, username, surname, name, lastname, birthday, institute, cathedra, course, group, password })
+        createUserMutation.mutate({ email, username, surname, name, lastname, birthday, groupId, password })
       })}
     >
       <FormField
@@ -156,12 +150,10 @@ export const RegisterForm: FC = () => {
       </FormField>
       <FormField
         labelText="ВУЗ:"
-        errorMessage={errors.institute?.message}
       >
         <select
           id="institute"
           className="form-field__input"
-          {...register("institute")}
           onChange={(event) => setInstituteId(event.currentTarget.value)}
           value={instituteId}
         >
@@ -173,11 +165,9 @@ export const RegisterForm: FC = () => {
       </FormField>
       <FormField
         labelText="Кафедра:"
-        errorMessage={errors.cathedra?.message}
       >
         <select
           className="form-field__input"
-          {...register("cathedra")}
           onChange={(event) => setCathedra(event.currentTarget.value)}
           value={cathedra}
         >
@@ -191,11 +181,9 @@ export const RegisterForm: FC = () => {
       </FormField>
       <FormField
         labelText="Курс:"
-        errorMessage={errors.course?.message}
       >
         <select
           className="form-field__input"
-          {...register("course")}
           onChange={(event) => setCourse(event.currentTarget.value)}
           value={course}
         >
@@ -209,18 +197,18 @@ export const RegisterForm: FC = () => {
       </FormField>
       <FormField
         labelText="Учебная группа:"
-        errorMessage={errors.group?.message}
+        errorMessage={errors.groupId?.message}
       >
         <select
           className="form-field__input"
-          {...register("group")}
+          {...register("groupId")}
           onChange={(event) => setGroup(event.currentTarget.value)}
           value={group}
         >
           <option value="">-- Выберите учебную группу --</option>
           {
             cathedra ? getInstituteListQuery.data?.find(item => item.id === instituteId)?.cathedras.find(item => item.shortName === cathedra)?.courses.find(item => item.course === course)?.groups.map(item => (
-              <option key={item.localName} value={item.localName}>{item.localName}</option>
+              <option key={item.localName} value={item.groupId}>{item.globalName}</option>
             )) : null
           }
         </select>
@@ -241,6 +229,7 @@ export const RegisterForm: FC = () => {
         className="reg-form__btn"
         text="Зарегистрироваться"
         isLoading={createUserMutation.isPending}
+        onClick={() => handleClick}
       />
     </form>
   )

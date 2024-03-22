@@ -11,6 +11,7 @@ type Course = {
 };
 
 type Group = {
+  groupId: string;
   direction: string;
   localName: string;
   globalName?: string;

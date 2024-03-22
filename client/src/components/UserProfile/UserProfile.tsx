@@ -41,7 +41,10 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
   const handleClick = () => {
     logoutMutation.mutate();
     meQuery.refetch();
-    window.location.pathname = "/";
+
+    if (meQuery.isSuccess) {
+      window.location.pathname = "/";
+    }
   }
 
   const handleModalOpen = () => {

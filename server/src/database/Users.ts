@@ -10,10 +10,7 @@ export interface IUser {
   name: string;
   lastname: string;
   birthday: string;
-  institute: string;
-  cathedra: string;
-  course: number;
-  group: string;
+  groupId: string;
 }
 
 export const database = await JSONFilePreset<Record<string, IUser>>(
@@ -45,10 +42,7 @@ export class Users {
     name: string,
     lastname: string,
     birthday: string,
-    institute: string,
-    cathedra: string,
-    course: number,
-    group: string
+    groupId: string
   ): Promise<IUser> {
     if (Users.findOne((user) => user.email === email)) {
       throw new Error("Пользователь с данным e-mail уже зарегистрирован");
@@ -63,10 +57,7 @@ export class Users {
       name,
       lastname,
       birthday,
-      institute,
-      cathedra,
-      course,
-      group
+      groupId
     };
 
     await database.update((data) => {
@@ -84,10 +75,7 @@ export class Users {
     name?: string,
     lastname?: string,
     birthday?: string,
-    institute?: string,
-    cathedra?: string,
-    course?: number,
-    group?: string
+    groupId?: string
   ): Promise<void> {
     if (!Users.findOne((user) => user.id === id)) {
       throw new Error("Пользователь не найден");
@@ -103,10 +91,7 @@ export class Users {
       name: name ? name : user.name,
       lastname: lastname ? lastname : user.lastname,
       birthday: birthday ? birthday : user.birthday,
-      institute: institute ? institute : user.institute,
-      cathedra: cathedra ? cathedra : user.cathedra,
-      course: course ? course : user.course,
-      group: group ? group : user.group,
+      groupId: groupId ? groupId : user.groupId,
     }
 
     await database.update((data) => {

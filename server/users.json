@@ -8,9 +8,17 @@
     "name": "Денис",
     "lastname": "Викторович",
     "birthday": "2002-04-01",
-    "institute": "mai",
-    "cathedra": "s20",
-    "course": 4,
-    "group": "П-41"
+    "groupId": "mai-strela:s20:4:mso-404bck"
+  },
+  "399b9f13-3720-46b1-969f-5d7523d24db7": {
+    "id": "399b9f13-3720-46b1-969f-5d7523d24db7",
+    "accountStatus": "student",
+    "email": "example@test.ru",
+    "username": "TESTEST",
+    "surname": "Иванов",
+    "name": "Иван",
+    "lastname": "Иванович",
+    "birthday": "2001-01-01",
+    "groupId": "mai-strela:s20:3:mso-304bck"
   }
 }

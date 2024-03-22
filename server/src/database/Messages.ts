@@ -5,17 +5,16 @@ export interface IMessage {
   id: string;
   text: string;
   userId: string;
-  group: string;
+  groupId: string;
   sentAt: number;
-  files?: IFile[];
+  files?: (File | null)[];
 };
 
-export interface IFile {
-  id: string;
-  name: string;
-  size: number;
-  type: string;
-  url: string;
+export type File = {
+  name?: string;
+  size?: number;
+  type?: string;
+  lastModified?: number;
 };
 
 const database = await JSONFilePreset<Record<string, IMessage>>(
@@ -32,10 +31,10 @@ export class Messages {
     return Object.values(database.data);
   }
 
-  static getGroup(group: string): IMessage[] | undefined {
+  static getByGroupId(groupId: string): IMessage[] | undefined {
     let list = Object.values(database.data);
 
-    list = list.filter(item => item.group === group);
+    list = list.filter(item => item.groupId === groupId);
 
     return list;
   }
@@ -43,14 +42,18 @@ export class Messages {
   static async create(
     text: string,
     userId: string,
-    group: string,
-    files?: IFile[]
+    groupId: string,
+    files?: (File | null)[]
   ): Promise<IMessage> {
+    if (!text || !userId || !groupId) {
+      throw new Error("Не хватает данных");
+    }
+
     const message: IMessage = {
       id: randomUUID(),
       text,
       userId,
-      group,
+      groupId,
       sentAt: Date.now(),
       files
     };

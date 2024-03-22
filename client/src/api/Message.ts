@@ -1,30 +1,30 @@
 import { z } from "zod";
 import { validateResponse } from "./validateResponse";
-
-export type File = {
-  id: string;
-  name: string;
-  size: number;
-  type: string;
-  url: string;
-};
+import axios from "axios";
 
 export const MessageScheme = z.object({
   id: z.string(),
   text: z.string(),
   userId: z.string(),
-  group:  z.string(),
+  groupId:  z.string(),
   sentAt: z.number(),
-  files: z.optional(z.array(z.custom<File>()))
+  files: z.optional(z.array(z.custom<File | null>()))
 });
 
 export type Message = z.infer<typeof MessageScheme>;
 
+export type MessageFile = {
+  name?: string;
+  size?: number;
+  type?: string;
+  lastModified?: number;
+};
+
 export function createMessage(
   text: string,
   userId: string,
-  group: string,
-  files?: File[]
+  groupId: string,
+  files?: (MessageFile | null)[]
 ): Promise<void> {
   return fetch("/api/messages", {
     method: "POST",
@@ -32,21 +32,32 @@ export function createMessage(
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      text, userId, group, files
+      text, userId, groupId, files
     })
   })
     .then(validateResponse)
     .then(() => undefined);
 }
 
-export function fetchMessagesByGroup(
-  group: string
+export function uploadFile(
+  files: FormData | undefined
+): Promise<void> {
+  return axios.post("/api/upload", files, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  })
+    .then(() => undefined);
+}
+
+export function fetchMessagesByGroupId(
+  groupId: string
 ): Promise<Message[]> {
-  return fetch("/api/messages", {
+  return fetch("/api/messages/groupId", {
     body: JSON.stringify({
-      group
+      groupId
     })
   })
     .then(response => response.json())
-    .then(data => data.filter((item: Message) => item.group === group));
+    .then(data => data.filter((item: Message) => item.groupId === groupId));
 }

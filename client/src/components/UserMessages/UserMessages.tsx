@@ -1,9 +1,9 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import "./UserMessages.css";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { User } from "../../api/User";
 import { queryClient } from "../../api/QueryClient";
-import { File, createMessage, fetchMessagesByGroup } from "../../api/Message";
+import { fetchMessagesByGroupId } from "../../api/Message";
 import { ChatView } from "../ChatView";
 import { CreateMessageForm } from "../CreateMessageForm";
 
@@ -15,14 +15,10 @@ export const UserMessages: FC<IUserMessagesProps> = ({
   user
 }) => {
   const getMessagesQuery = useQuery({
-    queryFn: () => fetchMessagesByGroup(user.group),
+    queryFn: () => fetchMessagesByGroupId(user.groupId),
     queryKey: ["messages"],
     retry: 0
   }, queryClient);
-
-
-
-
 
   return (
     <div className="container">

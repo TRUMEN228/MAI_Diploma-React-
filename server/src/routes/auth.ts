@@ -13,10 +13,7 @@ const RegisterSchema = z.object({
   name: z.string(),
   lastname: z.string(),
   birthday: z.string(),
-  institute: z.string(),
-  cathedra: z.string(),
-  course: z.number(),
-  group: z.string(),
+  groupId: z.string(),
   password: z.string()
 });
 
@@ -28,10 +25,7 @@ const EditSchema = z.object({
   name: z.optional(z.string()),
   lastname: z.optional(z.string()),
   birthday: z.optional(z.string()),
-  institute: z.optional(z.string()),
-  cathedra: z.optional(z.string()),
-  course: z.optional(z.number()),
-  group: z.optional(z.string())
+  groupId: z.optional(z.string())
 });
 
 const LoginSchema = z.object({
@@ -46,12 +40,12 @@ authRouter.post("/register", async (req, res) => {
     return res.status(400).send(bodyParseResult.error.issues[0].message);
   }
 
-  const { email, username, surname, name, lastname, birthday, institute, cathedra, course, group, password } = bodyParseResult.data;
+  const { email, username, surname, name, lastname, birthday, groupId, password } = bodyParseResult.data;
 
   let user: IUser;
 
   try {
-    user = await Users.create(email, username, surname, name, lastname, birthday, institute, cathedra, course, group);
+    user = await Users.create(email, username, surname, name, lastname, birthday, groupId);
   } catch (error) {
     return res.status(409).send("Этот email уже занят");
   }
