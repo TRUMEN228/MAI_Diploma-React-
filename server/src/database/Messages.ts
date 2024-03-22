@@ -15,6 +15,7 @@ export type File = {
   size?: number;
   type?: string;
   lastModified?: number;
+  downloadUrl: string;
 };
 
 const database = await JSONFilePreset<Record<string, IMessage>>(

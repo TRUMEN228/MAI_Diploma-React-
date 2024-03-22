@@ -7,6 +7,7 @@ import "./MessageView.css";
 
 interface IMessageViewProps {
   message: Message;
+  key: string;
 };
 
 const formatDate = (timestamp: number) => {
@@ -22,7 +23,8 @@ const formatDate = (timestamp: number) => {
 };
 
 export const MessageView: FC<IMessageViewProps> = ({
-  message
+  message,
+  ...props
 }) => {
   const userQuery = useQuery({
     queryFn: () => fetchUser(message.userId),
@@ -31,19 +33,23 @@ export const MessageView: FC<IMessageViewProps> = ({
   }, queryClient);
 
   return (
-    <div className="message__container">
+    <div {...props} className="message__container">
       <div className="message__info">
         <p className="message__user">{`${userQuery.data?.surname} ${userQuery.data?.name}`}</p>
         <p className="message__datetime">{formatDate(message.sentAt)}</p>
       </div>
       <div className="message__content">
         <p className="message__text">{message.text}</p>
-        {message.files?.length ? message.files.map((item) => (
-          <div className="message__file">
-            <p className="file__name">{item.name}</p>
-            <p className="file__size">{item.size}</p>
-          </div>
-        )) : null}
+        {message.files?.length ? message.files.map((item) => {
+          if (item) {
+            return (
+              <a key={item.name} href={item.downloadUrl} className="message__file">
+                <p className="file__name">{item.name}</p>
+                <p className="file__size">{item.size}</p>
+              </a>
+            );
+          }
+        }) : null}
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ export const ChatView: FC<IChatViewProps> = ({
   return (
     <div className="chat__container">
       {messages.length ? messages.map((item) => (
-        <MessageView message={item}/>
+        <MessageView key={item.id} message={item}/>
       )) : <p className="chat__empty">Сообщений нет</p>}
     </div>
   );

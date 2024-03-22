@@ -61,7 +61,8 @@ export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
           name: inputFileList.item(i)?.name,
           size: inputFileList.item(i)?.size,
           type: inputFileList.item(i)?.type,
-          lastModified: inputFileList.item(i)?.lastModified
+          lastModified: inputFileList.item(i)?.lastModified,
+          downloadUrl: `http://localhost:5173/api/files/download/${inputFileList.item(i)?.name}`
         };
 
         fileList.push(fileObj);
@@ -101,12 +102,8 @@ export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
     console.log(filesObj);
 
     if (messageText) {
-      // createMessageMutation.mutate();
+      createMessageMutation.mutate();
       uploadFileMutation.mutate();
-
-      if (!uploadFileMutation.isSuccess) {
-        console.log(uploadFileMutation.error?.message);
-      }
     } else {
       console.log("Текст не введен");
     }

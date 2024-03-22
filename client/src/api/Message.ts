@@ -8,7 +8,7 @@ export const MessageScheme = z.object({
   userId: z.string(),
   groupId:  z.string(),
   sentAt: z.number(),
-  files: z.optional(z.array(z.custom<File | null>()))
+  files: z.optional(z.array(z.custom<MessageFile | null>()))
 });
 
 export type Message = z.infer<typeof MessageScheme>;
@@ -18,6 +18,7 @@ export type MessageFile = {
   size?: number;
   type?: string;
   lastModified?: number;
+  downloadUrl?: string;
 };
 
 export function createMessage(
@@ -42,12 +43,17 @@ export function createMessage(
 export function uploadFile(
   files: FormData | undefined
 ): Promise<void> {
-  return axios.post("/api/upload", files, {
+  return axios.post("/api/files/upload", files, {
     headers: {
       "Content-Type": "multipart/form-data"
     }
   })
     .then(() => undefined);
+}
+
+export function fetchAllMessages(): Promise<Message[]> {
+  return fetch("/api/messages")
+    .then(response => response.json());
 }
 
 export function fetchMessagesByGroupId(

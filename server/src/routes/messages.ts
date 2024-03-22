@@ -6,10 +6,6 @@ import path from "path";
 
 export const messagesRouter = Router();
 
-const upload = multer({
-  dest: "uploads/"
-})
-
 const MESSAGE_MAX_LENGTH = 100;
 const FILES_DIR = "../../uploads/";
 
@@ -17,11 +13,11 @@ messagesRouter.get("/", (req, res) => {
   res.status(200).json(Messages.getAll());
 });
 
-messagesRouter.get("/groupId", (req, res) => {
-  const groupId = req.body;
+// messagesRouter.get("/groupId", (req, res) => {
+//   const groupId = req.body;
 
-  res.status(200).json(Messages.getByGroupId(groupId));
-});
+//   res.status(200).json(Messages.getByGroupId(groupId));
+// });
 
 const CreateMessageSchema = z.object({
   text: z.string().max(MESSAGE_MAX_LENGTH, `Сообщение может содержать не более ${MESSAGE_MAX_LENGTH} символов`),
