@@ -1,0 +1,56 @@
+.message__container {
+  max-width: 400px;
+  padding: 10px;
+  border: 1px solid var(--black);
+  border-radius: 10px;
+}
+
+.message__info {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.message__user {
+  margin: 0;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: bold;
+}
+
+.message__datetime {
+  margin: 0;
+  font-size: 12px;
+}
+
+.message__text {
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.message__files {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.message__file {
+  margin: 0;
+  padding: 7px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid var(--black);
+  border-radius: 10px;
+}
+
+.file__name {
+  margin: 0;
+  font-size: 12px;
+}
+
+.file__size {
+  margin: 0;
+  font-size: 12px;
+}

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Message } from "../../api/Message";
 import { MessageView } from "../MessageView";
+import "./ChatView.css";
 
 interface IChatViewProps {
   messages: Message[];

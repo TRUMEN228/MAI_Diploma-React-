@@ -5,9 +5,18 @@ import path from "path";
 
 export const filesRouter = Router();
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  }
+});
+
 const upload = multer({
-  dest: "/uploads"
-})
+  storage: storage
+});
 
 filesRouter.post("/upload", upload.array('files'), (req, res) => {
   const fileList = Array.prototype.slice.call(req.files);
@@ -22,6 +31,18 @@ filesRouter.post("/upload", upload.array('files'), (req, res) => {
         console.log(`Файл ${file.originalname} успешно сохранен`);
       }
     });
+
+    // if (!file || !file.buffer) {
+    //   throw new Error('Файл не был загружен');
+    // }
+
+    // fs.writeFile(`uploads/${file.filename}`, file.buffer, 'utf8', (err) => {
+    //   if (err) {
+    //     console.error(`Ошибка при сохранении файла ${index}: ${err}`);
+    //   } else {
+    //     console.log(`Файл ${file.originalname} успешно сохранен`);
+    //   }
+    // });
   });
 
   res.status(200).send("Файлы успешно сохранены");

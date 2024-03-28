@@ -21,7 +21,7 @@ export const UserMessages: FC<IUserMessagesProps> = ({
   }, queryClient);
 
   return (
-    <div className="container">
+    <div className="container messages__container">
       <ChatView
         messages={getMessagesQuery.data?.filter(item => item.groupId === user.groupId) || []}
       />

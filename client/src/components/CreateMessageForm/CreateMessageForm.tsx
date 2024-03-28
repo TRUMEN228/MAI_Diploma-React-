@@ -102,8 +102,13 @@ export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
     console.log(filesObj);
 
     if (messageText) {
-      createMessageMutation.mutate();
       uploadFileMutation.mutate();
+
+      if (uploadFileMutation.isSuccess) {
+        createMessageMutation.mutate();
+      } else {
+        console.log("Ошибка при отправке файла");
+      }
     } else {
       console.log("Текст не введен");
     }

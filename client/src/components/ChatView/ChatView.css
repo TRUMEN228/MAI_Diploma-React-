@@ -1,0 +1,12 @@
+.chat__container {
+  display: flex;
+  padding: 10px;
+  border: 1px solid var(--black);
+  border-radius: 15px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat__empty {
+  margin: 0 auto;
+}

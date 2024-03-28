@@ -1,0 +1,6 @@
+.messages__container {
+  display: flex;
+  padding: 40px 0;
+  flex-direction: column;
+  gap: 20px;
+}
