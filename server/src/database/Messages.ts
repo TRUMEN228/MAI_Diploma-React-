@@ -12,9 +12,9 @@ export interface IMessage {
 
 export type File = {
   name?: string;
+  storageName?: string;
   size?: number;
   type?: string;
-  lastModified?: number;
   downloadUrl: string;
 };
 

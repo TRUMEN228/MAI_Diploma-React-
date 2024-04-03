@@ -1,6 +1,4 @@
 import { FC } from "react";
-import { BrowserRouter } from "react-router-dom";
-
 import { AppHeader } from "../AppHeader";
 import { User } from "../../api/User";
 import { AccountRouter } from "../AccountRouter";
@@ -13,10 +11,10 @@ interface IAccountViewProps {
 
 export const AccountView: FC<IAccountViewProps> = ({ user }) => {
   return (
-    <BrowserRouter>
+    <>
       <AppHeader userId={user.id}/>
 
       <AccountRouter user={user} />
-    </BrowserRouter>
+    </>
   );
 }

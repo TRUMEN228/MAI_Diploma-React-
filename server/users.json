@@ -8,7 +8,7 @@
     "name": "Денис",
     "lastname": "Викторович",
     "birthday": "2002-04-01",
-    "groupId": "mai-strela:s20:4:mso-404bck"
+    "groupId": "mai-strela.s20.4.mso-404bck"
   },
   "399b9f13-3720-46b1-969f-5d7523d24db7": {
     "id": "399b9f13-3720-46b1-969f-5d7523d24db7",
@@ -19,6 +19,6 @@
     "name": "Иван",
     "lastname": "Иванович",
     "birthday": "2001-01-01",
-    "groupId": "mai-strela:s20:3:mso-304bck"
+    "groupId": "mai-strela.s20.3.mso-304bck"
   }
 }

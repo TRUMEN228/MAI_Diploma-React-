@@ -64,7 +64,7 @@ export function editUser(
     .then(() => undefined);
 }
 
-export function login(email: string, password: string): Promise<void> {
+export function login(email: string, password: string): Promise<User> {
   return fetch("/api/login", {
     method: "POST",
     headers: {
@@ -75,7 +75,7 @@ export function login(email: string, password: string): Promise<void> {
     })
   })
     .then(validateResponse)
-    .then(() => undefined);
+    .then(response => response.json());
 }
 
 export function logout(): Promise<void> {

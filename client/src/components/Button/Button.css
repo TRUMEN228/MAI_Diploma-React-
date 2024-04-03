@@ -4,6 +4,7 @@
   border: 2px solid var(--lighter-blue);
   background-color: var(--light-blue);
   color: var(--white);
+  cursor: pointer;
   transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 

@@ -1,38 +1,24 @@
 {
-  "f40ead0c-5d28-44b0-b27f-12ef1680bcf1": {
-    "id": "f40ead0c-5d28-44b0-b27f-12ef1680bcf1",
-    "text": "files",
+  "ca8f757e-28d3-4f6e-ae41-5daf1495c7b2": {
+    "id": "ca8f757e-28d3-4f6e-ae41-5daf1495c7b2",
+    "text": "ddddd",
     "userId": "aaf2d18d-f028-4872-a5e8-f467cf8cb500",
-    "groupId": "mai-strela:s20:4:mso-404bck",
-    "sentAt": 1711115371634,
+    "groupId": "mai-strela.s20.4.mso-404bck",
+    "sentAt": 1712137723268,
     "files": [
       {
-        "name": "236390_20210111211047_1.png",
-        "size": 4962092,
-        "type": "image/png",
-        "lastModified": 1610388649321,
-        "downloadUrl": "http://localhost:5173/api/files/download/236390_20210111211047_1.png"
+        "name": "JingweiToo-Neural-Network-Toolbox-398f34d.zip",
+        "storageName": "JingweiToo-Neural-Network-Toolbox-398f34d.zip",
+        "size": 10562,
+        "type": "application/x-zip-compressed",
+        "downloadUrl": "http://localhost:5173/api/messages/download/mai-strela.s20.4.mso-404bck/03.04.2024/JingweiToo-Neural-Network-Toolbox-398f34d.zip"
       },
       {
-        "name": "236390_20210111211048_1.png",
-        "size": 4963208,
-        "type": "image/png",
-        "lastModified": 1610388650397,
-        "downloadUrl": "http://localhost:5173/api/files/download/236390_20210111211048_1.png"
-      },
-      {
-        "name": "236390_20210111211048_2.png",
-        "size": 4963380,
-        "type": "image/png",
-        "lastModified": 1610388650650,
-        "downloadUrl": "http://localhost:5173/api/files/download/236390_20210111211048_2.png"
-      },
-      {
-        "name": "236390_20210111211049_1.png",
-        "size": 4962562,
-        "type": "image/png",
-        "lastModified": 1610388650920,
-        "downloadUrl": "http://localhost:5173/api/files/download/236390_20210111211049_1.png"
+        "name": "nnbox-master.zip",
+        "storageName": "nnbox-master.zip",
+        "size": 34005,
+        "type": "application/x-zip-compressed",
+        "downloadUrl": "http://localhost:5173/api/messages/download/mai-strela.s20.4.mso-404bck/03.04.2024/nnbox-master.zip"
       }
     ]
   }

@@ -13,8 +13,6 @@ export const Account: FC = () => {
     retry: 0
   }, queryClient);
 
-  // const [currentPage, setCurrentPage] = useState<Page>("profile");
-
   switch (meQuery.status) {
     case "pending":
       return <Loader />;

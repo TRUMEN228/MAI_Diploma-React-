@@ -1,7 +1,7 @@
 import { ChangeEventHandler, FC, FormEventHandler, useState, useRef } from "react";
 import { User } from "../../api/User";
 import { queryClient } from "../../api/QueryClient";
-import { createMessage, MessageFile, uploadFile } from "../../api/Message";
+import { createMessage, MessageFile } from "../../api/Message";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "../Button";
 import "./CreateMessageForm.css";
@@ -21,26 +21,16 @@ export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
   user
 }) => {
   const [messageText, setMessageText] = useState<string>('');
+
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
-  const [filesObj, setFilesObj] = useState<(MessageFile | null)[] | undefined>([]);
-  const [files, setFiles] = useState<FormData>();
+  const [filesObj, setFilesObj] = useState<MessageFile[]>([]);
+
+  const [uploadData, setUploadData] = useState<FormData>();
 
   const createMessageMutation = useMutation({
-    mutationFn: () => createMessage(
-      messageText,
-      user.id,
-      user.groupId,
-      filesObj
-    ),
+    mutationFn: () => createMessage(uploadData),
     onSuccess() {
       queryClient.invalidateQueries({ queryKey: ["messages"] })
-    }
-  }, queryClient);
-
-  const uploadFileMutation = useMutation({
-    mutationFn: () => uploadFile(files),
-    onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ["files"] })
     }
   }, queryClient);
 
@@ -57,12 +47,10 @@ export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
 
     if (inputFileList?.length) {
       for (let i = 0; i < inputFileList.length; i++) {
-        const fileObj: MessageFile = {
+        const fileObj = {
           name: inputFileList.item(i)?.name,
           size: inputFileList.item(i)?.size,
           type: inputFileList.item(i)?.type,
-          lastModified: inputFileList.item(i)?.lastModified,
-          downloadUrl: `http://localhost:5173/api/files/download/${inputFileList.item(i)?.name}`
         };
 
         fileList.push(fileObj);
@@ -81,36 +69,37 @@ export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
   const handleSubmit: FormEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
 
+    const mesageObj = {
+      text: messageText,
+      userId: user.id,
+      groupId: user.groupId
+    };
+
     const formData = new FormData();
-    let sumSize = 0;
+
+    formData.append('data', JSON.stringify(mesageObj));
+
+    let sumFileSize = 0;
 
     if (selectedFiles?.length) {
       for (let i = 0; i < selectedFiles?.length; i++) {
-        sumSize += selectedFiles[i].size;
+        sumFileSize += selectedFiles[i].size;
         formData.append('files', selectedFiles[i]);
       }
 
-      if (sumSize > MAX_FILES_SIZE) {
+      if (sumFileSize > MAX_FILES_SIZE) {
         console.log("Размер файлов превышает 50 Мб");
         return;
       }
     }
 
-    setFiles(formData);
+    setUploadData(formData);
 
-    console.log(files);
+    console.log(formData);
     console.log(filesObj);
 
     if (messageText) {
-      uploadFileMutation.mutate();
-
-      if (uploadFileMutation.isSuccess) {
-        createMessageMutation.mutate();
-      } else {
-        console.log("Ошибка при отправке файла");
-      }
-    } else {
-      console.log("Текст не введен");
+      createMessageMutation.mutate();
     }
   }
 
@@ -145,17 +134,19 @@ export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
         )) : null}
         <Button
           kind="secondary"
-          text="Выбрать файл"
           onClick={handleClick}
-        />
+        >
+          Выбрать файл
+        </Button>
       </div>
       <Button
         kind="primary"
-        text="Отправить"
         type="submit"
         isLoading={createMessageMutation.isPending}
         onClick={handleSubmit}
-      />
+      >
+        Отправить
+      </Button>
     </form>
   );
 };

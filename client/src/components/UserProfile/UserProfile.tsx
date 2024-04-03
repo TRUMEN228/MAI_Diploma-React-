@@ -7,6 +7,7 @@ import { queryClient } from "../../api/QueryClient";
 import "./UserProfile.css";
 import { ModalWindow } from "../ModalWindow";
 import { UserProfileEditForm } from "../UserProfileEditForm";
+import { Link } from "react-router-dom";
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
@@ -41,10 +42,6 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
   const handleClick = () => {
     logoutMutation.mutate();
     meQuery.refetch();
-
-    if (meQuery.isSuccess) {
-      window.location.pathname = "/";
-    }
   }
 
   const handleModalOpen = () => {
@@ -107,13 +104,14 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
             labelClassName="profile__birthday-label"
             dataClassName="profile__birthday"
           />
-          <Button
-            kind="secondary"
-            text="Выйти"
-            className="profile__exit-button"
-            onClick={handleClick}
-            isLoading={logoutMutation.isPending}
-          />
+            <Button
+              kind="secondary"
+              onClick={handleClick}
+              className="profile__exit-button"
+              isLoading={logoutMutation.isPending}
+            >
+              <Link className="profile__exit-button-link" to={'/'}>Выйти</Link>
+            </Button>
 
           <ModalWindow isOpened={modalOpen} onModalClose={handleModalClose}>
             <h1 className="edit-form__title">Редактирование профиля</h1>

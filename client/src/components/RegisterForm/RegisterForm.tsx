@@ -227,10 +227,11 @@ export const RegisterForm: FC = () => {
         kind="primary"
         type="submit"
         className="reg-form__btn"
-        text="Зарегистрироваться"
         isLoading={createUserMutation.isPending}
         onClick={() => handleClick}
-      />
+      >
+        Зарегистрироваться
+      </Button>
     </form>
   )
 }

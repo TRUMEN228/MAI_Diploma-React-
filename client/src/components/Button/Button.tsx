@@ -8,7 +8,7 @@ interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
   type?: "submit" | "reset" | "button";
   className?: string;
   kind: "primary" | "secondary";
-  text: string;
+  children?: React.ReactNode;
 }
 
 export const Button: FC<IButtonProps> = ({
@@ -17,7 +17,7 @@ export const Button: FC<IButtonProps> = ({
   type = "button",
   className,
   kind = "primary",
-  text,
+  children,
   ...props
 }) => {
   return (
@@ -28,7 +28,7 @@ export const Button: FC<IButtonProps> = ({
       data-kind={kind}
       {...props}
     >
-      {isLoading ? <Loader /> : text}
+      {isLoading ? <Loader /> : children}
     </button>
   );
 };

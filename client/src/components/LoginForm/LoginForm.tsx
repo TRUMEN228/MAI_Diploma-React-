@@ -48,10 +48,11 @@ export const LoginForm: FC = () => {
       <Button
         type="submit"
         kind="primary"
-        text="Войти"
         className="form__btn"
         isLoading={loginMutation.isPending}
-      />
+      >
+        Войти
+      </Button>
     </form>
   )
 }

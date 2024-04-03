@@ -79,7 +79,16 @@
 
 .profile__exit-button {
   grid-area: btn;
+  padding: 0;
   width: 80px;
+  height: 100%;
+}
+
+.profile__exit-button-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   height: 100%;
 }
 
