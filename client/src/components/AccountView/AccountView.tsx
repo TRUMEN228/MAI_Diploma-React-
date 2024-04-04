@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { AppHeader } from "../AppHeader";
 import { User } from "../../api/User";
-import { AccountRouter } from "../AccountRouter";
+import { AccountStatusRouter } from "../AccountStatusRouter";
 import "../AppHeader/AppHeader.css";
 import "../AppHeaderItem/AppHeaderItem.css";
 
@@ -14,7 +14,7 @@ export const AccountView: FC<IAccountViewProps> = ({ user }) => {
     <>
       <AppHeader userId={user.id}/>
 
-      <AccountRouter user={user} />
+      <AccountStatusRouter user={user} />
     </>
   );
 }

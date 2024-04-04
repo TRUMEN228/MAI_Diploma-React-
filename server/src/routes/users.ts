@@ -31,4 +31,4 @@ usersRouter.get("/:userId", (req, res) => {
   }
 
   res.status(200).json(user);
-})
+});

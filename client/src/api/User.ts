@@ -3,6 +3,7 @@ import { validateResponse } from "./validateResponse";
 
 export const UserScheme = z.object({
   id: z.string(),
+  accountStatus: z.custom<"student" | "teacher" | "admin">(),
   email: z.string(),
   username: z.string(),
   surname: z.string(),
@@ -64,7 +65,7 @@ export function editUser(
     .then(() => undefined);
 }
 
-export function login(email: string, password: string): Promise<User> {
+export function login(email: string, password: string): Promise<void> {
   return fetch("/api/login", {
     method: "POST",
     headers: {
@@ -75,7 +76,7 @@ export function login(email: string, password: string): Promise<User> {
     })
   })
     .then(validateResponse)
-    .then(response => response.json());
+    .then(() => undefined);
 }
 
 export function logout(): Promise<void> {

@@ -1,15 +1,14 @@
 import { FC } from "react";
 import { Routes, Route } from "react-router-dom";
-
-import { UserProfile } from "../UserProfile";
 import { User } from "../../api/User";
+import { UserProfile } from "../UserProfile";
 import { UserMessages } from "../UserMessages";
 
-interface IAccountRouterProps {
+interface IAccountRouterStudentProps {
   user: User;
 }
 
-export const AccountRouter: FC<IAccountRouterProps> = ({ user }) => {
+export const AccountRouterStudent: FC<IAccountRouterStudentProps> = ({ user }) => {
   return (
     <Routes>
       <Route
@@ -33,5 +32,5 @@ export const AccountRouter: FC<IAccountRouterProps> = ({ user }) => {
         element={<UserProfile user={user} />}
       />
     </Routes>
-  )
-}
+  );
+};

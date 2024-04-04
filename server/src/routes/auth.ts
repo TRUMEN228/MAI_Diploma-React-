@@ -45,7 +45,7 @@ authRouter.post("/register", async (req, res) => {
   let user: IUser;
 
   try {
-    user = await Users.create(email, username, surname, name, lastname, birthday, groupId);
+    user = await Users.createRequest(email, username, surname, name, lastname, birthday, groupId);
   } catch (error) {
     return res.status(409).send("Этот email уже занят");
   }
@@ -71,7 +71,7 @@ authRouter.post("/edit", async (req, res) => {
   }
 
   authorizeResponse(res, id).status(201).json({ id });
-})
+});
 
 authRouter.post("/login", (req, res) => {
   const bodyParseResult = LoginSchema.safeParse(req.body);
@@ -89,7 +89,6 @@ authRouter.post("/login", (req, res) => {
   }
 
   authorizeResponse(res, user.id).status(200);
-  res.json({ user });
 });
 
 authRouter.post("/logout", (req, res) => {

@@ -3,7 +3,7 @@ import { JSONFilePreset } from "lowdb/node";
 
 export interface IUser {
   id: string;
-  accountStatus: string;
+  accountStatus: "student" | "teacher" | "admin";
   email: string;
   username: string;
   surname: string;
@@ -15,6 +15,11 @@ export interface IUser {
 
 export const database = await JSONFilePreset<Record<string, IUser>>(
   "users.json",
+  {}
+);
+
+export const requestDatabase = await JSONFilePreset<Record<string, IUser>>(
+  "requests.json",
   {}
 );
 
@@ -35,7 +40,23 @@ export class Users {
     return Users.getAll().find(predicate);
   }
 
-  static async create(
+  static getOneRequest(id: string): IUser {
+    return requestDatabase.data[id];
+  }
+
+  static getAllRequests(): IUser[] {
+    return Object.values(requestDatabase.data);
+  }
+
+  static findOneRequest(predicate: (users: IUser) => boolean): IUser | undefined {
+    return Users.getAllRequests().find(predicate);
+  }
+
+  static removeRequest(id: string): void {
+    delete requestDatabase.data[id];
+  }
+
+  static async createRequest(
     email: string,
     username: string,
     surname: string,
@@ -45,7 +66,11 @@ export class Users {
     groupId: string
   ): Promise<IUser> {
     if (Users.findOne((user) => user.email === email)) {
-      throw new Error("Пользователь с данным e-mail уже зарегистрирован");
+      throw new Error("Пользователь с таким e-mail уже зарегистрирован");
+    }
+
+    if (Users.findOneRequest((user) => user.email === email)) {
+      throw new Error("Пользователь с таким e-mail уже подал заявку на регистрацию");
     }
 
     const user: IUser = {
@@ -60,9 +85,23 @@ export class Users {
       groupId
     };
 
+    await requestDatabase.update((data) => {
+      data[user.id] = user;
+    });
+
+    return user;
+  }
+
+  static async acceptRequest(
+    id: string
+  ): Promise<IUser> {
+    const user = Users.getOneRequest(id);
+
     await database.update((data) => {
       data[user.id] = user;
     });
+
+    Users.removeRequest(id);
 
     return user;
   }
