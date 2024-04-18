@@ -1,9 +1,11 @@
 .chat__container {
   display: flex;
+  min-height: 400px;
   padding: 10px;
   border: 1px solid var(--black);
   border-radius: 15px;
   flex-direction: column;
+  justify-content: end;
   gap: 10px;
 }
 

@@ -5,8 +5,21 @@ export function fetchRequests(): Promise<User[]> {
     .then(response => response.json());
 }
 
-export function acceptRequest(userId: string): Promise<void> {
-  return fetch(`/api/admin/accept/${userId}`, {
+export function acceptRequest(userId: string, userStatus: string): Promise<void> {
+  return fetch(`/api/admin/requests/accept/${userId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      userStatus
+    })
+  })
+    .then(() => undefined);
+}
+
+export function rejectRequest(userId: string): Promise<void> {
+  return fetch(`/api/admin/requests/reject/${userId}`, {
     method: "POST"
   })
     .then(() => undefined);

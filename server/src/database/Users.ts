@@ -52,8 +52,13 @@ export class Users {
     return Users.getAllRequests().find(predicate);
   }
 
-  static removeRequest(id: string): void {
-    delete requestDatabase.data[id];
+  static async removeRequest(id: string): Promise<void> {
+    const data = await requestDatabase.adapter.read();
+
+    if (data) {
+      delete data[id];
+      await requestDatabase.adapter.write(data);
+    }
   }
 
   static async createRequest(
@@ -93,7 +98,8 @@ export class Users {
   }
 
   static async acceptRequest(
-    id: string
+    id: string,
+    status: string
   ): Promise<IUser> {
     const user = Users.getOneRequest(id);
 

@@ -10,6 +10,17 @@
     "birthday": "2002-04-01",
     "groupId": "mai-strela.s20.4.mso-404bck"
   },
+  "aaf2d18d-f028-4872-a5e8-5d7523d24db7": {
+    "id": "aaf2d18d-f028-4872-a5e8-5d7523d24db7",
+    "accountStatus": "admin",
+    "email": "denis.konoplin37@yandex.ru",
+    "username": "KonoplinDV",
+    "surname": "Коноплин",
+    "name": "Денис",
+    "lastname": "Викторович",
+    "birthday": "2001-02-03",
+    "groupId": "mai-strela.s20.3.mso-304bck"
+  },
   "399b9f13-3720-46b1-969f-5d7523d24db7": {
     "id": "399b9f13-3720-46b1-969f-5d7523d24db7",
     "accountStatus": "student",

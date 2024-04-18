@@ -20,6 +20,8 @@ const MAX_FILES_SIZE = 50 * 1024 * 1024;
 export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
   user
 }) => {
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
   const [messageText, setMessageText] = useState<string>('');
 
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
@@ -81,6 +83,11 @@ export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
 
     let sumFileSize = 0;
 
+    if (!messageText) {
+      setErrorMessage("Сообщение должно содержать хотя бы 1 символ");
+      return;
+    }
+
     if (selectedFiles?.length) {
       for (let i = 0; i < selectedFiles?.length; i++) {
         sumFileSize += selectedFiles[i].size;
@@ -88,7 +95,7 @@ export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
       }
 
       if (sumFileSize > MAX_FILES_SIZE) {
-        console.log("Размер файлов превышает 50 Мб");
+        setErrorMessage("Размер файлов превышает 50 Мб");
         return;
       }
     }
@@ -98,55 +105,71 @@ export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
     console.log(formData);
     console.log(filesObj);
 
-    if (messageText) {
-      createMessageMutation.mutate();
-    }
+    createMessageMutation.mutate();
   }
 
   return (
-    <form
-      className="chat__form"
-      name="files"
-    >
-      <textarea
-        className="chat__text"
-        maxLength={100}
-        placeholder="Введите сообщение"
-        ref={textarea}
-        value={messageText}
-        onChange={(event) => setMessageText(event.currentTarget.value)}
-      />
-      {/* <p>{createMessageMutation.error?.message}</p> */}
-      <div className="chat__file">
-        <input
-          name="messageFiles"
-          type="file"
-          multiple
-          hidden
-          ref={fileInput}
-          onChange={(event) => handleChooseFile(event)}
-        />
-        {filesObj?.length ? filesObj.map((item) => (
-          <div key={item?.name}>
-            <span>{item?.name} </span>
-            <span>{roundFileSize(item?.size)} МБ</span>
-          </div>
-        )) : null}
-        <Button
-          kind="secondary"
-          onClick={handleClick}
-        >
-          Выбрать файл
-        </Button>
-      </div>
-      <Button
-        kind="primary"
-        type="submit"
-        isLoading={createMessageMutation.isPending}
-        onClick={handleSubmit}
+    <>
+      <form
+        className="chat__form"
+        name="files"
       >
-        Отправить
-      </Button>
-    </form>
+        <textarea
+          className="chat__text"
+          maxLength={300}
+          placeholder="Введите сообщение"
+          ref={textarea}
+          value={messageText}
+          onChange={(event) => setMessageText(event.currentTarget.value)}
+        />
+        {/* <p>{createMessageMutation.error?.message}</p> */}
+        <div className="chat__control">
+          <div className="chat__file">
+            <input
+              name="messageFiles"
+              type="file"
+              multiple
+              hidden
+              ref={fileInput}
+              onChange={(event) => handleChooseFile(event)}
+            />
+            <Button
+              className="chat__file-select-button"
+              kind="secondary"
+              onClick={handleClick}
+            >
+              Выбрать файл
+            </Button>
+          </div>
+          <Button
+            className="chat__send-button"
+            kind="primary"
+            type="submit"
+            isLoading={createMessageMutation.isPending}
+            onClick={handleSubmit}
+          >
+            Отправить
+          </Button>
+        </div>
+      </form>
+      <p className="chat__error">{errorMessage}</p>
+        {
+          filesObj?.length ?
+          <>
+            <p className="chat__files-title">Выбранные файлы:</p>
+            <div className="chat__file-container">
+              {
+                filesObj.map((item) => (
+                  <div className="chat__selected-file" key={item?.name}>
+                    <span className="file__name">{item?.name} </span>
+                    <span className="file__size">{roundFileSize(item?.size)} МБ</span>
+                  </div>
+                ))
+              }
+            </div>
+          </>
+            : null
+        }
+    </>
   );
 };

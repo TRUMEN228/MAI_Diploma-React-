@@ -15,5 +15,17 @@
 .form__switch {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   align-items: center;
+}
+
+.form__switch-button {
+  background-color: transparent;
+  border: none;
+  color: var(--black);
+  text-decoration: underline;
+}
+
+.form__switch-button:hover {
+  background-color: var(--lighter-grey);
 }

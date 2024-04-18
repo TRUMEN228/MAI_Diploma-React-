@@ -1,3 +1,71 @@
 .chat__form {
-  
+  display: flex;
+  gap: 20px;
+  height: 70px;
+}
+
+.chat__text {
+  padding: 10px;
+  height: 100%;
+  width: 85%;
+  resize: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.chat__text:hover {
+  outline: none;
+}
+
+.chat__text:focus {
+  outline: none;
+}
+
+.chat__text:active {
+  outline: none;
+}
+
+.chat__control {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.chat__file-select-button {
+  width: 100%;
+  height: 30px;
+  margin: 0;
+}
+
+.chat__send-button {
+  width: 100%;
+  height: 30px;
+  margin: 0;
+}
+
+.chat__error {
+  margin: 0 auto;
+  color: var(--red);
+}
+
+.chat__files-title {
+  margin: 0;
+}
+
+.chat__file-container {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 5px;
+  column-gap: 10px;
+}
+
+.chat__selected-file {
+  width: fit-content;
+  padding: 5px;
+  display: flex;
+  gap: 5px;
+  border: 1px solid var(--lighter-blue);
+  border-radius: 5px;
 }

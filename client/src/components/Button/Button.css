@@ -1,5 +1,5 @@
 .button {
-  margin: 0 auto;
+  margin: 0;
   border-radius: 4px;
   border: 2px solid var(--lighter-blue);
   background-color: var(--light-blue);

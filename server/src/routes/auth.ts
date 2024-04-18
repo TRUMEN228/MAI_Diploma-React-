@@ -88,7 +88,7 @@ authRouter.post("/login", (req, res) => {
     return res.status(401).send("Неверный email или пароль");
   }
 
-  authorizeResponse(res, user.id).status(200);
+  authorizeResponse(res, user.id).status(200).send();
 });
 
 authRouter.post("/logout", (req, res) => {

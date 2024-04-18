@@ -1,0 +1,21 @@
+.request__container {
+  width: 100%;
+  padding: 10px;
+  height: fit-content ;
+  border: 3px solid var(--light-blue);
+  border-radius: 10px;
+}
+
+.request__user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info__main {
+  display: flex;
+  gap: 20px;
+}
+
+.p {
+  margin: 0;
+}

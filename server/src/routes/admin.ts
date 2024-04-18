@@ -7,16 +7,25 @@ adminRouter.get('/requests', (req, res) => {
   const requests = Users.getAllRequests();
 
   if (!requests.length) {
-    res.status(200).send("Заявок нет");
+    return res.status(400).send("Заявок нет");
   }
 
   res.status(200).json(requests);
 });
 
-adminRouter.post('/accept/:userId', (req, res) => {
+adminRouter.post('/requests/accept/:userId', (req, res) => {
   const userId = req.params.userId;
+  const { userStatus } = req.body;
 
-  const request = Users.acceptRequest(userId);
+  const request = Users.acceptRequest(userId, userStatus);
 
   res.status(200).send(request);
+});
+
+adminRouter.post('/requests/reject/:userId', (req, res) => {
+  const userId = req.params.userId;
+
+  Users.removeRequest(userId);
+
+  res.status(200).send("В регистрации отказано");
 })

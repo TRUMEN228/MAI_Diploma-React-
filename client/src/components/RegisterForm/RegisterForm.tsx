@@ -223,6 +223,7 @@ export const RegisterForm: FC = () => {
           {...register("password")}
         />
       </FormField>
+      {createUserMutation.error?.message ? <span>{createUserMutation.error.message}</span> : null}
       <Button
         kind="primary"
         type="submit"
