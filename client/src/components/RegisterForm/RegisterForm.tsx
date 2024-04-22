@@ -174,7 +174,7 @@ export const RegisterForm: FC = () => {
           <option value="">-- Выберите кафедру --</option>
           {
             instituteId ? getInstituteListQuery.data?.find((item) => item.id === instituteId)?.cathedras.map((item) => (
-              <option key={item.shortName} value={item.shortName}>{item.name}</option>
+              <option key={item.id} value={item.id}>{item.name}</option>
             )) : null
           }
         </select>
@@ -189,7 +189,7 @@ export const RegisterForm: FC = () => {
         >
           <option value="">-- Выберите курс --</option>
           {
-            cathedra ? getInstituteListQuery.data?.find(item => item.id === instituteId)?.cathedras.find(item => item.shortName === cathedra)?.courses.map(item => (
+            cathedra ? getInstituteListQuery.data?.find(item => item.id === instituteId)?.cathedras.find(item => item.id === cathedra)?.courses.map(item => (
               <option key={item.course} value={item.course}>{item.course}</option>
             )) : null
           }
@@ -207,8 +207,8 @@ export const RegisterForm: FC = () => {
         >
           <option value="">-- Выберите учебную группу --</option>
           {
-            cathedra ? getInstituteListQuery.data?.find(item => item.id === instituteId)?.cathedras.find(item => item.shortName === cathedra)?.courses.find(item => item.course === course)?.groups.map(item => (
-              <option key={item.localName} value={item.groupId}>{item.globalName}</option>
+            cathedra ? getInstituteListQuery.data?.find(item => item.id === instituteId)?.cathedras.find(item => item.id === cathedra)?.courses.find(item => item.course === course)?.groups.map(item => (
+              <option key={item.localName} value={item.id}>{item.globalName}</option>
             )) : null
           }
         </select>

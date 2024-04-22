@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { Institutes } from "../database/Institutes";
+import { Institutes, IInstitute } from "../database/Institutes";
 
 export const institutesRouter = Router();
 
@@ -10,14 +10,16 @@ institutesRouter.get("/", (req, res) => {
   res.status(200).json(instituteList);
 });
 
-// institutesRouter.get("/cathedras", (req, res) => {
-//   const instituteId = req.body.id;
+institutesRouter.post("/create", async (req, res) => {
+  const { id, name, cathedras } = req.body;
 
-//   if (!instituteId) {
-//     return res.status(200).json({});
-//   }
+  let institute: IInstitute;
 
-//   const cathedraList = Institutes.getOne(instituteId)?.cathedras;
+  try {
+    institute = await Institutes.create(id, name, cathedras)
+  } catch (error) {
+    return res.status(400).send("Ошибка создания объекта");
+  }
 
-//   res.status(200).json(cathedraList);
-// })
+  res.status(200).json(institute);
+});

@@ -1,12 +1,13 @@
+import { validateResponse } from "./validateResponse";
+
 export type Institute = {
   id: string;
   name: string;
-  shortName: string;
   cathedras: Cathedra[];
 };
 
 export type Cathedra = {
-  shortName: string;
+  id: string;
   name: string;
   courses: Course[];
 };
@@ -17,7 +18,7 @@ export type Course = {
 };
 
 export type Group = {
-  groupId: string;
+  id: string;
   direction: string;
   localName: string;
   globalName?: string;
@@ -29,7 +30,16 @@ export function fetchInstituteList(): Promise<Institute[]> {
     .then(data => data[0]);
 };
 
-// export function fetchInstitute(id: string): Promise<Institute> {
-//   return fetch(`/api/institutes/${id}`)
-//     .then(response => response.json());
-// }
+export function createInstitute(id: string, name: string, cathedras: Cathedra[]): Promise<void> {
+  return fetch("/api/institutes/create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      id, name, cathedras
+    })
+  })
+    .then(validateResponse)
+    .then(() => undefined);
+}
