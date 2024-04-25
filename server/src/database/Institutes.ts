@@ -15,8 +15,7 @@ type Course = {
 type Group = {
   id: string;
   direction: string;
-  localName: string;
-  globalName?: string;
+  name: string;
 };
 
 export interface IInstitute {

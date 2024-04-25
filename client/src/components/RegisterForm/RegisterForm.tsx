@@ -208,7 +208,7 @@ export const RegisterForm: FC = () => {
           <option value="">-- Выберите учебную группу --</option>
           {
             cathedra ? getInstituteListQuery.data?.find(item => item.id === instituteId)?.cathedras.find(item => item.id === cathedra)?.courses.find(item => item.course === course)?.groups.map(item => (
-              <option key={item.localName} value={item.id}>{item.globalName}</option>
+              <option key={item.id} value={item.id}>{item.name}</option>
             )) : null
           }
         </select>

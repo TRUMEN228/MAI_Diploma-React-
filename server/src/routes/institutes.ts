@@ -10,6 +10,20 @@ institutesRouter.get("/", (req, res) => {
   res.status(200).json(instituteList);
 });
 
+institutesRouter.get("/:instituteId", (req, res) => {
+  const instituteId = req.params.instituteId;
+
+  let institute;
+
+  try {
+    institute = Institutes.getOne(instituteId);
+  } catch (error) {
+    return res.status(401).send("Институт не найден");
+  }
+
+  res.status(200).json(institute);
+})
+
 institutesRouter.post("/create", async (req, res) => {
   const { id, name, cathedras } = req.body;
 

@@ -1,17 +1,16 @@
-import { FC, useState, FormEventHandler } from "react";
+import { FC, useState, FormEventHandler, ChangeEvent } from "react";
 import "./AdminAddInstituteForm.css";
 import { Button } from "../Button";
 import { Cathedra, Course, Group, createInstitute } from "../../api/Institutes";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../api/QueryClient";
+import { AdminAddCathedraForm } from "./AdminAddCathedraForm";
 
 export const AdminAddInstituteForm: FC = () => {
   const [instituteName, setInstituteName] = useState<string>("");
   const [instituteId, setInstituteId] = useState<string>("");
 
   const [cathedras, setCathedras] = useState<Cathedra[]>([]);
-
-  const numbers = ["1", "2", "3", "4", "5", "6"];
 
   const createInstituteMutation = useMutation({
     mutationFn: () => createInstitute(instituteId, instituteName, cathedras),
@@ -44,8 +43,7 @@ export const AdminAddInstituteForm: FC = () => {
     const newGroup: Group = {
       id: "",
       direction: "",
-      localName: "",
-      globalName: ""
+      name: ""
     };
 
     const updatedCathedras = [...cathedras];
@@ -58,11 +56,33 @@ export const AdminAddInstituteForm: FC = () => {
     event.preventDefault();
 
     if (!instituteId || !instituteName || !cathedras.length) {
+      console.log("сюда");
       return;
     }
 
-    createInstituteMutation.mutate();
+    console.log(instituteId);
+    console.log(instituteName);
+    console.log(cathedras);
+    // createInstituteMutation.mutate();
   }
+
+  const onCathedraChange = (event: ChangeEvent<HTMLInputElement>, index: number, param: "id" | "name") => {
+    const updatedCathedras = [...cathedras];
+    updatedCathedras[index][param] = event.currentTarget.value;
+    setCathedras(updatedCathedras);
+  };
+
+  const onCourseChange = (event: ChangeEvent<HTMLSelectElement>, cathedraIndex: number, index: number) => {
+    const updatedCathedras = [...cathedras];
+    updatedCathedras[cathedraIndex].courses[index].course = event.currentTarget.value;
+    setCathedras(updatedCathedras);
+  };
+
+  const onGroupChange = (event: ChangeEvent<HTMLInputElement>, cathedraIndex: number, courseIndex: number, index: number, param: "id" | "name" | "direction") => {
+    const updatedCathedras = [...cathedras];
+    updatedCathedras[cathedraIndex].courses[courseIndex].groups[index][param] = event.currentTarget.value;
+    setCathedras(updatedCathedras);
+  };
 
   return (
     <div className="container add-institute-form__container">
@@ -87,85 +107,18 @@ export const AdminAddInstituteForm: FC = () => {
             />
           </label>
           {cathedras.map((cathedra, cathedraIndex) => (
-            <div key={cathedra.id} className="cathedra-form__container">
-              <label className="cathedra__label">
-                Название кафедры:
-                <input
-                  type="text"
-                  placeholder="Введите название кафедры"
-                  value={cathedra.name}
-                  onChange={(event) => {
-                    const updatedCathedras = [...cathedras];
-                    updatedCathedras[cathedraIndex].name = event.currentTarget.value;
-                    setCathedras(updatedCathedras);
-                  }}
-                />
-              </label>
-              <label className="cathedra__label">
-                Идентификатор кафедры:
-                <input
-                  type="text"
-                  placeholder="Введите идентификатор кафедры"
-                  value={cathedra.id}
-                  onChange={(event) => {
-                    const updatedCathedras = [...cathedras];
-                    updatedCathedras[cathedraIndex].id = event.currentTarget.value;
-                    setCathedras(updatedCathedras);
-                  }}
-                />
-              </label>
-              {cathedra.courses.map((course, courseIndex) => (
-                <div key={course.course} className="course-form__container">
-                  <label className="course__label">
-                    Номер курса:
-                    <select
-                      name="courses"
-                      value={course.course}
-                      onChange={(event) => {
-                        const updatedCathedras = [...cathedras];
-                        updatedCathedras[cathedraIndex].courses[courseIndex].course = event.target.value;
-                        setCathedras(updatedCathedras);
-                      }}
-                    >
-                      {numbers.map((number) => (
-                        <option key={number} value={`${number}`}>
-                          {number}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                  {course.groups.map((group, groupIndex) => (
-                    <div key={course.course} className="group-form__container">
-                      <label>
-                        Название группы:
-                        <input
-                          type="text"
-                          placeholder="Введите название группы"
-                          value={group.localName}
-                          onChange={(event) => {
-                            const updatedCathedras = [...cathedras];
-                            updatedCathedras[cathedraIndex].courses[courseIndex].groups[groupIndex].localName = event.currentTarget.value;
-                            setCathedras(updatedCathedras);
-                          }}
-                        />
-                      </label>
-                    </div>
-                  ))}
-                  <Button
-                    kind="secondary"
-                    onClick={() => handleAddGroup(cathedraIndex, courseIndex)}
-                  >
-                    Добавить группу
-                  </Button>
-                </div>
-              ))}
-              <Button
-                kind="secondary"
-                onClick={() => handleAddCourse(cathedraIndex)}
-              >
-                Добавить курс
-              </Button>
-            </div>
+            <AdminAddCathedraForm
+              key={cathedraIndex}
+              id={cathedra.id}
+              name={cathedra.name}
+              index={cathedraIndex}
+              onChange={onCathedraChange}
+              onCourseChange={onCourseChange}
+              onGroupChange={onGroupChange}
+              courses={cathedra.courses}
+              onClick={handleAddCourse}
+              onAddGroupClick={handleAddGroup}
+            />
           ))}
           <Button
             kind="secondary"

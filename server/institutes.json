@@ -1,66 +1,59 @@
 {
-  "institutes": [
-    {
-      "id": "mai-strela",
-      "name": "Московский Авиационный Институт (филиал \"Стрела\")",
-      "cathedras": [
-        {
-          "id": "s20",
-          "name": "С-20: \"Информационные системы и технологии\"",
-          "courses": [
-            {
-              "course": "1",
-              "groups": [
-                {
-                  "id": "mai-strela.s20.1.mso-104bck",
-                  "direction": "Информатика и вычислительная техника",
-                  "localName": "П-11",
-                  "globalName": "МСО-104Бцк"
-                }
-              ]
-            },
-            {
-              "course": "2",
-              "groups": [
-                {
-                  "id": "mai-strela.s20.2.mso-204bck",
-                  "direction": "Информатика и вычислительная техника",
-                  "localName": "П-21",
-                  "globalName": "МСО-204Бцк"
-                }
-              ]
-            },
-            {
-              "course": "3",
-              "groups": [
-                {
-                  "id": "mai-strela.s20.3.mso-304bck",
-                  "direction": "Информатика и вычислительная техника",
-                  "localName": "П-31",
-                  "globalName": "МСО-304Бцк"
-                },
-                {
-                  "id": "mai-strela.s20.3.mso-304",
-                  "direction": "Менеджмент",
-                  "localName": "М-31",
-                  "globalName": "МСО-304"
-                }
-              ]
-            },
-            {
-              "course": "4",
-              "groups": [
-                {
-                  "id": "mai-strela.s20.4.mso-404bck",
-                  "direction": "Информатика и вычислительная техника",
-                  "localName": "П-41",
-                  "globalName": "МСО-404Бцк"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "mai-strela": {
+    "id": "mai-strela",
+    "name": "Московский Авиационный Институт (филиал \"Стрела\")",
+    "cathedras": [
+      {
+        "id": "s20",
+        "name": "С-20: \"Информационные системы и технологии\"",
+        "courses": [
+          {
+            "course": "1",
+            "groups": [
+              {
+                "id": "mai-strela.s20.1.mso-104bck",
+                "direction": "Информатика и вычислительная техника",
+                "name": "МСО-104Бцк"
+              }
+            ]
+          },
+          {
+            "course": "2",
+            "groups": [
+              {
+                "id": "mai-strela.s20.2.mso-204bck",
+                "direction": "Информатика и вычислительная техника",
+                "name": "МСО-204Бцк"
+              }
+            ]
+          },
+          {
+            "course": "3",
+            "groups": [
+              {
+                "id": "mai-strela.s20.3.mso-304bck",
+                "direction": "Информатика и вычислительная техника",
+                "name": "МСО-304Бцк"
+              },
+              {
+                "id": "mai-strela.s20.3.mso-304",
+                "direction": "Менеджмент",
+                "name": "МСО-304"
+              }
+            ]
+          },
+          {
+            "course": "4",
+            "groups": [
+              {
+                "id": "mai-strela.s20.4.mso-404bck",
+                "direction": "Информатика и вычислительная техника",
+                "name": "МСО-404Бцк"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

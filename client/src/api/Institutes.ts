@@ -20,15 +20,18 @@ export type Course = {
 export type Group = {
   id: string;
   direction: string;
-  localName: string;
-  globalName?: string;
+  name: string;
 };
 
 export function fetchInstituteList(): Promise<Institute[]> {
   return fetch("/api/institutes")
-    .then(response => response.json())
-    .then(data => data[0]);
-};
+    .then(response => response.json());
+}
+
+export function fetchInstitute(id: string): Promise<Institute> {
+  return fetch(`/api/institutes/${id}`)
+    .then(response => response.json());
+}
 
 export function createInstitute(id: string, name: string, cathedras: Cathedra[]): Promise<void> {
   return fetch("/api/institutes/create", {
