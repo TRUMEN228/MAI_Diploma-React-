@@ -21,6 +21,11 @@ export function fetchUser(userId: string): Promise<User> {
     .then(data => UserScheme.parse(data));
 }
 
+export function fetchStudentsByGroup(groupId: string): Promise<User[]> {
+  return fetch(`/api/users/students/${groupId}`)
+    .then(response => response.json())
+}
+
 export function registerUser(
   email: string,
   username: string,

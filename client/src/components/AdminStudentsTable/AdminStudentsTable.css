@@ -1,0 +1,21 @@
+.students-table__container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.students-table {
+  border-collapse: separate;
+  width: 100%;
+}
+
+.table__cell {
+  border: 1px solid var(--black);
+  text-align: center;
+  padding: 8px;
+}
+
+.header__cell {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}

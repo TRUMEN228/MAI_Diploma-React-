@@ -157,7 +157,7 @@ export const RegisterForm: FC = () => {
           onChange={(event) => setInstituteId(event.currentTarget.value)}
           value={instituteId}
         >
-          <option key={'none'} value="">-- Выберите ВУЗ --</option>
+          <option key="none" value="">-- Выберите ВУЗ --</option>
           {getInstituteListQuery.data?.map((item) => (
             <option key={item.id} value={item.id}>{item.name}</option>
           ))}

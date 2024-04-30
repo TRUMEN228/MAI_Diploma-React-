@@ -36,6 +36,10 @@ export class Users {
     return Object.values(database.data);
   }
 
+  static getStudents(groupId: string): IUser[] {
+    return Users.getAll().filter(user => user.accountStatus === "student" && user.groupId === groupId);
+  }
+
   static findOne(predicate: (users: IUser) => boolean): IUser | undefined {
     return Users.getAll().find(predicate);
   }

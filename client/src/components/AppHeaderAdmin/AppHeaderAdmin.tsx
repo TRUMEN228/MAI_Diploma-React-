@@ -13,6 +13,7 @@ export const AppHeaderAdmin: FC<IAppHeaderAdminProps> = ({ userId }) => {
           <AppHeaderItem to={`${userId}/admin/requests`}>Заявки</AppHeaderItem>
           <AppHeaderItem to={`${userId}/admin/profile`}>Профиль</AppHeaderItem>
           <AppHeaderItem to={`${userId}/admin/addInstitute`}>Добавление ВУЗа</AppHeaderItem>
+          <AppHeaderItem to={`${userId}/admin/studentsList`}>Список студентов</AppHeaderItem>
         </nav>
       </div>
     </header>
