@@ -19,7 +19,7 @@ export type File = {
 };
 
 const database = await JSONFilePreset<Record<string, IMessage>>(
-  "messages.json",
+  "databases/messages.json",
   {}
 );
 

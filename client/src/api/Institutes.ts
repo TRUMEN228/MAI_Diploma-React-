@@ -23,12 +23,19 @@ export type Group = {
   name: string;
 };
 
+type GroupInfo = {
+  institute: Institute;
+  cathedra: Cathedra;
+  course: Course;
+  group: Group;
+}
+
 export function fetchInstituteList(): Promise<Institute[]> {
   return fetch("/api/institutes")
     .then(response => response.json());
 }
 
-export function fetchInstitute(id: string): Promise<Institute> {
+export function fetchInstitute(id: string): Promise<GroupInfo> {
   return fetch(`/api/institutes/${id}`)
     .then(response => response.json());
 }

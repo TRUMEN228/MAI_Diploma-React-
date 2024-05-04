@@ -23,7 +23,7 @@ export function fetchUser(userId: string): Promise<User> {
 
 export function fetchStudentsByGroup(groupId: string): Promise<User[]> {
   return fetch(`/api/users/students/${groupId}`)
-    .then(response => response.json())
+    .then(response => response.json());
 }
 
 export function registerUser(

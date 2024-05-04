@@ -14,12 +14,12 @@ export interface IUser {
 }
 
 export const database = await JSONFilePreset<Record<string, IUser>>(
-  "users.json",
+  "databases/users.json",
   {}
 );
 
 export const requestDatabase = await JSONFilePreset<Record<string, IUser>>(
-  "requests.json",
+  "databases/requests.json",
   {}
 );
 

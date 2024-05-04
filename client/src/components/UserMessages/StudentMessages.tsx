@@ -7,11 +7,11 @@ import { fetchAllMessages } from "../../api/Message";
 import { ChatView } from "../ChatView";
 import { CreateMessageForm } from "../CreateMessageForm";
 
-interface IUserMessagesProps {
+interface IStudentMessagesProps {
   user: User;
 };
 
-export const UserMessages: FC<IUserMessagesProps> = ({
+export const StudentMessages: FC<IStudentMessagesProps> = ({
   user
 }) => {
   const getMessagesQuery = useQuery({

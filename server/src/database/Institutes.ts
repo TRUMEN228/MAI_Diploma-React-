@@ -25,7 +25,7 @@ export interface IInstitute {
 };
 
 const database = await JSONFilePreset<Record<string, IInstitute>>(
-  "institutes.json",
+  "databases/institutes.json",
   {}
 );
 

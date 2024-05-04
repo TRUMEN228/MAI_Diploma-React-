@@ -4,24 +4,36 @@ import { Institutes, IInstitute } from "../database/Institutes";
 
 export const institutesRouter = Router();
 
+function splitInstitute(groupId: string) {
+  return groupId.split(".", 3);
+}
+
 institutesRouter.get("/", (req, res) => {
   const instituteList = Institutes.getAll();
 
   res.status(200).json(instituteList);
 });
 
-institutesRouter.get("/:instituteId", (req, res) => {
-  const instituteId = req.params.instituteId;
+institutesRouter.get("/:groupId", (req, res) => {
+  const groupId = req.params.groupId;
 
-  let institute;
+  const [instituteId, cathedraId, courseNum] = splitInstitute(groupId);
+  let institute, cathedra, course, group;
 
   try {
     institute = Institutes.getOne(instituteId);
+    cathedra = institute?.cathedras.find(item => item.id === cathedraId);
+    course = cathedra?.courses.find(item => item.course === courseNum);
+    group = course?.groups.find(item => item.id === groupId);
   } catch (error) {
     return res.status(401).send("Институт не найден");
   }
 
-  res.status(200).json(institute);
+  // console.log({
+  //   institute, cathedra, course, group
+  // });
+
+  res.status(200).json({ institute, cathedra, course, group });
 })
 
 institutesRouter.post("/create", async (req, res) => {

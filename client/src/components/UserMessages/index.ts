@@ -1,1 +1,1 @@
-export * from "./UserMessages.tsx";
+export * from "./StudentMessages.tsx";
