@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { User } from "../../api/User";
 import { StudentStudentsTable } from "../StudentStudentsTable";
+import { Student } from "../../api/Student";
 
 interface IStudentGroupViewProps {
-  students: User[];
+  students: Student[];
 }
 
 export const StudentGroupView: FC<IStudentGroupViewProps> = ({

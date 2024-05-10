@@ -35,8 +35,13 @@ export function fetchInstituteList(): Promise<Institute[]> {
     .then(response => response.json());
 }
 
-export function fetchInstitute(id: string): Promise<GroupInfo> {
+export function fetchInstitute(id: string): Promise<Institute> {
   return fetch(`/api/institutes/${id}`)
+    .then(response => response.json());
+}
+
+export function fetchGroupInfo(groupId: string): Promise<GroupInfo> {
+  return fetch(`/api/institutes/group/${groupId}`)
     .then(response => response.json());
 }
 

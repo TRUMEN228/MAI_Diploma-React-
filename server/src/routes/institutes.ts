@@ -14,7 +14,7 @@ institutesRouter.get("/", (req, res) => {
   res.status(200).json(instituteList);
 });
 
-institutesRouter.get("/:groupId", (req, res) => {
+institutesRouter.get("/group/:groupId", (req, res) => {
   const groupId = req.params.groupId;
 
   const [instituteId, cathedraId, courseNum] = splitInstitute(groupId);

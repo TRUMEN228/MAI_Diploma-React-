@@ -15,7 +15,7 @@ export const AccountRouterAdmin: FC<IAccountRouterAdminProps> = ({ user }) => {
     <Routes>
       <Route
         path={`${user.id}/admin/requests`}
-        element={<AdminRequests />}
+        element={<AdminRequests instituteId={user.instituteId}/>}
       />
       <Route
         path={`${user.id}/admin/profile`}

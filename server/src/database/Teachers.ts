@@ -5,19 +5,28 @@ export interface ITeacher {
   surname: string;
   name: string;
   lastname: string;
+  email: string;
+  birthday: string;
+  instituteId: string;
+  subjects: Subject[];
 };
 
-export const database = await JSONFilePreset<Record<string, ITeacher>>(
-  "database/teachers.json",
+export type Subject = {
+  name: string;
+  groupId: string;
+};
+
+export const teachersDatabase = await JSONFilePreset<Record<string, ITeacher>>(
+  "databases/teachers.json",
   {}
 );
 
 export class Teachers {
   static getAll(): ITeacher[] {
-    return Object.values(database.data);
-  }
+    return Object.values(teachersDatabase.data);
+  };
 
   static getOne(id: string): ITeacher {
-    return database.data[id];
+    return teachersDatabase.data[id];
   };
 };

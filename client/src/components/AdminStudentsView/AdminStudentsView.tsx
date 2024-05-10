@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import "./AdminStudentsView.css";
 import { AdminStudentsTable } from "../AdminStudentsTable";
 import { useQuery } from "@tanstack/react-query";
-import { fetchStudentsByGroup } from "../../api/User";
+import { fetchStudentsByGroup } from "../../api/Student";
 import { queryClient } from "../../api/QueryClient";
 import { fetchInstituteList } from "../../api/Institutes";
 import { FormField } from "../FormField";

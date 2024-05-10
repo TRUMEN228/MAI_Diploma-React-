@@ -1,16 +1,15 @@
 import { z } from "zod";
 import { validateResponse } from "./validateResponse";
 
-export const UserScheme = z.object({
+const UserScheme = z.object({
   id: z.string(),
   accountStatus: z.custom<"student" | "teacher" | "admin">(),
   email: z.string(),
-  username: z.string(),
   surname: z.string(),
   name: z.string(),
   lastname: z.string(),
   birthday: z.string(),
-  groupId: z.string()
+  instituteId: z.string()
 });
 
 export type User = z.infer<typeof UserScheme>;
@@ -21,14 +20,9 @@ export function fetchUser(userId: string): Promise<User> {
     .then(data => UserScheme.parse(data));
 }
 
-export function fetchStudentsByGroup(groupId: string): Promise<User[]> {
-  return fetch(`/api/users/students/${groupId}`)
-    .then(response => response.json());
-}
-
 export function registerUser(
   email: string,
-  username: string,
+  accountStatus: User["accountStatus"],
   surname: string,
   name: string,
   lastname: string,
@@ -42,7 +36,7 @@ export function registerUser(
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      email, username, surname, name, lastname, birthday, groupId, password
+      email, accountStatus, surname, name, lastname, birthday, groupId, password
     })
   })
     .then(() => undefined);
@@ -51,7 +45,6 @@ export function registerUser(
 export function editUser(
   id: string,
   email?: string,
-  username?: string,
   surname?: string,
   name?: string,
   lastname?: string,
@@ -64,7 +57,7 @@ export function editUser(
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      id, email, username, surname, name, lastname, birthday, groupId
+      id, email, surname, name, lastname, birthday, groupId
     })
   })
     .then(() => undefined);

@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { User } from "../../api/User";
+import { Student } from "../../api/Student";
 
 interface IStudentTableRowProps {
   number: number;
-  student: User;
+  student: Student;
 }
 
 export const StudentTableRow: FC<IStudentTableRowProps> = ({

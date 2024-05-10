@@ -1,10 +1,10 @@
 import { FC } from "react";
 import "./AdminStudentsTable.css";
-import { User } from "../../api/User";
 import { AdminStudentsTableRow } from "../AdminStudentsTableRow";
+import { Student } from "../../api/Student";
 
 interface IAdminStudentsTableProps {
-  students: User[];
+  students: Student[];
 }
 
 export const AdminStudentsTable: FC<IAdminStudentsTableProps> = ({
@@ -19,7 +19,6 @@ export const AdminStudentsTable: FC<IAdminStudentsTableProps> = ({
             <th className="table__cell header__cell column-2">ФИО</th>
             <th className="table__cell header__cell column-3">Дата рождения</th>
             <th className="table__cell header__cell column-4">E-mail</th>
-            <th className="table__cell header__cell column-5">Имя пользователя</th>
           </tr>
         </thead>
         {
@@ -36,7 +35,6 @@ export const AdminStudentsTable: FC<IAdminStudentsTableProps> = ({
                 }}
                 birthday={item.birthday}
                 email={item.email}
-                username={item.username}
               />
             ))}
           </tbody>

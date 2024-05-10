@@ -10,7 +10,6 @@ interface IAdminStudentsTableRowProps {
   };
   birthday: string;
   email: string;
-  username: string;
 };
 
 export const AdminStudentsTableRow: FC<IAdminStudentsTableRowProps> = ({
@@ -18,7 +17,6 @@ export const AdminStudentsTableRow: FC<IAdminStudentsTableRowProps> = ({
   fullName,
   birthday,
   email,
-  username
 }) => {
   function formatDate(dateStr: string) {
     const date = new Date(dateStr);
@@ -36,7 +34,6 @@ export const AdminStudentsTableRow: FC<IAdminStudentsTableRowProps> = ({
       <td className="table__cell column-2">{fullName.surname} {fullName.name} {fullName.lastname}</td>
       <td className="table__cell column-3">{formatDate(birthday)}</td>
       <td className="table__cell column-4">{email}</td>
-      <td className="table__cell column-5">{username}</td>
     </tr>
   );
 };
