@@ -1,6 +1,6 @@
 import { FC, ChangeEvent } from "react";
 import { Institute } from "../../api/Institutes";
-import { NestedSelect } from "../NestedSelect";
+import { AdminTeacherSubjectGroupSelect } from "../AdminTeacherSubjectGroupSelect";
 
 interface IAdminTeacherSubjectFormProps {
   institute: Institute;
@@ -32,7 +32,7 @@ export const AdminTeacherSubjectForm: FC<IAdminTeacherSubjectFormProps> = ({
       </label>
       <label>
         Выберите группу:
-        <NestedSelect handleGroupIdChange={handleGroupIdChange} index={index} institute={institute}/>
+        <AdminTeacherSubjectGroupSelect handleGroupIdChange={handleGroupIdChange} index={index} institute={institute}/>
       </label>
     </div>
   );

@@ -1,13 +1,13 @@
 import { FC, useState, ChangeEvent } from "react";
 import { Cathedra, Course, Group, Institute } from "../../api/Institutes";
 
-interface INestedSelectProps {
+interface IAdminTeacherSubjectGroupSelectProps {
   institute: Institute;
   index: number;
   handleGroupIdChange: (event: ChangeEvent<HTMLSelectElement>, index: number) => void
 }
 
-export const NestedSelect: FC<INestedSelectProps> = ({
+export const AdminTeacherSubjectGroupSelect: FC<IAdminTeacherSubjectGroupSelectProps> = ({
   institute,
   index,
   handleGroupIdChange
