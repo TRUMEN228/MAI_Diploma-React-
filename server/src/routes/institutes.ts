@@ -14,20 +14,32 @@ institutesRouter.get("/", (req, res) => {
   res.status(200).json(instituteList);
 });
 
+institutesRouter.get("/:id", (req, res) => {
+  const id = req.params.id;
+
+  const institute = Institutes.getOne(id);
+
+  if (!institute) {
+    res.status(401).send("Институт не найден");
+  }
+
+  res.status(200).json(institute);
+})
+
 institutesRouter.get("/group/:groupId", (req, res) => {
   const groupId = req.params.groupId;
 
   const [instituteId, cathedraId, courseNum] = splitInstitute(groupId);
-  let institute, cathedra, course, group;
 
-  try {
-    institute = Institutes.getOne(instituteId);
-    cathedra = institute?.cathedras.find(item => item.id === cathedraId);
-    course = cathedra?.courses.find(item => item.course === courseNum);
-    group = course?.groups.find(item => item.id === groupId);
-  } catch (error) {
+  const institute = Institutes.getOne(instituteId);
+
+  if (!institute) {
     return res.status(401).send("Институт не найден");
   }
+
+  const cathedra = institute?.cathedras.find(item => item.id === cathedraId);
+  const course = cathedra?.courses.find(item => item.course === courseNum);
+  const group = course?.groups.find(item => item.id === groupId);
 
   // console.log({
   //   institute, cathedra, course, group

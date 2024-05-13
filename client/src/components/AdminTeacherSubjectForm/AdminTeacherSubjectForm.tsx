@@ -1,22 +1,23 @@
 import { FC, ChangeEvent } from "react";
-import { Subject } from "../../api/Teacher";
 import { Institute } from "../../api/Institutes";
 import { NestedSelect } from "../NestedSelect";
 
 interface IAdminTeacherSubjectFormProps {
-  subject: Subject;
   institute: Institute;
   index: number;
-  handlePropChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>, index: number, prop: "name" | "groupId") => void;
+  handleNameChange: (event: ChangeEvent<HTMLInputElement>, index: number) => void;
+  handleGroupIdChange: (event: ChangeEvent<HTMLSelectElement>, index: number) => void;
 };
 
 export const AdminTeacherSubjectForm: FC<IAdminTeacherSubjectFormProps> = ({
-  subject,
   institute,
   index,
-  handlePropChange
+  handleNameChange,
+  handleGroupIdChange
 }) => {
-
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    handleNameChange(event, index);
+  }
 
   return (
     <div className="subject__container">
@@ -25,14 +26,13 @@ export const AdminTeacherSubjectForm: FC<IAdminTeacherSubjectFormProps> = ({
         <input
           type="text"
           className=""
-          value={subject.name}
-          onChange={(event) => handlePropChange(event, index, "name")}
+          onChange={handleChange}
           placeholder="Введите название предмета"
         />
       </label>
       <label>
         Выберите группу:
-        <NestedSelect institute={institute}/>
+        <NestedSelect handleGroupIdChange={handleGroupIdChange} index={index} institute={institute}/>
       </label>
     </div>
   );

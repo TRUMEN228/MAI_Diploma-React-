@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { Student } from "../../api/Student";
 
-interface IStudentTableRowProps {
+interface IStudentStudentsTableRowProps {
   number: number;
   student: Student;
 }
 
-export const StudentTableRow: FC<IStudentTableRowProps> = ({
+export const StudentStudentsTableRow: FC<IStudentStudentsTableRowProps> = ({
   number,
   student
 }) => {

@@ -8,24 +8,13 @@ export const authRouter = Router();
 
 const RegisterSchema = z.object({
   email: z.string().email({ message: 'Некорректный формат e-mail' }),
-  username: z.string().min(6, "Имя пользователя должно содержать не менее 6 символов"),
+  accountStatus: z.custom<"student" | "teacher" | "admin">(),
   surname: z.string(),
   name: z.string(),
   lastname: z.string(),
   birthday: z.string(),
-  groupId: z.string(),
+  instituteId: z.string(),
   password: z.string()
-});
-
-const EditSchema = z.object({
-  id: z.string(),
-  email: z.optional(z.string().email({ message: 'Некорректный формат e-mail' })),
-  username: z.optional(z.string().min(6, "Имя пользователя должно содержать не менее 6 символов")),
-  surname: z.optional(z.string()),
-  name: z.optional(z.string()),
-  lastname: z.optional(z.string()),
-  birthday: z.optional(z.string()),
-  groupId: z.optional(z.string())
 });
 
 const LoginSchema = z.object({
@@ -40,37 +29,19 @@ authRouter.post("/register", async (req, res) => {
     return res.status(400).send(bodyParseResult.error.issues[0].message);
   }
 
-  const { email, username, surname, name, lastname, birthday, groupId, password } = bodyParseResult.data;
+  const { email, accountStatus, surname, name, lastname, birthday, instituteId, password } = bodyParseResult.data;
 
   let user: IUser;
 
   try {
-    user = await Users.createRequest(email, username, surname, name, lastname, birthday, groupId);
+    user = await Users.createRequest(email, accountStatus, surname, name, lastname, birthday, instituteId);
   } catch (error) {
     return res.status(409).send("Этот email уже занят");
   }
 
   await Passwords.create(user.id, password);
 
-  authorizeResponse(res, user.id).status(201).json({ id: user.id });
-});
-
-authRouter.post("/edit", async (req, res) => {
-  const bodyParseResult = EditSchema.safeParse(req.body);
-
-  if (!bodyParseResult.success) {
-    return res.status(400).send(bodyParseResult.error.issues[0].message);
-  }
-
-  const { id, email, username, surname, name, lastname, birthday } = bodyParseResult.data;
-
-  try {
-    await Users.edit(id, email, username, surname, name, lastname, birthday)
-  } catch (error) {
-    return res.status(409).send("Пользователь не найден");
-  }
-
-  authorizeResponse(res, id).status(201).json({ id });
+  authorizeResponse(res, user.id).status(201).send();
 });
 
 authRouter.post("/login", (req, res) => {

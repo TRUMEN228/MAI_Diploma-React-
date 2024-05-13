@@ -5,9 +5,9 @@ import { Button } from "../Button";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient } from "../../api/QueryClient";
 import "./UserProfile.css";
-import { ModalWindow } from "../ModalWindow";
-import { UserProfileEditForm } from "../UserProfileEditForm";
 import { Link } from "react-router-dom";
+import { Teacher } from "../../api/Teacher";
+import { Student } from "../../api/Student";
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
@@ -20,12 +20,11 @@ const formatDate = (dateStr: string) => {
 }
 
 interface IUserProfileProps {
+  customData: Student | Teacher | {};
   user: User;
 }
 
-export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
-
+export const UserProfile: FC<IUserProfileProps> = ({ customData, user }) => {
   const meQuery = useQuery({
     queryFn: () => fetchMe(),
     queryKey: ["users", "me"],
@@ -44,14 +43,6 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
     meQuery.refetch();
   }
 
-  const handleModalOpen = () => {
-    setModalOpen(true);
-  }
-
-  const handleModalClose = () => {
-    setModalOpen(false);
-  }
-
   return (
     <div id="app-main">
       <div className="container">
@@ -59,12 +50,6 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
           Профиль пользователя
         </h1>
         <div className="profile__container">
-          <div className="profile__edit-btn" onClick={handleModalOpen}>
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 9.5002V12.0002H2.5L9.87333 4.62687L7.37333 2.12687L0 9.5002ZM11.8067 2.69354C12.0667 2.43354 12.0667 2.01354 11.8067 1.75354L10.2467 0.193535C9.98667 -0.0664648 9.56667 -0.0664648 9.30667 0.193535L8.08667 1.41354L10.5867 3.91354L11.8067 2.69354Z" fill="#434343"/>
-            </svg>
-          </div>
-
           <UserProfileLabel
             labelText="Фамилия:"
             userData={user.surname}
@@ -82,13 +67,6 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
             userData={user.lastname}
             labelClassName="profile__lastname-label"
             dataClassName="profile__lastname"
-          />
-          <UserProfileLabel
-            kind="secondary"
-            labelText="Имя пользователя:"
-            userData={user.username}
-            labelClassName="profile__username-label"
-            dataClassName="profile__username"
           />
           <UserProfileLabel
             kind="secondary"
@@ -112,11 +90,6 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
             >
               <Link className="profile__exit-button-link" to={'/'}>Выйти</Link>
             </Button>
-
-          <ModalWindow isOpened={modalOpen} onModalClose={handleModalClose}>
-            <h1 className="edit-form__title">Редактирование профиля</h1>
-            <UserProfileEditForm user={user}/>
-          </ModalWindow>
         </div>
       </div>
     </div>

@@ -1,5 +1,7 @@
 import { z } from "zod";
 import { validateResponse } from "./validateResponse";
+import { Student } from "./Student";
+import { Teacher } from "./Teacher";
 
 const UserScheme = z.object({
   id: z.string(),
@@ -27,7 +29,7 @@ export function registerUser(
   name: string,
   lastname: string,
   birthday: string,
-  groupId: string,
+  instituteId: string,
   password: string
 ): Promise<void> {
   return fetch("/api/register", {
@@ -36,7 +38,7 @@ export function registerUser(
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      email, accountStatus, surname, name, lastname, birthday, groupId, password
+      email, accountStatus, surname, name, lastname, birthday, instituteId, password
     })
   })
     .then(() => undefined);
@@ -84,9 +86,8 @@ export function logout(): Promise<void> {
     .then(() => undefined);
 }
 
-export function fetchMe(): Promise<User> {
+export function fetchMe(): Promise<{ customData: Student | Teacher | {}; user: User }> {
   return fetch("/api/users/me")
     .then(validateResponse)
-    .then(response => response.json())
-    .then(data => UserScheme.parse(data));
+    .then(response => response.json());
 }

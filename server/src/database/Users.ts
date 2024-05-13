@@ -15,22 +15,22 @@ export interface IUser {
   instituteId: string;
 }
 
-export const database = await JSONFilePreset<Record<string, IUser>>(
+export const usersDatabase = await JSONFilePreset<Record<string, IUser>>(
   "databases/users.json",
   {}
 );
 
 export class Users {
   static getOne(id: string): IUser | undefined {
-    return database.data[id];
+    return usersDatabase.data[id];
   }
 
   static getOneToEdit(id: string): IUser {
-    return database.data[id];
+    return usersDatabase.data[id];
   }
 
   static getAll(): IUser[] {
-    return Object.values(database.data);
+    return Object.values(usersDatabase.data);
   }
 
   static findOne(predicate: (users: IUser) => boolean): IUser | undefined {
@@ -97,7 +97,7 @@ export class Users {
       instituteId: instituteId ? instituteId : user.instituteId,
     }
 
-    await database.update((data) => {
+    await usersDatabase.update((data) => {
       data[id] = updatedUser;
     });
   }

@@ -1,5 +1,5 @@
 import { JSONFilePreset } from "lowdb/node";
-import { IUser, Users } from "./Users";
+import { IUser, Users, usersDatabase } from "./Users";
 import { IStudent, studentsDatabase } from "./Students";
 import { ITeacher, Subject, teachersDatabase } from "./Teachers";
 
@@ -41,6 +41,10 @@ export class Admins {
       groupId
     }
 
+    await usersDatabase.update(data => {
+      data[id] = user;
+    })
+
     await studentsDatabase.update(data => {
       data[id] = student;
     });
@@ -57,9 +61,19 @@ export class Admins {
     const user = Admins.getOneRequest(id);
 
     const teacher: ITeacher = {
-      ...user,
+      id: user.id,
+      email: user.email,
+      surname: user.surname,
+      name: user.name,
+      lastname: user.lastname,
+      birthday: user.birthday,
+      instituteId: user.instituteId,
       subjects
     };
+
+    await usersDatabase.update(data => {
+      data[id] = user;
+    })
 
     await teachersDatabase.update(data => {
       data[id] = teacher;

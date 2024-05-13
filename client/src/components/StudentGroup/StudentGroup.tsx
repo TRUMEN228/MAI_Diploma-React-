@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { StudentGroupInfo } from "../StudentGroupInfo";
 import { Student, fetchStudentsByGroup } from "../../api/Student";
-import { fetchGroupInfo } from "../../api/Institutes"
+import { Cathedra, Course, Group, Institute, fetchGroupInfo } from "../../api/Institutes"
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "../../api/QueryClient";
 import { StudentGroupView } from "../StudentGroupView";
@@ -25,13 +25,36 @@ export const StudentGroup: FC<IStudentGroupProps> = ({
     retry: 0
   }, queryClient);
 
+  const emptyInstitute: Institute = {
+    id: "",
+    name: "Не определено",
+    cathedras: []
+  };
+
+  const emptyCathedra: Cathedra = {
+    id: "",
+    name: "Не определено",
+    courses: []
+  };
+
+  const emptyCourse: Course = {
+    course: "Не определено",
+    groups: []
+  };
+
+  const emptyGroup: Group = {
+    id: "",
+    name: "Не определено",
+    direction: "Не определено"
+  };
+
   return (
     <div className="container">
       <StudentGroupInfo
-        institute={fetchInstituteQuery.data?.institute!}
-        cathedra={fetchInstituteQuery.data?.cathedra!}
-        course={fetchInstituteQuery.data?.course!}
-        group={fetchInstituteQuery.data?.group!}
+        institute={fetchInstituteQuery.isSuccess ? fetchInstituteQuery.data?.institute : emptyInstitute}
+        cathedra={fetchInstituteQuery.isSuccess ? fetchInstituteQuery.data?.cathedra : emptyCathedra}
+        course={fetchInstituteQuery.isSuccess ? fetchInstituteQuery.data?.course : emptyCourse}
+        group={fetchInstituteQuery.isSuccess ? fetchInstituteQuery.data?.group : emptyGroup}
       />
       <StudentGroupView students={fetchStudentListQuery.isSuccess ? fetchStudentListQuery.data : []}/>
     </div>

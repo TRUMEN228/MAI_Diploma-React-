@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { StudentTableRow } from "../StudentTableRow";
+import { StudentStudentsTableRow } from "../StudentStudentsTableRow";
 import { Student } from "../../api/Student";
 
 interface IStudentStudentsTableProps {
@@ -21,7 +21,7 @@ export const StudentStudentsTable: FC<IStudentStudentsTableProps> = ({
         </thead>
         <tbody>
           {students.length ? students.map((item, index) => (
-            <StudentTableRow key={index} number={index + 1} student={item} />
+            <StudentStudentsTableRow key={index} number={index + 1} student={item} />
           )) : null}
         </tbody>
       </table>

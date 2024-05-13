@@ -4,6 +4,7 @@ import { fetchRequestsByInstituteId } from "../../api/Admin";
 import { queryClient } from "../../api/QueryClient";
 import { AdminStudentRequestView } from "../AdminStudentRequestView";
 import "./AdminRequests.css";
+import { AdminTeacherRequestView } from "../AdminTeacherRequestView";
 
 interface IAdminRequestsProps {
   instituteId: string;
@@ -36,7 +37,13 @@ export const AdminRequests: FC<IAdminRequestsProps> = ({
                 />
               );
             case "teacher":
-              return <></>;
+              return (
+                <AdminTeacherRequestView
+                  key={index}
+                  user={item}
+                  handleRefetch={handleRefetch}
+                />
+              );
           }
         }) : "Новых заявок нет"}
       </div>

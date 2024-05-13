@@ -29,4 +29,31 @@ export class Teachers {
   static getOne(id: string): ITeacher {
     return teachersDatabase.data[id];
   };
+
+  static getSubjectsByGroupId(groupId: string): { teacher: ITeacher; subjects: Subject[] }[] {
+    const teachers = Object.values(teachersDatabase.data);
+    const returnData: { teacher: ITeacher; subjects: Subject[] }[] = [];
+
+    for (const teacher of teachers) {
+      const subjectsToReturn: Subject[] = [];
+
+      let isTeacher = false;
+
+      for (const subject of teacher.subjects) {
+        if (subject.groupId === groupId) {
+          subjectsToReturn.push(subject);
+          isTeacher = true;
+        }
+      }
+
+      if (isTeacher) {
+        returnData.push({
+          teacher: teacher,
+          subjects: subjectsToReturn
+        });
+      }
+    }
+
+    return returnData;
+  }
 };

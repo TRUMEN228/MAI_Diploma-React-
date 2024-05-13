@@ -12,7 +12,7 @@ export function fetchRequestsByInstituteId(instituteId: string): Promise<User[]>
 }
 
 export function acceptStudentRequest(userId: string, groupId: string): Promise<void> {
-  return fetch(`/api/admin/requests/student/accept/${userId}`, {
+  return fetch(`/api/admin/requests/accept/student/${userId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -25,7 +25,7 @@ export function acceptStudentRequest(userId: string, groupId: string): Promise<v
 }
 
 export function acceptTeacherRequest(userId: string, subjects: Subject[]): Promise<void> {
-  return fetch(`/api/admin/requests/student/accept/${userId}`, {
+  return fetch(`/api/admin/requests/accept/teacher/${userId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

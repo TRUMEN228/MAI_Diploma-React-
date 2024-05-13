@@ -1,11 +1,11 @@
-import { FC, MouseEventHandler, useState } from "react";
+import { FC } from "react";
 import { z } from "zod";
 import "./RegisterForm.css";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { registerUser } from "../../api/User";
+import { User, registerUser } from "../../api/User";
 import { queryClient } from "../../api/QueryClient";
 import { FormField } from "../FormField";
 import { Button } from "../Button";
@@ -13,12 +13,12 @@ import { fetchInstituteList } from "../../api/Institutes";
 
 const CreateUserScheme = z.object({
   email: z.string().email({ message: "E-mail должен содержать символ @"}),
-  username: z.string().min(6, "Имя пользователя должно включать не менее 6 символов"),
+  accountStatus: z.custom<"student" | "teacher" | "admin">(),
   surname: z.string(),
   name: z.string(),
   lastname: z.string(),
   birthday: z.string(),
-  groupId: z.string(),
+  instituteId: z.string(),
   password: z.string().min(8, "Пароль должен содержать не менее 8 символов")
 });
 
@@ -39,75 +39,39 @@ export const RegisterForm: FC = () => {
     retry: 0
   }, queryClient);
 
-  const [instituteId, setInstituteId] = useState<string>('');
-  const [cathedra, setCathedra] = useState<string | undefined>('');
-  const [course, setCourse] = useState<string | undefined>('');
-  const [group, setGroup] = useState<string | undefined>('');
-
   const createUserMutation = useMutation({
     mutationFn: (data: {
       email: string,
-      username: string,
+      accountStatus: User["accountStatus"],
       surname: string,
       name: string,
       lastname: string,
       birthday: string,
-      groupId: string,
+      instituteId: string,
       password: string
     }) => registerUser(
       data.email,
-      data.username,
+      data.accountStatus,
       data.surname,
       data.name,
       data.lastname,
       data.birthday,
-      data.groupId,
+      data.instituteId,
       data.password
     )
   }, queryClient);
 
-  const handleClick: MouseEventHandler<HTMLButtonElement> = () => {
-    if (createUserMutation.isSuccess) {
-      window.location.pathname = "/";
-    }
-  }
-
   return (
     <form
       className="register-form"
-      onSubmit={handleSubmit(({
-        email,
-        username,
-        surname,
-        name,
-        lastname,
-        birthday,
-        groupId,
-        password
-      }) => {
-        createUserMutation.mutate({ email, username, surname, name, lastname, birthday, groupId, password })
+      onSubmit={handleSubmit(({ email, accountStatus, surname, name, lastname, birthday, instituteId, password }) => {
+        createUserMutation.mutate({ email, accountStatus, surname, name, lastname, birthday, instituteId, password });
+
+        if (createUserMutation.isSuccess) {
+          window.location.pathname = "/";
+        }
       })}
     >
-      <FormField
-        labelText="E-mail:"
-        errorMessage={errors.email?.message}
-      >
-        <input
-          className="form-field__input"
-          type="text"
-          {...register("email")}
-        />
-      </FormField>
-      <FormField
-        labelText="Имя пользователя:"
-        errorMessage={errors.username?.message}
-      >
-        <input
-          className="form-field__input"
-          type="text"
-          {...register("username")}
-        />
-      </FormField>
       <FormField
         labelText="Фамилия:"
         errorMessage={errors.surname?.message}
@@ -139,6 +103,16 @@ export const RegisterForm: FC = () => {
         />
       </FormField>
       <FormField
+        labelText="E-mail:"
+        errorMessage={errors.email?.message}
+      >
+        <input
+          className="form-field__input"
+          type="text"
+          {...register("email")}
+        />
+      </FormField>
+      <FormField
         labelText="Дата рождения:"
         errorMessage={errors.birthday?.message}
       >
@@ -154,63 +128,12 @@ export const RegisterForm: FC = () => {
         <select
           id="institute"
           className="form-field__input"
-          onChange={(event) => setInstituteId(event.currentTarget.value)}
-          value={instituteId}
+          {...register("instituteId")}
         >
           <option key="none" value="">-- Выберите ВУЗ --</option>
           {getInstituteListQuery.data?.map((item) => (
             <option key={item.id} value={item.id}>{item.name}</option>
           ))}
-        </select>
-      </FormField>
-      <FormField
-        labelText="Кафедра:"
-      >
-        <select
-          className="form-field__input"
-          onChange={(event) => setCathedra(event.currentTarget.value)}
-          value={cathedra}
-        >
-          <option value="">-- Выберите кафедру --</option>
-          {
-            instituteId ? getInstituteListQuery.data?.find((item) => item.id === instituteId)?.cathedras.map((item) => (
-              <option key={item.id} value={item.id}>{item.name}</option>
-            )) : null
-          }
-        </select>
-      </FormField>
-      <FormField
-        labelText="Курс:"
-      >
-        <select
-          className="form-field__input"
-          onChange={(event) => setCourse(event.currentTarget.value)}
-          value={course}
-        >
-          <option value="">-- Выберите курс --</option>
-          {
-            cathedra ? getInstituteListQuery.data?.find(item => item.id === instituteId)?.cathedras.find(item => item.id === cathedra)?.courses.map(item => (
-              <option key={item.course} value={item.course}>{item.course}</option>
-            )) : null
-          }
-        </select>
-      </FormField>
-      <FormField
-        labelText="Учебная группа:"
-        errorMessage={errors.groupId?.message}
-      >
-        <select
-          className="form-field__input"
-          {...register("groupId")}
-          onChange={(event) => setGroup(event.currentTarget.value)}
-          value={group}
-        >
-          <option value="">-- Выберите учебную группу --</option>
-          {
-            cathedra ? getInstituteListQuery.data?.find(item => item.id === instituteId)?.cathedras.find(item => item.id === cathedra)?.courses.find(item => item.course === course)?.groups.map(item => (
-              <option key={item.id} value={item.id}>{item.name}</option>
-            )) : null
-          }
         </select>
       </FormField>
       <FormField
@@ -223,13 +146,25 @@ export const RegisterForm: FC = () => {
           {...register("password")}
         />
       </FormField>
+      <FormField
+        labelText="Я"
+      >
+        <select
+          id="accountStatus"
+          className="form-field__input"
+          {...register("accountStatus")}
+        >
+          <option value="student">Студент</option>
+          <option value="teacher">Преподаватель</option>
+          <option value="admin">Администратор</option>
+        </select>
+      </FormField>
       {createUserMutation.error?.message ? <span>{createUserMutation.error.message}</span> : null}
       <Button
         kind="primary"
         type="submit"
         className="reg-form__btn"
         isLoading={createUserMutation.isPending}
-        onClick={() => handleClick}
       >
         Зарегистрироваться
       </Button>

@@ -6,12 +6,15 @@ import { queryClient } from "../../api/QueryClient";
 import { fetchAllMessages } from "../../api/Message";
 import { ChatView } from "../ChatView";
 import { CreateMessageForm } from "../CreateMessageForm";
+import { Student } from "../../api/Student";
 
 interface IStudentMessagesProps {
+  student: Student;
   user: User;
 };
 
 export const StudentMessages: FC<IStudentMessagesProps> = ({
+  student,
   user
 }) => {
   const getMessagesQuery = useQuery({
@@ -23,7 +26,7 @@ export const StudentMessages: FC<IStudentMessagesProps> = ({
   return (
     <div className="container messages__container">
       <ChatView
-        messages={getMessagesQuery.data?.filter(item => item.groupId === user.groupId) || []}
+        messages={getMessagesQuery.data?.filter(item => item.groupId === student.groupId) || []}
       />
       <CreateMessageForm user={user}/>
     </div>

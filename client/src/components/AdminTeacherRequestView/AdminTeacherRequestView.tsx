@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from "react";
+import { FC, useState, ChangeEvent } from "react";
 import { User } from "../../api/User";
 import { Button } from "../Button";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -36,6 +36,8 @@ export const AdminTeacherRequestView: FC<IAdminTeacherRequestViewProps> = ({
   }, queryClient);
 
   const handleAccept = () => {
+    console.log(subjects);
+
     if (subjects) {
       acceptTeacherRequestMutation.mutate();
     }
@@ -55,12 +57,19 @@ export const AdminTeacherRequestView: FC<IAdminTeacherRequestViewProps> = ({
     setSubjects([...subjects, newSubject]);
   };
 
-  const handlePropChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>, index: number, prop: "name" | "groupId") => {
+  const handleNameChange = (event: ChangeEvent<HTMLInputElement>, index: number) => {
     const newSubjects = subjects;
-    newSubjects[index][prop] = event.currentTarget.value;
+    newSubjects[index].name = event.currentTarget.value;
 
     setSubjects(newSubjects);
   };
+
+  const handleGroupIdChange = (event: ChangeEvent<HTMLSelectElement>, index: number) => {
+    const newSubjects = subjects;
+    newSubjects[index].groupId = event.currentTarget.value;
+
+    setSubjects(newSubjects);
+  }
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
@@ -72,6 +81,17 @@ export const AdminTeacherRequestView: FC<IAdminTeacherRequestViewProps> = ({
     });
   };
 
+  const switchStatus = (status: User["accountStatus"]) => {
+    switch (status) {
+      case "student":
+        return "Студент";
+      case "teacher":
+        return "Преподаватель";
+      case "admin":
+        return "Администратор";
+    }
+  }
+
   return (
     <div className="request__container">
       <div className="request__user-info">
@@ -81,20 +101,20 @@ export const AdminTeacherRequestView: FC<IAdminTeacherRequestViewProps> = ({
         </div>
         <div className="user-info__second">
           <p className="p user__cred">E-mail: {user.email}</p>
-          <p className="p user__cred">Статус: {user.accountStatus}</p>
+          <p className="p user__cred">Статус: {switchStatus(user.accountStatus)}</p>
         </div>
         <div className="user-info__institute">
-          <p className="p user-info__institute-info">ВУЗ: {fetchInstituteQuery.data?.name}</p>
+          <p className="p user-info__institute-info">ВУЗ: {fetchInstituteQuery.isSuccess ? fetchInstituteQuery.data?.name : ""}</p>
         </div>
         <div className="user-info__subjects">
           <p>Предметы и группы:</p>
           {subjects.length ? subjects.map((item, index) => (
             <AdminTeacherSubjectForm
               key={index}
-              subject={item}
               index={index}
               institute={fetchInstituteQuery.data!}
-              handlePropChange={handlePropChange}
+              handleNameChange={handleNameChange}
+              handleGroupIdChange={handleGroupIdChange}
             />
           )) : <span>Нет назначенных предметов и групп</span>}
           <Button onClick={handleAddSubject} kind="secondary">Добавить предмет</Button>

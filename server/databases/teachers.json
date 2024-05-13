@@ -13,5 +13,24 @@
         "groupId": "mai-strela.s20.4.mso-404bck"
       }
     ]
+  },
+  "3574a81d-43b0-4e43-b8d0-ef00e0d12480": {
+    "id": "3574a81d-43b0-4e43-b8d0-ef00e0d12480",
+    "email": "test@test.ru",
+    "surname": "Петров",
+    "name": "Петр",
+    "lastname": "Петрович",
+    "birthday": "1977-01-01",
+    "instituteId": "mai-strela",
+    "subjects": [
+      {
+        "name": "Программирование",
+        "groupId": "mai-strela.s20.2.mso-204bck"
+      },
+      {
+        "name": "Системы искусственного интеллекта",
+        "groupId": "mai-strela.s20.4.mso-404bck"
+      }
+    ]
   }
 }

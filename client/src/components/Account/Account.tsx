@@ -19,6 +19,6 @@ export const Account: FC = () => {
     case "error":
       return <AuthForm />;
     case "success":
-      return <AccountView user={meQuery.data} />;
+      return <AccountView customData={meQuery.data.customData} user={meQuery.data.user} />;
   }
 };

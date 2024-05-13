@@ -1,0 +1,17 @@
+import { FC } from "react";
+import { SubjectsInfo } from "../../api/Teacher";
+import { StudentTeachersList } from "../StudentTeachersList";
+
+interface IStudentTeachersViewProps {
+  subjects: SubjectsInfo[];
+};
+
+export const StudentTeachersView: FC<IStudentTeachersViewProps> = ({
+  subjects
+}) => {
+  return (
+    <div>
+      <StudentTeachersList subjects={subjects} />
+    </div>
+  );
+};
