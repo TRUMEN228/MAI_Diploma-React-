@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Routes, Route } from "react-router-dom";
 import { User } from "../../api/User";
 import { UserProfile } from "../UserProfile";
-import { StudentMessages } from "../UserMessages";
+import { UserMessages } from "../UserMessages";
 import { StudentGroup } from "../StudentGroup";
 import { Student } from "../../api/Student";
 
@@ -27,7 +27,7 @@ export const AccountRouterStudent: FC<IAccountRouterStudentProps> = ({
       />
       <Route
         path={`${student.id}/account/messages`}
-        element={<StudentMessages student={student} user={user} />}
+        element={<UserMessages student={student} user={user} />}
       />
       <Route
         path={`${student.id}/account/group`}

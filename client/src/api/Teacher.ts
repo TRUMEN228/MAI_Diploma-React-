@@ -14,22 +14,27 @@ export type Subject = {
   groupId: string;
 };
 
-export type SubjectsInfo = {
+export type SubjectInfo = {
   teacher: Teacher;
-  subjects: Subject[];
+  subject: Subject;
 };
 
-export function fetchTeachers(): Promise<Teacher[]> {
+export function fetchAllTeachers(): Promise<Teacher[]> {
   return fetch("/api/teachers")
     .then(response => response.json());
 }
 
 export function fetchTeacher(id: string): Promise<Teacher> {
-  return fetch(`/api/teacher/${id}`)
+  return fetch(`/api/teachers/${id}`)
     .then(response => response.json());
 }
 
-export function fetchSubjectsByGroupId(groupId: string): Promise<SubjectsInfo[]> {
-  return fetch(`/api/teachers/sbjects/${groupId}`)
+export function fetchTeachers(instituteId: string): Promise<Teacher[]> {
+  return fetch(`/api/teachers/institute/${instituteId}`)
+    .then(response => response.json())
+}
+
+export function fetchSubjectsByGroupId(groupId: string): Promise<SubjectInfo[]> {
+  return fetch(`/api/teachers/subjects/${groupId}`)
     .then(response => response.json());
 }

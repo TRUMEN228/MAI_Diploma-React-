@@ -20,11 +20,11 @@ const formatDate = (dateStr: string) => {
 }
 
 interface IUserProfileProps {
-  customData: Student | Teacher | {};
+  customData?: Student | Teacher | {};
   user: User;
 }
 
-export const UserProfile: FC<IUserProfileProps> = ({ customData, user }) => {
+export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
   const meQuery = useQuery({
     queryFn: () => fetchMe(),
     queryKey: ["users", "me"],

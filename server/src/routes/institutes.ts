@@ -20,7 +20,7 @@ institutesRouter.get("/:id", (req, res) => {
   const institute = Institutes.getOne(id);
 
   if (!institute) {
-    res.status(401).send("Институт не найден");
+    res.status(404).send("Институт не найден");
   }
 
   res.status(200).json(institute);
@@ -34,7 +34,7 @@ institutesRouter.get("/group/:groupId", (req, res) => {
   const institute = Institutes.getOne(instituteId);
 
   if (!institute) {
-    return res.status(401).send("Институт не найден");
+    return res.status(404).send("Институт не найден");
   }
 
   const cathedra = institute?.cathedras.find(item => item.id === cathedraId);

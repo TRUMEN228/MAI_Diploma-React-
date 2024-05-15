@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { SubjectsInfo } from "../../api/Teacher";
-import { StudentTeachersList } from "../StudentTeachersList";
+import { StudentTeachersList } from "../StudentTeachersTable";
 
 interface IStudentTeachersViewProps {
   subjects: SubjectsInfo[];

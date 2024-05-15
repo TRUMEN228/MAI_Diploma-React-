@@ -8,12 +8,12 @@ import { ChatView } from "../ChatView";
 import { CreateMessageForm } from "../CreateMessageForm";
 import { Student } from "../../api/Student";
 
-interface IStudentMessagesProps {
+interface IUserMessagesProps {
   student: Student;
   user: User;
 };
 
-export const StudentMessages: FC<IStudentMessagesProps> = ({
+export const UserMessages: FC<IUserMessagesProps> = ({
   student,
   user
 }) => {

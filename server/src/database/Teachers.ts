@@ -30,27 +30,22 @@ export class Teachers {
     return teachersDatabase.data[id];
   };
 
-  static getSubjectsByGroupId(groupId: string): { teacher: ITeacher; subjects: Subject[] }[] {
+  static getByInstituteId(instituteId: string): ITeacher[] {
+    return Object.values(teachersDatabase.data).filter(item => item.instituteId === instituteId);
+  }
+
+  static getSubjectsByGroupId(groupId: string): { teacher: ITeacher; subject: Subject }[] {
     const teachers = Object.values(teachersDatabase.data);
-    const returnData: { teacher: ITeacher; subjects: Subject[] }[] = [];
+    const returnData: { teacher: ITeacher; subject: Subject }[] = [];
 
     for (const teacher of teachers) {
-      const subjectsToReturn: Subject[] = [];
-
-      let isTeacher = false;
-
       for (const subject of teacher.subjects) {
         if (subject.groupId === groupId) {
-          subjectsToReturn.push(subject);
-          isTeacher = true;
+          returnData.push({
+            teacher,
+            subject
+          });
         }
-      }
-
-      if (isTeacher) {
-        returnData.push({
-          teacher: teacher,
-          subjects: subjectsToReturn
-        });
       }
     }
 

@@ -11,7 +11,7 @@ export const AdminStudentsTable: FC<IAdminStudentsTableProps> = ({
   students
 }) => {
   return (
-    <div className="students-table__container">
+    <div className="table__container">
       <table className="students__table">
         <thead className="table__header">
           <tr className="table__row">

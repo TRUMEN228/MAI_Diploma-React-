@@ -56,7 +56,7 @@ export const StudentGroup: FC<IStudentGroupProps> = ({
         course={fetchInstituteQuery.isSuccess ? fetchInstituteQuery.data?.course : emptyCourse}
         group={fetchInstituteQuery.isSuccess ? fetchInstituteQuery.data?.group : emptyGroup}
       />
-      <StudentGroupView students={fetchStudentListQuery.isSuccess ? fetchStudentListQuery.data : []}/>
+      <StudentGroupView groupId={student.groupId} students={fetchStudentListQuery.isSuccess ? fetchStudentListQuery.data : []}/>
     </div>
   );
 };

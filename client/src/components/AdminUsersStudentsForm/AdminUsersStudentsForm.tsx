@@ -1,13 +1,18 @@
 import { FC, useState } from "react";
-import "./AdminStudentsView.css";
+import { FormField } from "../FormField";
 import { AdminStudentsTable } from "../AdminStudentsTable";
 import { useQuery } from "@tanstack/react-query";
-import { fetchStudentsByGroup } from "../../api/Student";
 import { queryClient } from "../../api/QueryClient";
-import { fetchInstituteList } from "../../api/Institutes";
-import { FormField } from "../FormField";
+import { fetchStudentsByGroup } from "../../api/Student";
+import { Institute } from "../../api/Institutes";
 
-export const AdminStudentsView: FC = () => {
+interface IAdminUsersStudentsFormProps {
+  institutes: Institute[];
+}
+
+export const AdminUsersStudentsForm: FC<IAdminUsersStudentsFormProps> = ({
+  institutes
+}) => {
   const [instituteId, setInstituteId] = useState<string>("");
   const [cathedraId, setCathedraId] = useState<string>("");
   const [course, setCourse] = useState<string>("");
@@ -19,14 +24,8 @@ export const AdminStudentsView: FC = () => {
     retry: 0
   }, queryClient);
 
-  const getInstituteListQuery = useQuery({
-    queryFn: () => fetchInstituteList(),
-    queryKey: ["institutes"],
-    retry: 0
-  }, queryClient);
-
   return (
-    <div className="container students-view__container">
+    <>
       <form className="form">
         <FormField
           labelText="ВУЗ:"
@@ -38,7 +37,7 @@ export const AdminStudentsView: FC = () => {
             value={instituteId}
           >
             <option key="none" value="">-- Выберите ВУЗ --</option>
-            {getInstituteListQuery.data?.map((item) => (
+            {institutes.map((item) => (
               <option key={item.id} value={item.id}>{item.name}</option>
             ))}
           </select>
@@ -53,7 +52,7 @@ export const AdminStudentsView: FC = () => {
             value={cathedraId}
           >
             <option key="none" value="">-- Выберите кафедру --</option>
-            {instituteId ? getInstituteListQuery.data?.find(item => item.id === instituteId)?.cathedras.map((item) => (
+            {instituteId ? institutes.find(item => item.id === instituteId)?.cathedras.map((item) => (
               <option key={item.id} value={item.id}>{item.name}</option>
             )) : null}
           </select>
@@ -68,7 +67,7 @@ export const AdminStudentsView: FC = () => {
             value={course}
           >
             <option key="none" value="">-- Выберите курс --</option>
-            {cathedraId ? getInstituteListQuery.data?.find(item => item.id === instituteId)?.cathedras.find(item => item.id === cathedraId)?.courses.map((item) => (
+            {cathedraId ? institutes.find(item => item.id === instituteId)?.cathedras.find(item => item.id === cathedraId)?.courses.map((item) => (
               <option key={item.course} value={item.course}>{item.course}</option>
             )) : null}
           </select>
@@ -83,7 +82,7 @@ export const AdminStudentsView: FC = () => {
             value={groupId}
           >
             <option key="none" value="">-- Выберите группу --</option>
-            {course ? getInstituteListQuery.data?.find(item => item.id === instituteId)?.cathedras.find(item => item.id === cathedraId)?.courses.find(item => item.course === course)?.groups.map((item) => (
+            {course ? institutes.find(item => item.id === instituteId)?.cathedras.find(item => item.id === cathedraId)?.courses.find(item => item.course === course)?.groups.map((item) => (
               <option key={item.id} value={item.id}>{item.name}</option>
             )) : null}
           </select>
@@ -91,8 +90,8 @@ export const AdminStudentsView: FC = () => {
       </form>
 
       <AdminStudentsTable
-        students={getStudentsQuery.data?.length ? getStudentsQuery.data : []}
+        students={getStudentsQuery.isSuccess ? getStudentsQuery.data : []}
       />
-    </div>
+    </>
   );
 };
