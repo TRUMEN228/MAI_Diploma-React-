@@ -35,7 +35,7 @@ const formatFileSize = (size: number, value: 'KB' | 'MB' | 'GB') => {
 export const MessageView: FC<IMessageViewProps> = ({
   message
 }) => {
-  const userQuery = useQuery({
+  const getUserQuery = useQuery({
     queryFn: () => fetchUser(message.userId),
     queryKey: ["users", message.userId],
     retry: 0
@@ -44,7 +44,7 @@ export const MessageView: FC<IMessageViewProps> = ({
   return (
     <div key={message.id} className="message__container">
       <div className="message__info">
-        <p className="message__user">{`${userQuery.data?.surname} ${userQuery.data?.name}`}</p>
+        <p className="message__user">{getUserQuery.data?.surname} {getUserQuery.data?.name} {message.userStatus === "teacher" && <span className="message__is-teacher">(преподаватель)</span>}</p>
         <p className="message__datetime">{formatDate(message.sentAt)}</p>
       </div>
       <div className="message__content">

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Teacher } from "../../api/Teacher";
 import { AdminTeachersTableRow } from "../AdminTeachersTableRow";
-import { Institute, fetchGroupInfo } from "../../api/Institutes";
+import { Institute } from "../../api/Institutes";
 
 interface IAdminTeachersTableProps {
   institute: Institute;

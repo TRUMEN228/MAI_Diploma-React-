@@ -18,23 +18,15 @@ export const AccountRouterStudent: FC<IAccountRouterStudentProps> = ({
   return (
     <Routes>
       <Route
-        path={`${student.id}/account/news`}
-        element={<>Новости</>}
+        path={`${user.id}/account/messages`}
+        element={<UserMessages customData={student} user={user} />}
       />
       <Route
-        path={`${student.id}/account/learning`}
-        element={<>Обучение</>}
-      />
-      <Route
-        path={`${student.id}/account/messages`}
-        element={<UserMessages student={student} user={user} />}
-      />
-      <Route
-        path={`${student.id}/account/group`}
+        path={`${user.id}/account/group`}
         element={<StudentGroup student={student}/>}
       />
       <Route
-        path={`${student.id}/account/profile`}
+        path={`${user.id}/account/profile`}
         element={<UserProfile customData={student} user={user}/>}
       />
     </Routes>

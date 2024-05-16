@@ -5,6 +5,7 @@ import { AccountStatusRouter } from "../AccountStatusRouter";
 import { AppHeaderAdmin } from "../AppHeaderAdmin";
 import { Student } from "../../api/Student";
 import { Teacher } from "../../api/Teacher";
+import { AppHeaderTeacher } from "../AppHeaderTeacher";
 
 interface IAccountViewProps {
   customData: Student | Teacher | {};
@@ -26,6 +27,7 @@ export const AccountView: FC<IAccountViewProps> = ({
     case "teacher":
       return (
         <>
+          <AppHeaderTeacher userId={user.id} />
           <AccountStatusRouter customData={customData} user={user} />
         </>
       );

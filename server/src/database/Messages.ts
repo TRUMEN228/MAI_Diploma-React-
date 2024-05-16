@@ -1,10 +1,12 @@
 import { randomUUID } from "crypto";
 import { JSONFilePreset } from "lowdb/node";
+import { Users } from "./Users";
 
 export interface IMessage {
   id: string;
   text: string;
   userId: string;
+  userStatus: "student" | "teacher" | "admin";
   groupId: string;
   sentAt: number;
   files?: (File | null)[];
@@ -18,26 +20,22 @@ export type File = {
   downloadUrl: string;
 };
 
-const database = await JSONFilePreset<Record<string, IMessage>>(
+export const messagesDatabase = await JSONFilePreset<Record<string, IMessage>>(
   "databases/messages.json",
   {}
 );
 
 export class Messages {
   static getOne(id: string): IMessage | undefined {
-    return database.data[id];
+    return messagesDatabase.data[id];
   }
 
   static getAll(): IMessage[] {
-    return Object.values(database.data);
+    return Object.values(messagesDatabase.data);
   }
 
   static getByGroupId(groupId: string): IMessage[] | undefined {
-    let list = Object.values(database.data);
-
-    list = list.filter(item => item.groupId === groupId);
-
-    return list;
+    return Object.values(messagesDatabase.data).filter(item => item.groupId === groupId);
   }
 
   static async create(
@@ -50,16 +48,19 @@ export class Messages {
       throw new Error("Не хватает данных");
     }
 
+    const userStatus = Users.getOne(userId)?.accountStatus!;
+
     const message: IMessage = {
       id: randomUUID(),
       text,
       userId,
+      userStatus,
       groupId,
       sentAt: Date.now(),
       files
     };
 
-    await database.update((data) => {
+    await messagesDatabase.update((data) => {
       data[message.id] = message;
     });
 

@@ -19,6 +19,11 @@
   font-weight: bold;
 }
 
+.message__is-teacher {
+  font-size: 12px;
+  font-weight: 400;
+}
+
 .message__datetime {
   margin: 0;
   font-size: 12px;

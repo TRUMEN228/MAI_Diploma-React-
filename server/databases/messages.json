@@ -3,6 +3,7 @@
     "id": "ca8f757e-28d3-4f6e-ae41-5daf1495c7b2",
     "text": "ddddd",
     "userId": "aaf2d18d-f028-4872-a5e8-f467cf8cb500",
+    "userStatus": "student",
     "groupId": "mai-strela.s20.4.mso-404bck",
     "sentAt": 1712137723268,
     "files": [
@@ -26,6 +27,7 @@
     "id": "d44c9fe5-3c8a-417b-af76-edcd6debce1b",
     "text": "Какой-то текст",
     "userId": "399b9f13-3720-46b1-969f-5d7523d24db7",
+    "userStatus": "student",
     "groupId": "mai-strela.s20.3.mso-304bck",
     "sentAt": 1712844017882,
     "files": []
@@ -34,6 +36,7 @@
     "id": "399c1e74-b43e-40c2-8a4f-2830b9eb7c47",
     "text": "Ещё какой-то текст",
     "userId": "399b9f13-3720-46b1-969f-5d7523d24db7",
+    "userStatus": "student",
     "groupId": "mai-strela.s20.3.mso-304bck",
     "sentAt": 1712844067303,
     "files": [
@@ -71,6 +74,7 @@
     "id": "84846855-6629-4ad0-bc68-4888068d0a8d",
     "text": "Сообщение",
     "userId": "aaf2d18d-f028-4872-a5e8-f467cf8cb500",
+    "userStatus": "student",
     "groupId": "mai-strela.s20.4.mso-404bck",
     "sentAt": 1713252137971,
     "files": [
@@ -89,5 +93,14 @@
         "downloadUrl": "http://localhost:5173/api/messages/download/mai-strela.s20.4.mso-404bck/16.04.2024/Ð¨Ð°Ð±Ð»Ð¾Ð½ (Ð¿Ð¾ Ð¾ÑÐ½ Ð´ÐµÑÑ).docx"
       }
     ]
+  },
+  "da8e3925-5af7-4a60-9a80-f3530f1f9d13": {
+    "id": "da8e3925-5af7-4a60-9a80-f3530f1f9d13",
+    "text": "Приветствую!",
+    "userId": "3574a81d-43b0-4e43-b8d0-ef00e0d12480",
+    "userStatus": "teacher",
+    "groupId": "mai-strela.s20.4.mso-404bck",
+    "sentAt": 1715872111569,
+    "files": []
   }
 }

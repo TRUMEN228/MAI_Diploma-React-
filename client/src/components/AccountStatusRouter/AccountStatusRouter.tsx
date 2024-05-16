@@ -4,6 +4,7 @@ import { AccountRouterStudent } from "../AccountRouterStudent";
 import { AccountRouterAdmin } from "../AccountRouterAdmin";
 import { Student } from "../../api/Student";
 import { Teacher } from "../../api/Teacher";
+import { AccountRouterTeacher } from "../AccountRouterTeacher";
 
 interface IAccountStatusRouterProps {
   customData: Student | Teacher | {};
@@ -18,7 +19,7 @@ export const AccountStatusRouter: FC<IAccountStatusRouterProps> = ({
     case "student":
       return <AccountRouterStudent student={customData as Student} user={user}/>;
     case "teacher":
-      return <></>;
+      return <AccountRouterTeacher teacher={customData as Teacher} user={user}/>;
     case "admin":
       return <AccountRouterAdmin user={user}/>;
   }

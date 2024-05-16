@@ -20,8 +20,26 @@ const formatDate = (date: Date) => {
 }
 
 messagesRouter.get("/", (req, res) => {
-  res.status(200).json(Messages.getAll());
+  const messages = Messages.getAll();
+
+  res.status(200).json(messages);
 });
+
+messagesRouter.get("/:groupId", (req, res) => {
+  const groupId = req.params.groupId;
+
+  if (!groupId) {
+    return res.status(404).send("Нет параметра");
+  }
+
+  const messages = Messages.getByGroupId(groupId);
+
+  if (!messages?.length) {
+    return res.status(404).send("Сообщения не найдены");
+  }
+
+  res.status(200).json(messages);
+})
 
 const CreateMessageSchema = z.object({
   text: z.string().max(MESSAGE_MAX_LENGTH, `Сообщение может содержать не более ${MESSAGE_MAX_LENGTH} символов`),
