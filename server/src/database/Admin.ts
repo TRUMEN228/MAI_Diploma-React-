@@ -60,6 +60,10 @@ export class Admins {
   ): Promise<IUser> {
     const user = Admins.getOneRequest(id);
 
+    for (const subject of subjects) {
+      subject.id = subject.groupId + '.' + subject.id;
+    }
+
     const teacher: ITeacher = {
       id: user.id,
       email: user.email,

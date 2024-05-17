@@ -7,7 +7,7 @@ export const MessageScheme = z.object({
   text: z.string(),
   userId: z.string(),
   userStatus: z.custom<"student" | "teacher" | "admin">(),
-  groupId:  z.string(),
+  subjectId: z.string(),
   sentAt: z.number(),
   files: z.optional(z.array(z.custom<(MessageFile | null)>()))
 });
@@ -39,7 +39,7 @@ export function fetchAllMessages(): Promise<Message[]> {
     .then(response => response.json());
 }
 
-export function fetchMessagesByGroupId(groupId: string): Promise<Message[]> {
-  return fetch(`/api/messages/${groupId}`)
+export function fetchMessagesBySubjectId(subjectId: string): Promise<Message[]> {
+  return fetch(`/api/messages/${subjectId}`)
     .then(response => response.json());
 }

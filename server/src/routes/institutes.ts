@@ -41,10 +41,6 @@ institutesRouter.get("/group/:groupId", (req, res) => {
   const course = cathedra?.courses.find(item => item.course === courseNum);
   const group = course?.groups.find(item => item.id === groupId);
 
-  // console.log({
-  //   institute, cathedra, course, group
-  // });
-
   res.status(200).json({ institute, cathedra, course, group });
 })
 

@@ -6,7 +6,13 @@ import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../api/QueryClient";
 import { AdminAddCathedraForm } from "./AdminAddCathedraForm";
 
-export const AdminAddInstituteForm: FC = () => {
+interface IAdminAddInstituteFormProps {
+  handleRefetch: () => void;
+}
+
+export const AdminAddInstituteForm: FC<IAdminAddInstituteFormProps> = ({
+  handleRefetch
+}) => {
   const [instituteName, setInstituteName] = useState<string>("");
   const [instituteId, setInstituteId] = useState<string>("");
 
@@ -56,14 +62,15 @@ export const AdminAddInstituteForm: FC = () => {
     event.preventDefault();
 
     if (!instituteId || !instituteName || !cathedras.length) {
-      console.log("сюда");
       return;
     }
 
-    console.log(instituteId);
-    console.log(instituteName);
-    console.log(cathedras);
-    // createInstituteMutation.mutate();
+    // console.log(instituteId);
+    // console.log(instituteName);
+    // console.log(cathedras);
+
+    createInstituteMutation.mutate();
+    handleRefetch();
   }
 
   const onCathedraChange = (event: ChangeEvent<HTMLInputElement>, index: number, param: "id" | "name") => {
@@ -85,50 +92,48 @@ export const AdminAddInstituteForm: FC = () => {
   };
 
   return (
-    <div className="container add-institute-form__container">
-      <form className="add-institute__form" onSubmit={handleSubmit}>
-        <div>
-          <label className="institute__label">
-            Название ВУЗа:
-            <input
-              type="text"
-              placeholder="Введите название ВУЗа"
-              value={instituteName}
-              onChange={(event) => setInstituteName(event.currentTarget.value)}
-            />
-          </label>
-          <label className="institute__label">
-            Идентификатор ВУЗа:
-            <input
-              type="text"
-              placeholder="Введите название"
-              value={instituteId}
-              onChange={(event) => setInstituteId(event.currentTarget.value)}
-            />
-          </label>
-          {cathedras.map((cathedra, cathedraIndex) => (
-            <AdminAddCathedraForm
-              key={cathedraIndex}
-              id={cathedra.id}
-              name={cathedra.name}
-              index={cathedraIndex}
-              onChange={onCathedraChange}
-              onCourseChange={onCourseChange}
-              onGroupChange={onGroupChange}
-              courses={cathedra.courses}
-              onClick={handleAddCourse}
-              onAddGroupClick={handleAddGroup}
-            />
-          ))}
-          <Button
-            kind="secondary"
-            onClick={handleAddCathedra}
-          >
-            Добавить кафедру
-          </Button>
-        </div>
-        <Button type="submit" kind="primary">Отправить</Button>
-      </form>
-    </div>
+    <form className="add-institute__form" onSubmit={handleSubmit}>
+      <div>
+        <label className="institute__label">
+          Название ВУЗа:
+          <input
+            type="text"
+            placeholder="Введите название ВУЗа"
+            value={instituteName}
+            onChange={(event) => setInstituteName(event.currentTarget.value)}
+          />
+        </label>
+        <label className="institute__label">
+          Идентификатор ВУЗа:
+          <input
+            type="text"
+            placeholder="Введите название"
+            value={instituteId}
+            onChange={(event) => setInstituteId(event.currentTarget.value)}
+          />
+        </label>
+        {cathedras.map((cathedra, cathedraIndex) => (
+          <AdminAddCathedraForm
+            key={cathedraIndex}
+            id={cathedra.id}
+            name={cathedra.name}
+            index={cathedraIndex}
+            onChange={onCathedraChange}
+            onCourseChange={onCourseChange}
+            onGroupChange={onGroupChange}
+            courses={cathedra.courses}
+            onClick={handleAddCourse}
+            onAddGroupClick={handleAddGroup}
+          />
+        ))}
+        <Button
+          kind="secondary"
+          onClick={handleAddCathedra}
+        >
+          Добавить кафедру
+        </Button>
+      </div>
+      <Button type="submit" kind="primary">Отправить</Button>
+    </form>
   );
 };

@@ -5,10 +5,9 @@ import { createMessage, MessageFile } from "../../api/Message";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "../Button";
 import "./CreateMessageForm.css";
-import { Student } from "../../api/Student";
 
 interface ICreateMessageFormProps {
-  groupId: string;
+  subjectId: string;
   user: User;
   handleRefetch: () => void;
 };
@@ -21,7 +20,7 @@ const roundFileSize = (fileSize: number | undefined) => {
 const MAX_FILES_SIZE = 50 * 1024 * 1024;
 
 export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
-  groupId,
+  subjectId,
   user,
   handleRefetch
 }) => {
@@ -79,7 +78,7 @@ export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
     const mesageObj = {
       text: messageText,
       userId: user.id,
-      groupId
+      subjectId
     };
 
     const formData = new FormData();
@@ -179,7 +178,7 @@ export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
               }
             </div>
           </>
-            : null
+          : null
         }
     </>
   );

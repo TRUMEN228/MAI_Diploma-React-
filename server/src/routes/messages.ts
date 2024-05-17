@@ -25,26 +25,22 @@ messagesRouter.get("/", (req, res) => {
   res.status(200).json(messages);
 });
 
-messagesRouter.get("/:groupId", (req, res) => {
-  const groupId = req.params.groupId;
+messagesRouter.get("/:subjectId", (req, res) => {
+  const subjectId = req.params.subjectId;
 
-  if (!groupId) {
-    return res.status(404).send("Нет параметра");
-  }
-
-  const messages = Messages.getByGroupId(groupId);
+  const messages = Messages.getBySubjectId(subjectId);
 
   if (!messages?.length) {
     return res.status(404).send("Сообщения не найдены");
   }
 
   res.status(200).json(messages);
-})
+});
 
 const CreateMessageSchema = z.object({
   text: z.string().max(MESSAGE_MAX_LENGTH, `Сообщение может содержать не более ${MESSAGE_MAX_LENGTH} символов`),
   userId: z.string(),
-  groupId: z.string(),
+  subjectId: z.string()
 });
 
 messagesRouter.post("/", upload.array('files'), async (req, res) => {
@@ -56,12 +52,12 @@ messagesRouter.post("/", upload.array('files'), async (req, res) => {
     return res.status(400).send(bodyParseResult.error.issues);
   }
 
-  const { text, userId, groupId } = bodyParseResult.data;
+  const { text, userId, subjectId } = bodyParseResult.data;
 
   const messageFiles: File[] = [];
   const date = new Date();
 
-  const filesDir = `uploads/${groupId}/${formatDate(date)}`;
+  const filesDir = `uploads/${subjectId}/${formatDate(date)}`;
 
   if (!fs.existsSync(filesDir)) {
     fs.mkdirSync(filesDir, { recursive: true });
@@ -73,7 +69,7 @@ messagesRouter.post("/", upload.array('files'), async (req, res) => {
       storageName: file.originalname,
       size: file.size,
       type: file.mimetype,
-      downloadUrl: `http://localhost:5173/api/messages/download/${groupId}/${formatDate(date)}/${file.originalname}`
+      downloadUrl: `http://localhost:5173/api/messages/download/${subjectId}/${formatDate(date)}/${file.originalname}`
     };
 
     const filePath = path.join(filesDir, file.originalname);
@@ -89,7 +85,7 @@ messagesRouter.post("/", upload.array('files'), async (req, res) => {
     messageFiles.push(fileObj);
   });
 
-  const message = await Messages.create(text, userId, groupId, messageFiles);
+  const message = await Messages.create(text, userId, subjectId, messageFiles);
 
   res.status(200).send(message.id);
 });

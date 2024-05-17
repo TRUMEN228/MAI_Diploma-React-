@@ -10,6 +10,7 @@ export type Teacher = {
 };
 
 export type Subject = {
+  id: string;
   name: string;
   groupId: string;
 };

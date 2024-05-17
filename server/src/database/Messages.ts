@@ -7,7 +7,7 @@ export interface IMessage {
   text: string;
   userId: string;
   userStatus: "student" | "teacher" | "admin";
-  groupId: string;
+  subjectId: string;
   sentAt: number;
   files?: (File | null)[];
 };
@@ -34,17 +34,17 @@ export class Messages {
     return Object.values(messagesDatabase.data);
   }
 
-  static getByGroupId(groupId: string): IMessage[] | undefined {
-    return Object.values(messagesDatabase.data).filter(item => item.groupId === groupId);
+  static getBySubjectId(subjectId: string): IMessage[] | undefined {
+    return Object.values(messagesDatabase.data).filter(item => item.subjectId === subjectId);
   }
 
   static async create(
     text: string,
     userId: string,
-    groupId: string,
+    subjectId: string,
     files?: (File | null)[]
   ): Promise<IMessage> {
-    if (!text || !userId || !groupId) {
+    if (!text || !userId || !subjectId) {
       throw new Error("Не хватает данных");
     }
 
@@ -55,7 +55,7 @@ export class Messages {
       text,
       userId,
       userStatus,
-      groupId,
+      subjectId,
       sentAt: Date.now(),
       files
     };

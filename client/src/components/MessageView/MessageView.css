@@ -1,8 +1,12 @@
 .message__container {
-  max-width: 400px;
+  width: 400px;
   padding: 10px;
   border: 1px solid var(--black);
   border-radius: 10px;
+}
+
+.own-message {
+  align-self: end;
 }
 
 .message__info {

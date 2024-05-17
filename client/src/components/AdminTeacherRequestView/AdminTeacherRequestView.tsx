@@ -50,12 +50,21 @@ export const AdminTeacherRequestView: FC<IAdminTeacherRequestViewProps> = ({
 
   const handleAddSubject = () => {
     const newSubject: Subject = {
+      id: "",
       name: "",
       groupId: "",
     };
 
     setSubjects([...subjects, newSubject]);
   };
+
+  const handleIdChange = (event: ChangeEvent<HTMLInputElement>, index: number) => {
+    const newSubjects = subjects;
+    newSubjects[index].id = event.currentTarget.value;
+
+    setSubjects(newSubjects);
+  };
+
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>, index: number) => {
     const newSubjects = subjects;
@@ -113,6 +122,7 @@ export const AdminTeacherRequestView: FC<IAdminTeacherRequestViewProps> = ({
               key={index}
               index={index}
               institute={fetchInstituteQuery.data!}
+              handleIdChange={handleIdChange}
               handleNameChange={handleNameChange}
               handleGroupIdChange={handleGroupIdChange}
             />

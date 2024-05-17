@@ -3,8 +3,8 @@ import { User } from "../../api/User";
 import { Route, Routes } from "react-router-dom";
 import { AdminRequests } from "../AdminRequests/AdminRequests";
 import { UserProfile } from "../UserProfile";
-import { AdminAddInstituteForm } from "../AdminAddInstituteForm";
 import { AdminUsersView } from "../AdminUsersView";
+import { AdminInstitutes } from "../AdminInstitutes";
 
 interface IAccountRouterAdminProps {
   user: User;
@@ -23,7 +23,7 @@ export const AccountRouterAdmin: FC<IAccountRouterAdminProps> = ({ user }) => {
       />
       <Route
         path={`${user.id}/admin/addInstitute`}
-        element={<AdminAddInstituteForm />}
+        element={<AdminInstitutes/>}
       />
       <Route
         path={`${user.id}/admin/usersList`}

@@ -6,6 +6,7 @@ import { queryClient } from "../../api/QueryClient";
 import "./MessageView.css";
 
 interface IMessageViewProps {
+  userId: string
   message: Message;
 };
 
@@ -33,6 +34,7 @@ const formatFileSize = (size: number, value: 'KB' | 'MB' | 'GB') => {
 }
 
 export const MessageView: FC<IMessageViewProps> = ({
+  userId,
   message
 }) => {
   const getUserQuery = useQuery({
@@ -42,7 +44,7 @@ export const MessageView: FC<IMessageViewProps> = ({
   }, queryClient);
 
   return (
-    <div key={message.id} className="message__container">
+    <div key={message.id} className={userId === message.userId ? "message__container own-message" : "message__container"}>
       <div className="message__info">
         <p className="message__user">{getUserQuery.data?.surname} {getUserQuery.data?.name} {message.userStatus === "teacher" && <span className="message__is-teacher">(преподаватель)</span>}</p>
         <p className="message__datetime">{formatDate(message.sentAt)}</p>

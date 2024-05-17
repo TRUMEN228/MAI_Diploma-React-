@@ -4,10 +4,11 @@ import { User } from "../../api/User";
 import { Teacher } from "../../api/Teacher";
 import { CreateMessageForm } from "../CreateMessageForm";
 import { useQuery } from "@tanstack/react-query";
-import { fetchMessagesByGroupId } from "../../api/Message";
+import { fetchMessagesBySubjectId } from "../../api/Message";
 import { queryClient } from "../../api/QueryClient";
 import { ChatView } from "../ChatView";
 import { Institute, fetchInstitute } from "../../api/Institutes";
+import { FormField } from "../FormField";
 
 interface ITeacherMessagesProps {
   teacher: Teacher;
@@ -18,7 +19,7 @@ export const TeacherMessages: FC<ITeacherMessagesProps> = ({
   teacher,
   user,
 }) => {
-  const [groupId, setGroupId] = useState<string>(teacher.subjects[0].groupId);
+  const [subjectId, setSubjectId] = useState<string>(teacher.subjects[0].id);
 
   const emptyInstitute: Institute = {
     id: "",
@@ -27,8 +28,8 @@ export const TeacherMessages: FC<ITeacherMessagesProps> = ({
   };
 
   const getMessagesQuery = useQuery({
-    queryFn: () => fetchMessagesByGroupId(groupId),
-    queryKey: ["messages", groupId],
+    queryFn: () => fetchMessagesBySubjectId(subjectId),
+    queryKey: ["messages", subjectId],
     retry: 0
   }, queryClient);
 
@@ -60,20 +61,25 @@ export const TeacherMessages: FC<ITeacherMessagesProps> = ({
 
   return (
     <>
-      <select
-        onChange={(event) => setGroupId(event.currentTarget.value)}
-        value={groupId}
+      <FormField
+        labelText="Предмет:"
       >
-        {teacher.subjects.map((item, index) => (
-          <option key={index} value={item.groupId}>{item.name} | Группа {getInstituteData(item.groupId)}</option>
-        ))}
-      </select>
+        <select
+          onChange={(event) => setSubjectId(event.currentTarget.value)}
+          value={subjectId}
+        >
+          {teacher.subjects.map((item, index) => (
+            <option key={index} value={item.id}>{item.name} | Группа {getInstituteData(item.groupId)}</option>
+          ))}
+        </select>
+      </FormField>
 
       <ChatView
+        userId={user.id}
         messages={getMessagesQuery.isSuccess ? getMessagesQuery.data : []}
       />
       <CreateMessageForm
-        groupId={groupId}
+        subjectId={subjectId}
         user={user}
         handleRefetch={handleRefetch}
       />

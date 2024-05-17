@@ -1,0 +1,33 @@
+p {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.institute__container {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid var(--black);
+  border-radius: 10px;
+}
+
+.cathedra__container {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid var(--black);
+  border-radius: 10px;
+}
+
+.course__container {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid var(--black);
+  border-radius: 10px;
+}
+
+.group__container {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid var(--black);
+  border-radius: 10px;
+}
+

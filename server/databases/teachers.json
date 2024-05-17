@@ -9,6 +9,7 @@
     "instituteId": "mai-strela",
     "subjects": [
       {
+        "id": "mai-strela.s20.4.mso-404bck.ppo",
         "name": "Прикладное программное обеспечение",
         "groupId": "mai-strela.s20.4.mso-404bck"
       }
@@ -24,10 +25,12 @@
     "instituteId": "mai-strela",
     "subjects": [
       {
+        "id": "mai-strela.s20.2.mso-204bck.prog",
         "name": "Программирование",
         "groupId": "mai-strela.s20.2.mso-204bck"
       },
       {
+        "id": "mai-strela.s20.4.mso-404bck.ssi",
         "name": "Системы искусственного интеллекта",
         "groupId": "mai-strela.s20.4.mso-404bck"
       }

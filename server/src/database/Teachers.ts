@@ -12,6 +12,7 @@ export interface ITeacher {
 };
 
 export type Subject = {
+  id: string;
   name: string;
   groupId: string;
 };
