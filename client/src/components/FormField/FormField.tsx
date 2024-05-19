@@ -13,12 +13,14 @@ export const FormField: FC<IFormFieldProps> = ({
   children
 }) => {
   return (
-    <label className="form-field">
-      <span className="form-field__label">{labelText}</span>
-      {children}
-      {errorMessage && (
+    <>
+      <label className="form-field">
+        <span className="form-field__label">{labelText}</span>
+        {children}
+      </label>
+      {errorMessage ? (
         <span className="form-field__error">{errorMessage}</span>
-      )}
-    </label>
+      ) : null}
+    </>
   );
 };

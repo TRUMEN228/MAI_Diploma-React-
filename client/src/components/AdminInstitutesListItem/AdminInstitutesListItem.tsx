@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Institute } from "../../api/Institutes";
 import "./AdminInstitutesListItem.css";
 
@@ -9,6 +9,8 @@ interface IAdminInstitutesListItemProps {
 export const AdminInstitutesListItem: FC<IAdminInstitutesListItemProps> = ({
   institute
 }) => {
+  const [updatedInstitute, setUpdatedInstitute] = useState<Institute>(institute);
+
   return (
     <li>
       <div className="institute__container">

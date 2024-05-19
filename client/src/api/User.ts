@@ -41,6 +41,7 @@ export function registerUser(
       email, accountStatus, surname, name, lastname, birthday, instituteId, password
     })
   })
+    .then(validateResponse)
     .then(() => undefined);
 }
 

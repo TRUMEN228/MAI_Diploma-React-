@@ -43,7 +43,6 @@
 }
 
 .form-field__error {
-  display: none;
   font-size: 10px;
   line-height: 10px;
   font-weight: 400;

@@ -1,16 +1,19 @@
 import { FC, useState, FormEventHandler, ChangeEvent } from "react";
 import "./AdminAddInstituteForm.css";
 import { Button } from "../Button";
-import { Cathedra, Course, Group, createInstitute } from "../../api/Institutes";
+import { Cathedra, Course, Group, Institute, createInstitute } from "../../api/Institutes";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../api/QueryClient";
 import { AdminAddCathedraForm } from "./AdminAddCathedraForm";
+import { AdminInstitutesList } from "../AdminInstitutesList";
 
 interface IAdminAddInstituteFormProps {
+  institutes: Institute[];
   handleRefetch: () => void;
 }
 
 export const AdminAddInstituteForm: FC<IAdminAddInstituteFormProps> = ({
+  institutes,
   handleRefetch
 }) => {
   const [instituteName, setInstituteName] = useState<string>("");
@@ -93,6 +96,10 @@ export const AdminAddInstituteForm: FC<IAdminAddInstituteFormProps> = ({
 
   return (
     <form className="add-institute__form" onSubmit={handleSubmit}>
+      <AdminInstitutesList
+        institutes={institutes}
+        handleRefetch={handleRefetch}
+      />
       <div>
         <label className="institute__label">
           Название ВУЗа:

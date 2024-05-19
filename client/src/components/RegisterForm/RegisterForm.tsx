@@ -1,9 +1,6 @@
-import { FC } from "react";
+import { FC, useState, FormEventHandler } from "react";
 import { z } from "zod";
 import "./RegisterForm.css";
-
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { User, registerUser } from "../../api/User";
 import { queryClient } from "../../api/QueryClient";
@@ -11,26 +8,46 @@ import { FormField } from "../FormField";
 import { Button } from "../Button";
 import { fetchInstituteList } from "../../api/Institutes";
 
-const CreateUserScheme = z.object({
-  email: z.string().email({ message: "E-mail должен содержать символ @"}),
+const RegisterSchema = z.object({
+  email: z.string().min(1, { message: "Поле \"E-mail\" должно быть заполнено" }).email({ message: "Некорректный формат e-mail" }),
   accountStatus: z.custom<"student" | "teacher" | "admin">(),
-  surname: z.string(),
-  name: z.string(),
-  lastname: z.string(),
-  birthday: z.string(),
-  instituteId: z.string(),
-  password: z.string().min(8, "Пароль должен содержать не менее 8 символов")
-});
-
-type CreateUserForm = z.infer<typeof CreateUserScheme>;
+  surname: z.string().min(1, { message: "Поле \"Фамилия\" должно быть заполнено" }),
+  name: z.string().min(1, { message: "Поле \"Имя\" должно быть заполнено" }),
+  lastname: z.string().min(1, { message: "Поле \"Отчество\" должно быть заполнено" }),
+  birthday: z.string().min(1, { message: "Поле \"Дата рождения\" должно быть заполнено" }),
+  instituteId: z.string().min(1, { message: "Выберите ВУЗ" }),
+  password: z.string().min(1, { message: "Поле \"Пароль\" должно быть заполнено" })
+}).required();
 
 export const RegisterForm: FC = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<CreateUserForm>({
-    resolver: zodResolver(CreateUserScheme)
+  const [surname, setSurname] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [lastname, setLastname] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [birthday, setBirthday] = useState<string>("");
+  const [instituteId, setInstituteId] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [accountStatus, setAccountStatus] = useState<User["accountStatus"]>("student");
+
+  const [errors, setErrors] = useState<z.ZodFormattedError<{
+    email: string;
+    accountStatus: "student" | "teacher" | "admin";
+    surname: string;
+    name: string;
+    lastname: string;
+    birthday: string;
+    instituteId: string;
+    password: string;
+  }, string>>({
+    email: { _errors: [] },
+    accountStatus: { _errors: [] },
+    surname: { _errors: [] },
+    name: { _errors: [] },
+    lastname: { _errors: [] },
+    birthday: { _errors: [] },
+    instituteId: { _errors: [] },
+    password: { _errors: [] },
+    _errors: []
   });
 
   const getInstituteListQuery = useQuery({
@@ -40,95 +57,116 @@ export const RegisterForm: FC = () => {
   }, queryClient);
 
   const createUserMutation = useMutation({
-    mutationFn: (data: {
-      email: string,
-      accountStatus: User["accountStatus"],
-      surname: string,
-      name: string,
-      lastname: string,
-      birthday: string,
-      instituteId: string,
-      password: string
-    }) => registerUser(
-      data.email,
-      data.accountStatus,
-      data.surname,
-      data.name,
-      data.lastname,
-      data.birthday,
-      data.instituteId,
-      data.password
+    mutationFn: () => registerUser(
+      email,
+      accountStatus,
+      surname,
+      name,
+      lastname,
+      birthday,
+      instituteId,
+      password
     )
   }, queryClient);
 
-  return (
-    <form
-      className="register-form"
-      onSubmit={handleSubmit(({ email, accountStatus, surname, name, lastname, birthday, instituteId, password }) => {
-        createUserMutation.mutate({ email, accountStatus, surname, name, lastname, birthday, instituteId, password });
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
 
-        if (createUserMutation.isSuccess) {
-          window.location.pathname = "/";
-        }
-      })}
-    >
+    const result = RegisterSchema.safeParse({
+      email,
+      accountStatus,
+      surname,
+      name,
+      lastname,
+      birthday,
+      instituteId,
+      password
+    });
+
+    if (!result.success) {
+      setErrors(result.error.format());
+      console.log(errors);
+    } else {
+      createUserMutation.mutate();
+
+      if (createUserMutation.isSuccess) {
+        window.location.pathname = "/";
+      }
+    }
+  }
+
+  return (
+    <form className="register-form" onSubmit={handleSubmit}>
       <FormField
         labelText="Фамилия:"
-        errorMessage={errors.surname?.message}
+        errorMessage={errors?.surname?._errors[0]}
       >
         <input
           className="form-field__input"
           type="text"
-          {...register("surname")}
+          name="surname"
+          onChange={(event) => setSurname(event.currentTarget.value)}
+          value={surname}
         />
       </FormField>
       <FormField
         labelText="Имя:"
-        errorMessage={errors.name?.message}
+        errorMessage={errors?.name?._errors[0]}
       >
         <input
           className="form-field__input"
           type="text"
-          {...register("name")}
+          name="name"
+          onChange={(event) => setName(event.currentTarget.value)}
+          value={name}
         />
       </FormField>
       <FormField
         labelText="Отчество:"
-        errorMessage={errors.lastname?.message}
+        errorMessage={errors?.lastname?._errors[0]}
       >
         <input
           className="form-field__input"
           type="text"
-          {...register("lastname")}
+          name="lastname"
+          onChange={(event) => setLastname(event.currentTarget.value)}
+          value={lastname}
         />
       </FormField>
       <FormField
         labelText="E-mail:"
-        errorMessage={errors.email?.message}
+        errorMessage={errors?.email?._errors[0]}
       >
         <input
           className="form-field__input"
           type="text"
-          {...register("email")}
+          name="email"
+          onChange={(event) => setEmail(event.currentTarget.value)}
+          value={email}
         />
       </FormField>
       <FormField
         labelText="Дата рождения:"
-        errorMessage={errors.birthday?.message}
+        errorMessage={errors?.birthday?._errors[0]}
       >
         <input
           className="form-field__input"
           type="date"
-          {...register("birthday")}
+          name="birthday"
+          onChange={(event) => setBirthday(event.currentTarget.value)}
+          value={birthday}
         />
       </FormField>
       <FormField
         labelText="ВУЗ:"
+        errorMessage={errors?.instituteId?._errors[0]}
       >
         <select
           id="institute"
           className="form-field__input"
-          {...register("instituteId")}
+          name="instituteId"
+          onChange={(event) => setInstituteId(event.currentTarget.value)}
+          value={instituteId}
         >
           <option key="none" value="">-- Выберите ВУЗ --</option>
           {getInstituteListQuery.data?.map((item) => (
@@ -138,12 +176,14 @@ export const RegisterForm: FC = () => {
       </FormField>
       <FormField
         labelText="Придумайте пароль:"
-        errorMessage={errors.password?.message}
+        errorMessage={errors?.password?._errors[0]}
       >
         <input
           className="form-field__input"
           type="password"
-          {...register("password")}
+          name="password"
+          onChange={(event) => setPassword(event.currentTarget.value)}
+          value={password}
         />
       </FormField>
       <FormField
@@ -152,14 +192,16 @@ export const RegisterForm: FC = () => {
         <select
           id="accountStatus"
           className="form-field__input"
-          {...register("accountStatus")}
+          name="accountStatus"
+          onChange={(event) => setAccountStatus(event.currentTarget.value as User["accountStatus"])}
+          value={accountStatus}
         >
           <option value="student">Студент</option>
           <option value="teacher">Преподаватель</option>
           <option value="admin">Администратор</option>
         </select>
       </FormField>
-      {createUserMutation.error?.message ? <span>{createUserMutation.error.message}</span> : null}
+      {createUserMutation.error && <span className="form-error__message" >{createUserMutation.error?.message}</span>}
       <Button
         kind="primary"
         type="submit"
