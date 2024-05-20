@@ -1,12 +1,51 @@
 .message__container {
+  position: relative;
+  left: 10px;
   width: 400px;
   padding: 10px;
-  border: 1px solid var(--black);
-  border-radius: 10px;
+  border: 1px solid var(--lighter-blue);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
-.own-message {
+.message__container::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid var(--lighter-blue);
+  border-right: 6px solid var(--lighter-blue);
+  border-left: 6px solid transparent;
+  left: -12px;
+  bottom: -1px;
+}
+
+.own-message__container {
+  position: relative;
   align-self: end;
+  right: 10px;
+  width: 400px;
+  padding: 10px;
+  border: 1px solid var(--lighter-blue);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 0;
+}
+
+.own-message__container::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid var(--lighter-blue);
+  border-right: 6px solid transparent;
+  border-left: 6px solid var(--lighter-blue);
+  right: -12px;
+  bottom: -1px;
 }
 
 .message__info {
@@ -21,22 +60,26 @@
   font-size: 16px;
   line-height: 16px;
   font-weight: bold;
+  color: var(--dark-blue);
 }
 
 .message__is-teacher {
   font-size: 12px;
   font-weight: 400;
+  color: var(--dark-blue);
 }
 
 .message__datetime {
   margin: 0;
   font-size: 12px;
+  color: var(--grey);
 }
 
 .message__text {
   margin: 0;
   margin-bottom: 5px;
   font-size: 14px;
+  color: var(--darker-blue);
 }
 
 .message__files {
@@ -50,16 +93,28 @@
   padding: 7px;
   display: flex;
   justify-content: space-between;
-  border: 1px solid var(--black);
+  border: 1px solid var(--lighter-blue);
   border-radius: 10px;
+}
+
+.file__begin {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.file__begin svg {
+  height: 15px;
 }
 
 .file__name {
   margin: 0;
   font-size: 12px;
+  color: var(--dark-blue);
 }
 
 .file__size {
   margin: 0;
   font-size: 12px;
+  color: var(--grey);
 }

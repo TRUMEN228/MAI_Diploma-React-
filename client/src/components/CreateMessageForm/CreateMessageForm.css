@@ -9,9 +9,25 @@
   height: 100%;
   width: 85%;
   resize: none;
+  border: 1px solid var(--lighter-blue);
   border-radius: 10px;
   font-size: 14px;
   font-family: inherit;
+  color: var(--darker-blue);
+  transition: border-color 0.2s ease-in-out;
+}
+
+.chat__text:hover {
+  border: 1px solid var(--darker-blue);
+}
+
+.chat__text::placeholder {
+  color: var(--lighter-blue);
+  transition: color 0.2s ease-in-out;
+}
+
+.chat__text:hover::placeholder {
+  color: var(--darker-blue);
 }
 
 .chat__text:hover {

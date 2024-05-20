@@ -19,6 +19,7 @@ export const UserMessages: FC<IUserMessagesProps> = ({
     case "student":
       return (
         <div className="container messages__container">
+          <h1 className="messages__title">Сообщения</h1>
           <StudentMessages
             student={customData as Student}
             user={user}
@@ -28,6 +29,7 @@ export const UserMessages: FC<IUserMessagesProps> = ({
     case "teacher":
       return (
         <div className="container messages__container">
+          <h1 className="messages__title">Сообщения</h1>
           <TeacherMessages
             teacher={customData as Teacher}
             user={user}

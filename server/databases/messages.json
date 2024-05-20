@@ -25,5 +25,29 @@
     "subjectId": "mai-strela.s20.4.mso-404bck.ppo",
     "sentAt": 1715944375740,
     "files": []
+  },
+  "7a75e789-aafa-4664-8e2d-1147edb58b3c": {
+    "id": "7a75e789-aafa-4664-8e2d-1147edb58b3c",
+    "text": "Вот некоторые файлы",
+    "userId": "aaf2d18d-f028-4872-a5e8-f467cf8cb500",
+    "userStatus": "student",
+    "subjectId": "mai-strela.s20.4.mso-404bck.ppo",
+    "sentAt": 1716210782303,
+    "files": [
+      {
+        "name": "Screenshot_1.png",
+        "storageName": "Screenshot_1.png",
+        "size": 47142,
+        "type": "image/png",
+        "downloadUrl": "http://localhost:5173/api/messages/download/mai-strela.s20.4.mso-404bck.ppo/20.05.2024/Screenshot_1.png"
+      },
+      {
+        "name": "Screenshot_2.png",
+        "storageName": "Screenshot_2.png",
+        "size": 61689,
+        "type": "image/png",
+        "downloadUrl": "http://localhost:5173/api/messages/download/mai-strela.s20.4.mso-404bck.ppo/20.05.2024/Screenshot_2.png"
+      }
+    ]
   }
 }

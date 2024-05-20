@@ -1,0 +1,27 @@
+.message-subject__select {
+  width: 550px;
+  height: 35px;
+  padding: 5px;
+  border-radius: 4px;
+  border: 2px solid var(--lighter-grey);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 15px;
+  transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.message-subject__select:hover {
+  background-color: var(--light-grey);
+  border: 2px solid var(--grey);
+}
+
+.message-subject__select:focus {
+  outline: none;
+  background-color: var(--white);
+  border: 2px solid var(--black);
+}
+
+.message-subject__select:active {
+  background-color: var(--white);
+  border: 2px solid var(--black);
+}

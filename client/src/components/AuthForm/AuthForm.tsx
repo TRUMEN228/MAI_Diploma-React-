@@ -13,13 +13,13 @@ export const AuthForm: FC = () => {
         <Route
           path="/register"
           element={
-            <>
-              <p className="form__title">Регистрация</p>
+            <div className="container">
+              <h1 className="form__title">Регистрация</h1>
               <RegisterForm />
               <div className="form__switch">
                 <span className="form__switch-text">Уже есть аккаунт?</span>
                 <Link to={"/"}>
-                <Button
+                  <Button
                     className="form__switch-button"
                     kind="secondary"
                   >
@@ -27,14 +27,14 @@ export const AuthForm: FC = () => {
                   </Button>
                 </Link>
               </div>
-            </>
+            </div>
           }
         />
         <Route
           path="/"
           element={
-            <>
-              <p className="form__title">Авторизация</p>
+            <div className="container">
+              <h1 className="form__title">Авторизация</h1>
               <LoginForm />
               <div className="form__switch">
                 <span className="form__switch-text">Ещё нет аккаунта?</span>
@@ -47,7 +47,7 @@ export const AuthForm: FC = () => {
                   </Button>
                 </Link>
               </div>
-            </>
+            </div>
           }
         />
       </Routes>

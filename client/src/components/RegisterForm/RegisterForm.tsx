@@ -9,14 +9,14 @@ import { Button } from "../Button";
 import { fetchInstituteList } from "../../api/Institutes";
 
 const RegisterSchema = z.object({
-  email: z.string().min(1, { message: "Поле \"E-mail\" должно быть заполнено" }).email({ message: "Некорректный формат e-mail" }),
+  email: z.string().min(1, { message: "Поле должно быть заполнено" }).email({ message: "Некорректный формат e-mail" }),
   accountStatus: z.custom<"student" | "teacher" | "admin">(),
-  surname: z.string().min(1, { message: "Поле \"Фамилия\" должно быть заполнено" }),
-  name: z.string().min(1, { message: "Поле \"Имя\" должно быть заполнено" }),
-  lastname: z.string().min(1, { message: "Поле \"Отчество\" должно быть заполнено" }),
-  birthday: z.string().min(1, { message: "Поле \"Дата рождения\" должно быть заполнено" }),
+  surname: z.string().min(1, { message: "Поле должно быть заполнено" }),
+  name: z.string().min(1, { message: "Поле должно быть заполнено" }),
+  lastname: z.string().min(1, { message: "Поле должно быть заполнено" }),
+  birthday: z.string().min(1, { message: "Поле должно быть заполнено" }),
   instituteId: z.string().min(1, { message: "Выберите ВУЗ" }),
-  password: z.string().min(1, { message: "Поле \"Пароль\" должно быть заполнено" })
+  password: z.string().min(1, { message: "Поле должно быть заполнено" })
 }).required();
 
 export const RegisterForm: FC = () => {
@@ -87,6 +87,18 @@ export const RegisterForm: FC = () => {
       setErrors(result.error.format());
       console.log(errors);
     } else {
+      setErrors({
+        email: { _errors: [] },
+        accountStatus: { _errors: [] },
+        surname: { _errors: [] },
+        name: { _errors: [] },
+        lastname: { _errors: [] },
+        birthday: { _errors: [] },
+        instituteId: { _errors: [] },
+        password: { _errors: [] },
+        _errors: []
+      });
+
       createUserMutation.mutate();
 
       if (createUserMutation.isSuccess) {
@@ -168,7 +180,7 @@ export const RegisterForm: FC = () => {
           onChange={(event) => setInstituteId(event.currentTarget.value)}
           value={instituteId}
         >
-          <option key="none" value="">-- Выберите ВУЗ --</option>
+          <option key="none" value="">-- Не выбрано --</option>
           {getInstituteListQuery.data?.map((item) => (
             <option key={item.id} value={item.id}>{item.name}</option>
           ))}

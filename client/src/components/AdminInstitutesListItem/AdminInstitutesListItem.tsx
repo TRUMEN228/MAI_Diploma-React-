@@ -14,8 +14,14 @@ export const AdminInstitutesListItem: FC<IAdminInstitutesListItemProps> = ({
   return (
     <li>
       <div className="institute__container">
-        <p>Идентификатор: {institute.id}</p>
-        <p>Название: {institute.name}</p>
+        <label>
+          Идентификатор:
+          <input type="text" value={institute.id}/>
+        </label>
+        <label>
+          Название:
+          <input type="text" value={institute.name}/>
+        </label>
         {
           institute.cathedras.length ?
           <div>

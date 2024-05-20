@@ -1,0 +1,25 @@
+.group-info__container {
+  display: flex;
+  margin-bottom: 50px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info__container {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.info__label {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--dark-grey);
+}
+
+.info__item {
+  margin: 0;
+  font-size: 20px;
+  color: var(--darker-grey);
+}

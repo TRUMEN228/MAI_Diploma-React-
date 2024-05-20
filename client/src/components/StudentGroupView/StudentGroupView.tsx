@@ -5,6 +5,7 @@ import { StudentTeachersTable } from "../StudentTeachersTable";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSubjectsByGroupId } from "../../api/Teacher";
 import { queryClient } from "../../api/QueryClient";
+import "./StudentGroupView.css";
 
 interface IStudentGroupViewProps {
   students: Student[];
@@ -22,7 +23,7 @@ export const StudentGroupView: FC<IStudentGroupViewProps> = ({
   }, queryClient);
 
   return (
-    <div className="group__container">
+    <div className="group-view__container">
       <StudentStudentsTable students={students} />
       <StudentTeachersTable subjects={fetchSubjectsQuery.isSuccess ? fetchSubjectsQuery.data : []} />
     </div>

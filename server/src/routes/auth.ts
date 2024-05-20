@@ -15,12 +15,12 @@ const RegisterSchema = z.object({
   birthday: z.string(),
   instituteId: z.string(),
   password: z.string()
-});
+}).required();
 
 const LoginSchema = z.object({
-  email: z.string().email({ message: 'Некорректный формат e-mail' }),
+  email: z.string(),
   password: z.string()
-});
+}).required();
 
 function formatName(name: string): string {
   return name.slice(0, 1).toUpperCase() + name.slice(1).toLowerCase();

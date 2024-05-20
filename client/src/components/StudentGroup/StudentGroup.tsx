@@ -5,6 +5,7 @@ import { Cathedra, Course, Group, Institute, fetchGroupInfo } from "../../api/In
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "../../api/QueryClient";
 import { StudentGroupView } from "../StudentGroupView";
+import "./StudentGroup.css";
 
 interface IStudentGroupProps {
   student: Student;
@@ -49,7 +50,8 @@ export const StudentGroup: FC<IStudentGroupProps> = ({
   };
 
   return (
-    <div className="container">
+    <div className="container student-group__container">
+      <h1 className="student-group__title">Моя группа</h1>
       <StudentGroupInfo
         institute={fetchInstituteQuery.isSuccess ? fetchInstituteQuery.data?.institute : emptyInstitute}
         cathedra={fetchInstituteQuery.isSuccess ? fetchInstituteQuery.data?.cathedra : emptyCathedra}

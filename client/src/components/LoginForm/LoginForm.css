@@ -4,7 +4,7 @@
 }
 
 .login-form {
-  width: 320px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -18,27 +18,6 @@
   width: 80px;
   height: 35px;
 }
-
-/* .index-form-forgot-password {
-  display: block;
-  width: fit-content;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  text-decoration: underline;
-  transition: color 0.2s ease-in-out;
-}
-
-.index-form-forgot-password:hover {
-  color: var(--grey);
-}
-
-.index-form-forgot-password:focus {
-  color: var(--grey);
-}
-
-.index-form-forgot-password:active {
-  color: var(--lighter-grey);
-} */
 
 .form__error-message {
   color: var(--red);

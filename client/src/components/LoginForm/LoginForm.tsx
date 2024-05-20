@@ -5,10 +5,25 @@ import { Button } from "../Button";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../api/User";
 import { queryClient } from "../../api/QueryClient";
+import { z } from "zod";
+
+const LoginSchema = z.object({
+  email: z.string().min(1, { message: "Поле должно быть заполнено" }).email({ message: "Некорректный формат e-mail" }),
+  password: z.string().min(1, { message: "Поле должно быть заполнено" })
+})
 
 export const LoginForm: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [errors, setErrors] = useState<z.ZodFormattedError<{
+    email: string;
+    password: string;
+  }, string>>({
+    email: { _errors: [] },
+    password: { _errors: [] },
+    _errors: []
+  });
 
   const loginMutation = useMutation({
     mutationFn: () => login(email, password),
@@ -19,12 +34,27 @@ export const LoginForm: FC = () => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    loginMutation.mutate();
+
+    const result = LoginSchema.safeParse({ email, password });
+
+    if (!result.success) {
+      setErrors(result.error.format());
+    } else {
+      setErrors({
+        email: { _errors: [] },
+        password: { _errors: [] },
+        _errors: []
+      });
+      loginMutation.mutate();
+    }
   }
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
-      <FormField labelText="E-mail:">
+      <FormField
+        labelText="E-mail:"
+        errorMessage={errors.email?._errors[0]}
+      >
         <input
           className="form-field__input"
           type="text"
@@ -33,7 +63,10 @@ export const LoginForm: FC = () => {
           value={email}
         />
       </FormField>
-      <FormField labelText="Пароль:">
+      <FormField
+        labelText="Пароль:"
+        errorMessage={errors.password?._errors[0]}
+      >
         <input
           className="form-field__input"
           type="password"
@@ -43,7 +76,7 @@ export const LoginForm: FC = () => {
         />
       </FormField>
 
-      {loginMutation.error && <span className="form__error-message">{loginMutation.error?.message}</span>}
+      {loginMutation.error && <span className="form__error-message">{loginMutation.error.message}</span>}
 
       <Button
         type="submit"

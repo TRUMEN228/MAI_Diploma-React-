@@ -132,7 +132,6 @@ export const CreateMessageForm: FC<ICreateMessageFormProps> = ({
           value={messageText}
           onChange={(event) => setMessageText(event.currentTarget.value)}
         />
-        {/* <p>{createMessageMutation.error?.message}</p> */}
         <div className="chat__control">
           <div className="chat__file">
             <input

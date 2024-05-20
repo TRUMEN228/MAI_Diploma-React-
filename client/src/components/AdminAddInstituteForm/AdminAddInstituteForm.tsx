@@ -16,6 +16,8 @@ export const AdminAddInstituteForm: FC<IAdminAddInstituteFormProps> = ({
   institutes,
   handleRefetch
 }) => {
+  const [institutesList, setInstitutesList] = useState<Institute[]>(institutes);
+
   const [instituteName, setInstituteName] = useState<string>("");
   const [instituteId, setInstituteId] = useState<string>("");
 
@@ -26,120 +28,95 @@ export const AdminAddInstituteForm: FC<IAdminAddInstituteFormProps> = ({
     mutationKey: ["institute", instituteId]
   }, queryClient);
 
-  const handleAddCathedra = () => {
+  const handleAddInstitute = () => {
+    const newInstitute: Institute = {
+      id: "",
+      name: "",
+      cathedras: []
+    };
+
+    setInstitutesList([...institutesList, newInstitute]);
+  }
+
+  const handleAddCathedra = (instituteIndex: number) => {
     const newCathedra: Cathedra = {
       id: "",
       name: "",
       courses: []
     };
 
-    setCathedras([...cathedras, newCathedra]);
+    const updatedInstitutes = [...institutesList];
+    updatedInstitutes[instituteIndex].cathedras.push(newCathedra);
+
+    setInstitutesList(updatedInstitutes);
   };
 
-  const handleAddCourse = (cathedraIndex: number) => {
+  const handleAddCourse = (instituteIndex: number, cathedraIndex: number) => {
     const newCourse: Course = {
       course: "1",
       groups: []
     };
 
-    const updatedCathedras = [...cathedras];
-    updatedCathedras[cathedraIndex].courses.push(newCourse);
+    const updatedInstitutes = [...institutesList];
+    updatedInstitutes[instituteIndex].cathedras[cathedraIndex].courses.push(newCourse);
 
-    setCathedras(updatedCathedras);
+    setInstitutesList(updatedInstitutes);
   };
 
-  const handleAddGroup = (cathedraIndex: number, courseIndex: number) => {
+  const handleAddGroup = (instituteIndex: number, cathedraIndex: number, courseIndex: number) => {
     const newGroup: Group = {
       id: "",
       direction: "",
       name: ""
     };
 
-    const updatedCathedras = [...cathedras];
-    updatedCathedras[cathedraIndex].courses[courseIndex].groups.push(newGroup);
+    const updatedInstitutes = [...institutesList];
+    updatedInstitutes[instituteIndex].cathedras[cathedraIndex].courses[courseIndex].groups.push(newGroup);
 
-    setCathedras(updatedCathedras);
+    setInstitutesList(updatedInstitutes);
   };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
-    if (!instituteId || !instituteName || !cathedras.length) {
-      return;
-    }
-
-    // console.log(instituteId);
-    // console.log(instituteName);
-    // console.log(cathedras);
-
     createInstituteMutation.mutate();
     handleRefetch();
   }
 
-  const onCathedraChange = (event: ChangeEvent<HTMLInputElement>, index: number, param: "id" | "name") => {
-    const updatedCathedras = [...cathedras];
-    updatedCathedras[index][param] = event.currentTarget.value;
-    setCathedras(updatedCathedras);
+  const onIstituteChange = (event: ChangeEvent<HTMLInputElement>, index: number, param: "id" | "name") => {
+    const updatedInstitutes = [...institutesList];
+    updatedInstitutes[index][param] = event.currentTarget.value;
+
+    setInstitutesList(updatedInstitutes);
+  }
+
+  const onCathedraChange = (event: ChangeEvent<HTMLInputElement>, instituteIndex: number, index: number, param: "id" | "name") => {
+    const updatedInstitutes = [...institutesList];
+    updatedInstitutes[instituteIndex].cathedras[index][param] = event.currentTarget.value;
+
+    setInstitutesList(updatedInstitutes);
   };
 
-  const onCourseChange = (event: ChangeEvent<HTMLSelectElement>, cathedraIndex: number, index: number) => {
-    const updatedCathedras = [...cathedras];
-    updatedCathedras[cathedraIndex].courses[index].course = event.currentTarget.value;
-    setCathedras(updatedCathedras);
+  const onCourseChange = (event: ChangeEvent<HTMLSelectElement>, instituteIndex: number, cathedraIndex: number, index: number) => {
+    const updatedInstitutes = [...institutesList];
+    updatedInstitutes[instituteIndex].cathedras[cathedraIndex].courses[index].course = event.currentTarget.value;
+
+    setInstitutesList(updatedInstitutes);
   };
 
-  const onGroupChange = (event: ChangeEvent<HTMLInputElement>, cathedraIndex: number, courseIndex: number, index: number, param: "id" | "name" | "direction") => {
-    const updatedCathedras = [...cathedras];
-    updatedCathedras[cathedraIndex].courses[courseIndex].groups[index][param] = event.currentTarget.value;
-    setCathedras(updatedCathedras);
+  const onGroupChange = (event: ChangeEvent<HTMLInputElement>, instituteIndex: number, cathedraIndex: number, courseIndex: number, index: number, param: "id" | "name" | "direction") => {
+    const updatedInstitutes = [...institutesList];
+    updatedInstitutes[instituteIndex].cathedras[cathedraIndex].courses[courseIndex].groups[index][param] = event.currentTarget.value;
+
+    setInstitutesList(updatedInstitutes);
   };
 
   return (
     <form className="add-institute__form" onSubmit={handleSubmit}>
       <AdminInstitutesList
-        institutes={institutes}
+        institutes={institutesList}
         handleRefetch={handleRefetch}
       />
-      <div>
-        <label className="institute__label">
-          Название ВУЗа:
-          <input
-            type="text"
-            placeholder="Введите название ВУЗа"
-            value={instituteName}
-            onChange={(event) => setInstituteName(event.currentTarget.value)}
-          />
-        </label>
-        <label className="institute__label">
-          Идентификатор ВУЗа:
-          <input
-            type="text"
-            placeholder="Введите название"
-            value={instituteId}
-            onChange={(event) => setInstituteId(event.currentTarget.value)}
-          />
-        </label>
-        {cathedras.map((cathedra, cathedraIndex) => (
-          <AdminAddCathedraForm
-            key={cathedraIndex}
-            id={cathedra.id}
-            name={cathedra.name}
-            index={cathedraIndex}
-            onChange={onCathedraChange}
-            onCourseChange={onCourseChange}
-            onGroupChange={onGroupChange}
-            courses={cathedra.courses}
-            onClick={handleAddCourse}
-            onAddGroupClick={handleAddGroup}
-          />
-        ))}
-        <Button
-          kind="secondary"
-          onClick={handleAddCathedra}
-        >
-          Добавить кафедру
-        </Button>
-      </div>
       <Button type="submit" kind="primary">Отправить</Button>
     </form>
   );

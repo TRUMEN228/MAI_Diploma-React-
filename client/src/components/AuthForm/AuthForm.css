@@ -29,3 +29,8 @@
 .form__switch-button:hover {
   background-color: var(--lighter-grey);
 }
+
+.form__switch-button:focus {
+  background-color: var(--darker-blue);
+  color: var(--white);
+}

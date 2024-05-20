@@ -1,9 +1,14 @@
 .form-field {
+  position: relative;
   display: grid;
-  grid-template-columns: 50px 250px;
+  grid-template-columns: 160px 200px;
   grid-template-areas: "label input";
   align-items: last baseline;
   gap: 30px;
+}
+
+.error input, .error select {
+  border-color: var(--red);
 }
 
 .form-field__label {
@@ -43,6 +48,9 @@
 }
 
 .form-field__error {
+  position: absolute;
+  top: 45px;
+  left: 195px;
   font-size: 10px;
   line-height: 10px;
   font-weight: 400;

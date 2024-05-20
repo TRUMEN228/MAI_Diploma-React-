@@ -14,13 +14,14 @@ export const FormField: FC<IFormFieldProps> = ({
 }) => {
   return (
     <>
-      <label className="form-field">
+      <label className={errorMessage ? "form-field error" : "form-field"}>
         <span className="form-field__label">{labelText}</span>
         {children}
+        {errorMessage ? (
+          <span className="form-field__error">{errorMessage}</span>
+        ) : null}
       </label>
-      {errorMessage ? (
-        <span className="form-field__error">{errorMessage}</span>
-      ) : null}
+
     </>
   );
 };

@@ -4,10 +4,12 @@ p {
 }
 
 .institute__container {
+  display: flex;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid var(--black);
   border-radius: 10px;
+  flex-direction: column;
 }
 
 .cathedra__container {

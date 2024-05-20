@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Cathedra, Course, Group, Institute } from "../../api/Institutes";
+import "./StudentGroupInfo.css";
 
 interface IStudentGroupInfoProps {
   institute: Institute;
@@ -15,7 +16,7 @@ export const StudentGroupInfo: FC<IStudentGroupInfoProps> = ({
   group
 }) => {
   return (
-    <div className="goup-info__container">
+    <div className="group-info__container">
       <div className="info__container">
         <p className="info__label">ВУЗ:</p>
         <p className="info__item">{institute.name}</p>

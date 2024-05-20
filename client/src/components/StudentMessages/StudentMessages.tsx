@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchMessagesBySubjectId } from "../../api/Message";
 import { queryClient } from "../../api/QueryClient";
 import { fetchSubjectsByGroupId } from "../../api/Teacher";
-import { FormField } from "../FormField";
+import "./StudentMessages.css";
 
 interface IStudentMessagesProps {
   student: Student;
@@ -38,10 +38,10 @@ export const StudentMessages: FC<IStudentMessagesProps> = ({
 
   return (
     <>
-      <FormField
-        labelText="Предмет:"
-      >
+      <label className="message-subject__label">
+        Предмет:&nbsp;
         <select
+          className="message-subject__select"
           onChange={(event) => setSubjectId(event.currentTarget.value)}
           value={subjectId}
         >
@@ -52,13 +52,14 @@ export const StudentMessages: FC<IStudentMessagesProps> = ({
                 key={index}
                 value={item.subject.id}
               >
-                {item.subject.name} | Преподаватель {item.teacher.surname} {item.teacher.name[0]}. {item.teacher.lastname[0]}.
+                {item.subject.name} | Преподаватель: {item.teacher.surname} {item.teacher.name[0]}. {item.teacher.lastname[0]}.
               </option>
             ))
             : null
           }
         </select>
-      </FormField>
+      </label>
+
 
       <ChatView
         userId={user.id}

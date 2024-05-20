@@ -1,13 +1,11 @@
-.messages__container {
-  display: flex;
+.student-group__container {
   padding-top: 40px;
   padding-bottom: 40px;
-  flex-direction: column;
-  gap: 20px;
 }
 
-.messages__title {
+.student-group__title {
   margin: 0;
+  margin-bottom: 30px;
   font-size: 40px;
   color: var(--darker-blue);
 }
