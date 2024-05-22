@@ -1,18 +1,18 @@
-.admin-students-table__title {
+.admin-teachers-table__title {
   margin: 0;
   margin-bottom: 20px;
   color: var(--dark-blue);
   font-size: 26px;
 }
 
-.admin-students__table {
+.admin-teachers__table {
   width: 100%;
   margin-bottom: 40px;
   border: 1px solid var(--lighter-grey);
   border-collapse: collapse;
 }
 
-.admin-students-table__head-cell {
+.admin-teachers-table__head-cell {
   padding: 10px 15px;
   font-weight: 700;
   text-align: left;
@@ -21,10 +21,14 @@
   border: 1px solid var(--lighter-grey);
 }
 
-.admin-students-column-1 {
-  width: 125px;
+.admin-teachers-column-1 {
+  width: 70px;
 }
 
-.admin-students-column-2 {
-  width: 400px
+.admin-teachers-column-2 {
+  width: 250px;
+}
+
+.admin-teachers-column-3 {
+  width: 160px;
 }

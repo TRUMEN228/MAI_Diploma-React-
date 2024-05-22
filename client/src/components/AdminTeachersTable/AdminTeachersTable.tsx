@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Teacher } from "../../api/Teacher";
 import { AdminTeachersTableRow } from "../AdminTeachersTableRow";
 import { Institute } from "../../api/Institutes";
+import "./AdminTeachersTable.css";
 
 interface IAdminTeachersTableProps {
   institute: Institute;
@@ -23,21 +24,20 @@ export const AdminTeachersTable: FC<IAdminTeachersTableProps> = ({
   }
 
   return (
-    <div className="table__container">
-      <table className="teachers__table">
-        <thead className="table__header">
-          <tr className="table__row">
-            <th rowSpan={2} className="table__cell header__cell column-1">№ п/п</th>
-            <th rowSpan={2} className="table__cell header__cell column-2">ФИО</th>
-            <th rowSpan={2} className="table__cell header__cell column-3">Дата рождения</th>
-            <th rowSpan={2} className="table__cell header__cell column-4">E-mail</th>
-            <th colSpan={4} className="table__cell header__cell column-5">Предметы</th>
+    <div className="admin-table__container">
+      <h1 className="admin-teachers-table__title">Список пользователей</h1>
+      <table className="admin-teachers__table">
+        <thead className="admin-teachers-table__head">
+          <tr className="admin-teachers-table__row">
+            <th rowSpan={2} className="admin-teachers-table__head-cell admin-teachers-column-1">№ п/п</th>
+            <th rowSpan={2} className="admin-teachers-table__head-cell admin-teachers-column-2">ФИО</th>
+            <th rowSpan={2} className="admin-teachers-table__head-cell admin-teachers-column-3">Дата рождения</th>
+            <th rowSpan={2} className="admin-teachers-table__head-cell admin-teachers-column-4">E-mail</th>
+            <th colSpan={2} className="admin-teachers-table__head-cell admin-teachers-column-5">Предметы</th>
           </tr>
-          <tr className="table__row">
-            <th className="table__cell header__cell column-6">Название</th>
-            <th className="table__cell header__cell column-7">Кафедра</th>
-            <th className="table__cell header__cell column-8">Курс</th>
-            <th className="table__cell header__cell column-9">Группа</th>
+          <tr className="admin-teachers-table__row">
+            <th className="admin-teachers-table__head-cell admin-teachers-column-6">Название</th>
+            <th className="admin-teachers-table__head-cell admin-teachers-column-7">Группа</th>
           </tr>
         </thead>
         <tbody>

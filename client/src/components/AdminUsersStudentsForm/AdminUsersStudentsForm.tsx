@@ -1,19 +1,18 @@
 import { FC, useState } from "react";
-import { FormField } from "../FormField";
 import { AdminStudentsTable } from "../AdminStudentsTable";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "../../api/QueryClient";
 import { fetchStudentsByGroup } from "../../api/Student";
 import { Institute } from "../../api/Institutes";
+import "./AdminUsersStudentsForm.css";
 
 interface IAdminUsersStudentsFormProps {
-  institutes: Institute[];
+  institute: Institute;
 }
 
 export const AdminUsersStudentsForm: FC<IAdminUsersStudentsFormProps> = ({
-  institutes
+  institute
 }) => {
-  const [instituteId, setInstituteId] = useState<string>("");
   const [cathedraId, setCathedraId] = useState<string>("");
   const [course, setCourse] = useState<string>("");
   const [groupId, setGroupId] = useState<string>("");
@@ -25,73 +24,52 @@ export const AdminUsersStudentsForm: FC<IAdminUsersStudentsFormProps> = ({
   }, queryClient);
 
   return (
-    <>
-      <form className="form">
-        <FormField
-          labelText="ВУЗ:"
-        >
-          <select
-            id="institute"
-            className="form-field__input"
-            onChange={(event) => setInstituteId(event.currentTarget.value)}
-            value={instituteId}
-          >
-            <option key="none" value="">-- Выберите ВУЗ --</option>
-            {institutes.map((item) => (
-              <option key={item.id} value={item.id}>{item.name}</option>
-            ))}
-          </select>
-        </FormField>
-        <FormField
-          labelText="Кафедра:"
-        >
+    <div className="users__students-container">
+      <div className="users__students-select-container">
+        <label className="students__label">
+          Кафедра:&nbsp;
           <select
             id="cathedra"
-            className="form-field__input"
             onChange={(event) => setCathedraId(event.currentTarget.value)}
             value={cathedraId}
           >
-            <option key="none" value="">-- Выберите кафедру --</option>
-            {instituteId ? institutes.find(item => item.id === instituteId)?.cathedras.map((item) => (
+            <option key="none" value="">-- Не выбрано --</option>
+            {institute.cathedras.map((item) => (
               <option key={item.id} value={item.id}>{item.name}</option>
-            )) : null}
+            ))}
           </select>
-        </FormField>
-        <FormField
-          labelText="Выберите курс:"
-        >
+        </label>
+        <label className="students__label">
+          Курс:&nbsp;
           <select
             id="course"
-            className="form-field__input"
             onChange={(event) => setCourse(event.currentTarget.value)}
             value={course}
           >
-            <option key="none" value="">-- Выберите курс --</option>
-            {cathedraId ? institutes.find(item => item.id === instituteId)?.cathedras.find(item => item.id === cathedraId)?.courses.map((item) => (
+            <option key="none" value="">-- Не выбрано --</option>
+            {cathedraId ? institute.cathedras.find(item => item.id === cathedraId)?.courses.map((item) => (
               <option key={item.course} value={item.course}>{item.course}</option>
             )) : null}
           </select>
-        </FormField>
-        <FormField
-          labelText="Выберите группу:"
-        >
+        </label>
+        <label className="students__label">
+          Группа:&nbsp;
           <select
             id="group"
-            className="form-field__input"
             onChange={(event) => setGroupId(event.currentTarget.value)}
             value={groupId}
           >
-            <option key="none" value="">-- Выберите группу --</option>
-            {course ? institutes.find(item => item.id === instituteId)?.cathedras.find(item => item.id === cathedraId)?.courses.find(item => item.course === course)?.groups.map((item) => (
+            <option key="none" value="">-- Не выбрано --</option>
+            {course ? institute.cathedras.find(item => item.id === cathedraId)?.courses.find(item => item.course === course)?.groups.map((item) => (
               <option key={item.id} value={item.id}>{item.name}</option>
             )) : null}
           </select>
-        </FormField>
-      </form>
+        </label>
+      </div>
 
       <AdminStudentsTable
         students={getStudentsQuery.isSuccess ? getStudentsQuery.data : []}
       />
-    </>
+    </div>
   );
 };

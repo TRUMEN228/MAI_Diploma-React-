@@ -1,30 +1,26 @@
-.users-view__container {
+.users__students-container {
   display: flex;
-  padding-top: 40px;
-  padding-bottom: 40px;
   flex-direction: column;
   gap: 10px;
 }
 
-.users-view__title {
-  margin: 0;
-  margin-bottom: 15px;
-  font-size: 40px;
-  font-weight: 700;
-  color: var(--darker-blue);
+.users__students-select-container {
+  display: flex;
+  margin-bottom: 30px;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.users-view__label {
-  font-size: 24px;
+.students__label {
+  font-size: 20px;
   font-weight: 700;
   color: var(--darker-grey);
 }
 
-.users-view__label select {
+.students__label select {
   width: 360px;
   height: 30px;
   padding: 5px;
-  margin-bottom: 30px;
   border-radius: 4px;
   font-size: 14px;
   border: 2px solid var(--lighter-grey);
@@ -32,18 +28,18 @@
   transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
-.users-view__label select:hover {
+.students__label select:hover {
   background-color: var(--light-grey);
   border: 2px solid var(--grey);
 }
 
-.users-view__label select:focus {
+.students__label select:focus {
   outline: none;
   background-color: var(--white);
   border: 2px solid var(--black);
 }
 
-.users-view__label select:active {
+.students__label select:active {
   background-color: var(--white);
   border: 2px solid var(--black);
 }

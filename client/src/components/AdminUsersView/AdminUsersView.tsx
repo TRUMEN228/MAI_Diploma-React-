@@ -2,16 +2,27 @@ import { FC, useState } from "react";
 import "./AdminUsersView.css";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "../../api/QueryClient";
-import { fetchInstituteList } from "../../api/Institutes";
+import { Institute, fetchInstitute } from "../../api/Institutes";
 import { User } from "../../api/User";
 import { AdminUsersStudentsForm } from "../AdminUsersStudentsForm";
-import { FormField } from "../FormField";
 import { AdminUsersTeachersForm } from "../AdminUsersTeachersForm";
 
-export const AdminUsersView: FC = () => {
-  const getInstituteListQuery = useQuery({
-    queryFn: () => fetchInstituteList(),
-    queryKey: ["institutes"],
+interface IAdminUsersViewProps {
+  instituteId: string;
+}
+
+export const AdminUsersView: FC<IAdminUsersViewProps> = ({
+  instituteId
+}) => {
+  const emptyInstitute: Institute = {
+    id: "",
+    name: "",
+    cathedras: []
+  };
+
+  const getInstituteQuery = useQuery({
+    queryFn: () => fetchInstitute(instituteId),
+    queryKey: ["institutes", instituteId],
     retry: 0
   }, queryClient);
 
@@ -21,55 +32,44 @@ export const AdminUsersView: FC = () => {
     case "student":
       return (
         <div className="container users-view__container">
-          <FormField labelText="Статус аккаунта:">
+          <h1 className="users-view__title">Список пользователей</h1>
+          <label className="users-view__label">
+            Статус:&nbsp;
             <select
-              className="form-field__input"
+              className=""
               value={status}
               onChange={(event) => setStatus(event.currentTarget.value as User["accountStatus"])}
             >
               <option value="student">Студенты</option>
               <option value="teacher">Преподаватели</option>
-              <option value="admin">Администраторы</option>
             </select>
-          </FormField>
+          </label>
 
-          <AdminUsersStudentsForm institutes={getInstituteListQuery.isSuccess ? getInstituteListQuery.data : []}/>
+          <AdminUsersStudentsForm institute={getInstituteQuery.isSuccess ? getInstituteQuery.data : emptyInstitute}/>
         </div>
       );
     case "teacher":
       return (
         <div className="container users-view__container">
-          <FormField labelText="Статус аккаунта:">
+          <h1 className="users-view__title">Список пользователей</h1>
+          <label className="users-view__label">
+            Статус:&nbsp;
             <select
-              className="form-field__input"
+              className=""
               value={status}
               onChange={(event) => setStatus(event.currentTarget.value as User["accountStatus"])}
             >
               <option value="student">Студенты</option>
               <option value="teacher">Преподаватели</option>
-              <option value="admin">Администраторы</option>
             </select>
-          </FormField>
+          </label>
 
-          <AdminUsersTeachersForm institutes={getInstituteListQuery.isSuccess ? getInstituteListQuery.data : []}/>
+          <AdminUsersTeachersForm institute={getInstituteQuery.isSuccess ? getInstituteQuery.data : emptyInstitute}/>
         </div>
       );
     case "admin":
       return (
-        <div className="container users-view__container">
-          <FormField labelText="Статус аккаунта:">
-            <select
-              className="form-field__input"
-              value={status}
-              onChange={(event) => setStatus(event.currentTarget.value as User["accountStatus"])}
-            >
-              <option value="student">Студенты</option>
-              <option value="teacher">Преподаватели</option>
-              <option value="admin">Администраторы</option>
-            </select>
-          </FormField>
-
-        </div>
+        <></>
       );
   }
 };

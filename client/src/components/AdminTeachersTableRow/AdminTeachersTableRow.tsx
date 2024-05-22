@@ -1,4 +1,5 @@
 import { FC } from "react";
+import "./AdminTeachersTableRow.css";
 
 interface IAdminTeachersTableRowProps {
   number: number;
@@ -37,19 +38,17 @@ export const AdminTeachersTableRow: FC<IAdminTeachersTableRowProps> = ({
   return (
     <>
       {subjects.map((item, index) => (
-        <tr key={index} className="table__row">
+        <tr key={index} className="admin-teachers-table__row">
           {index === 0 && (
             <>
-              <td rowSpan={subjects.length} className="table__cell">{number + 1}</td>
-              <td rowSpan={subjects.length} className="table__cell">{fullName.surname} {fullName.name} {fullName.lastname}</td>
-              <td rowSpan={subjects.length} className="table__cell">{formatDate(birthday)}</td>
-              <td rowSpan={subjects.length} className="table__cell">{email}</td>
+              <td rowSpan={subjects.length} className="admin-teachers-table__cell admin-teachers-column-1">{number + 1}</td>
+              <td rowSpan={subjects.length} className="admin-teachers-table__cell admin-teachers-column-2">{fullName.surname} {fullName.name} {fullName.lastname}</td>
+              <td rowSpan={subjects.length} className="admin-teachers-table__cell admin-teachers-column-3">{formatDate(birthday)}</td>
+              <td rowSpan={subjects.length} className="admin-teachers-table__cell admin-teachers-column-4">{email}</td>
             </>
           )}
-          <td className="table__cell">{item.name}</td>
-          <td className="table__cell">{item.cathedra}</td>
-          <td className="table__cell">{item.course}</td>
-          <td className="table__cell">{item.group}</td>
+          <td className="admin-teachers-table__cell admin-teachers-column-5">{item.name}</td>
+          <td className="admin-teachers-table__cell admin-teachers-column-6">{item.group}</td>
         </tr>
       ))}
     </>

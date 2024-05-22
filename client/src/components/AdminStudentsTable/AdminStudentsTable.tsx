@@ -11,20 +11,21 @@ export const AdminStudentsTable: FC<IAdminStudentsTableProps> = ({
   students
 }) => {
   return (
-    <div className="table__container">
-      <table className="students__table">
-        <thead className="table__header">
-          <tr className="table__row">
-            <th className="table__cell header__cell column-1">№ п/п</th>
-            <th className="table__cell header__cell column-2">ФИО</th>
-            <th className="table__cell header__cell column-3">Дата рождения</th>
-            <th className="table__cell header__cell column-4">E-mail</th>
+    <div className="admin-table__container">
+      <h2 className="admin-students-table__title">Список пользователей</h2>
+      <table className="admin-students__table">
+        <thead className="admin-students-table__head">
+          <tr className="admin-students-table__row">
+            <th className="admin-students-table__head-cell admin-students-column-1">№ п/п</th>
+            <th className="admin-students-table__head-cell admin-students-column-2">ФИО</th>
+            <th className="admin-students-table__head-cell admin-students-column-3">Дата рождения</th>
+            <th className="admin-students-table__head-cell admin-students-column-4">E-mail</th>
           </tr>
         </thead>
-        {
-          students.length ?
-          <tbody className="table__body">
-            {students.map((item, index) => (
+        <tbody className="admin-students-table__body">
+          {
+            students.length ?
+            students.map((item, index) => (
               <AdminStudentsTableRow
                 key={index}
                 number={index}
@@ -36,10 +37,10 @@ export const AdminStudentsTable: FC<IAdminStudentsTableProps> = ({
                 birthday={item.birthday}
                 email={item.email}
               />
-            ))}
-          </tbody>
-          : null
-        }
+            ))
+            : null
+          }
+        </tbody>
       </table>
       {!students.length && <span>Список пуст</span>}
     </div>

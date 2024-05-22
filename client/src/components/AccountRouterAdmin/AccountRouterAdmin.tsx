@@ -4,7 +4,6 @@ import { Route, Routes } from "react-router-dom";
 import { AdminRequests } from "../AdminRequests/AdminRequests";
 import { UserProfile } from "../UserProfile";
 import { AdminUsersView } from "../AdminUsersView";
-import { AdminInstitutes } from "../AdminInstitutes";
 
 interface IAccountRouterAdminProps {
   user: User;
@@ -22,12 +21,8 @@ export const AccountRouterAdmin: FC<IAccountRouterAdminProps> = ({ user }) => {
         element={<UserProfile user={user}/>}
       />
       <Route
-        path={`${user.id}/admin/addInstitute`}
-        element={<AdminInstitutes/>}
-      />
-      <Route
         path={`${user.id}/admin/usersList`}
-        element={<AdminUsersView />}
+        element={<AdminUsersView instituteId={user.instituteId}/>}
       />
     </Routes>
   );
