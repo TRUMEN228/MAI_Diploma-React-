@@ -57,6 +57,7 @@ body {
 }
 
 :root {
+  /* ! Custom colors */
   /* blue */
   --dark-blue: #06276f;
   --darker-blue: #2a4580;
@@ -69,8 +70,19 @@ body {
   --grey: #888;
   --lighter-grey: #d3d3d3;
   --light-grey: #f4f4f4;
+  /* green */
+  --dark-green: #0d8800;
+  --darker-green: #329d27;
+  --green: #14d100;
+  --lighter-green: #4ae83a;
+  --light-green: #74e868;
+  /* red */
+  --dark-red: #a60000;
+  --darker-red: #bf3030;
+  --red: #f00;
+  --lighter-red: #ff4040;
+  --light-red: #ff7373;
   /* other */
   --black: #333;
   --white: #fff;
-  --red: #e10006;
 }

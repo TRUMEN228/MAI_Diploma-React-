@@ -7,6 +7,7 @@ import { queryClient } from "../../api/QueryClient";
 import { acceptTeacherRequest, rejectRequest } from "../../api/Admin";
 import { Subject } from "../../api/Teacher";
 import { AdminTeacherSubjectForm } from "../AdminTeacherSubjectForm";
+import "./AdminTeacherRequestView.css";
 
 interface IAdminTeacherRequestViewProps {
   user: User;
@@ -90,33 +91,19 @@ export const AdminTeacherRequestView: FC<IAdminTeacherRequestViewProps> = ({
     });
   };
 
-  const switchStatus = (status: User["accountStatus"]) => {
-    switch (status) {
-      case "student":
-        return "Студент";
-      case "teacher":
-        return "Преподаватель";
-      case "admin":
-        return "Администратор";
-    }
-  }
-
   return (
     <div className="request__container">
       <div className="request__user-info">
         <div className="user-info__main">
-          <p className="p user__fullname">ФИО: {user.surname} {user.name} {user.lastname}</p>
-          <p className="p user__birthday">Дата рождения: {formatDate(user.birthday)}</p>
+          <p className="request__label user__fullname">ФИО: <span>{user.surname} {user.name} {user.lastname}</span></p>
+          <p className="request__label user__birthday">Дата рождения: <span>{formatDate(user.birthday)}</span></p>
         </div>
         <div className="user-info__second">
-          <p className="p user__cred">E-mail: {user.email}</p>
-          <p className="p user__cred">Статус: {switchStatus(user.accountStatus)}</p>
-        </div>
-        <div className="user-info__institute">
-          <p className="p user-info__institute-info">ВУЗ: {fetchInstituteQuery.isSuccess ? fetchInstituteQuery.data?.name : ""}</p>
+          <p className="request__label user__cred">E-mail: <span>{user.email}</span></p>
+          <p className="request__label user__cred">Статус: <span>Преподаватель</span></p>
         </div>
         <div className="user-info__subjects">
-          <p>Предметы и группы:</p>
+          <p className="request__label user__subjects">Предметы и группы: {!subjects.length && <span>Нет назначенных предметов и групп</span>}</p>
           {subjects.length ? subjects.map((item, index) => (
             <AdminTeacherSubjectForm
               key={index}
@@ -126,13 +113,13 @@ export const AdminTeacherRequestView: FC<IAdminTeacherRequestViewProps> = ({
               handleNameChange={handleNameChange}
               handleGroupIdChange={handleGroupIdChange}
             />
-          )) : <span>Нет назначенных предметов и групп</span>}
-          <Button onClick={handleAddSubject} kind="secondary">Добавить предмет</Button>
+          )) : null}
+          <Button className="request_add-subject-button" onClick={handleAddSubject} kind="secondary">Добавить предмет</Button>
         </div>
       </div>
       <div className="request__controls">
-        <Button onClick={handleAccept} kind="primary">Принять</Button>
-        <Button onClick={handleReject} kind="primary">Отклонить</Button>
+        <Button className="request__control-button accept" onClick={handleAccept} kind="primary">Принять</Button>
+        <Button className="request__control-button reject" onClick={handleReject} kind="primary">Отклонить</Button>
       </div>
     </div>
   );

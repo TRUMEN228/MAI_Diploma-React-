@@ -1,0 +1,32 @@
+.subjects-table {
+  width: 100%;
+  margin-bottom: 40px;
+  border: none;
+  border-collapse: collapse;
+}
+
+.subjects-table__head-cell {
+  padding: 10px 15px;
+  font-weight: 700;
+  text-align: left;
+  border: none;
+  background-color: var(--lighter-grey);
+  border-left: 1px solid var(--light-grey);
+  border-right: 1px solid var(--light-grey);
+}
+
+.subjects-table__head-cell:first-child {
+  border-left: none;
+}
+
+.subjects-table__head-cell:last-child {
+  border-right: none;
+}
+
+.subjects-column-1 {
+  width: var(--column-1-width);
+}
+
+.subjects-column-2 {
+  width: 300px;
+}

@@ -1,4 +1,5 @@
 import { FC } from "react";
+import "./TeacherSubjectsTableRow.css";
 
 interface ITeacherSubjectsTableRowProps {
   number: number;
@@ -16,12 +17,12 @@ export const TeacherSubjectsTableRow: FC<ITeacherSubjectsTableRowProps> = ({
   group
 }) => {
   return (
-    <tr className="table__row">
-      <td className="table__cell column-1">{number + 1}</td>
-      <td className="table__cell column-2">{name}</td>
-      <td className="table__cell column-3">{cathedra}</td>
-      <td className="table__cell column-4">{course}</td>
-      <td className="table__cell column-5">{group}</td>
+    <tr className="subjects-table__row">
+      <td className="subjects-table__cell subjects-column-1">{number + 1}</td>
+      <td className="subjects-table__cell subjects-column-2">{name}</td>
+      <td className="subjects-table__cell subjects-column-3">{cathedra}</td>
+      <td className="subjects-table__cell subjects-column-4">{course}</td>
+      <td className="subjects-table__cell subjects-column-5">{group}</td>
     </tr>
   );
 };

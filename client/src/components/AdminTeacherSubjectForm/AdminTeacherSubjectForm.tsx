@@ -1,7 +1,7 @@
 import { FC, ChangeEvent } from "react";
 import { Institute } from "../../api/Institutes";
 import { AdminTeacherSubjectGroupSelect } from "../AdminTeacherSubjectGroupSelect";
-import { FormField } from "../FormField";
+import "./AdminTeacherSubjectForm.css";
 
 interface IAdminTeacherSubjectFormProps {
   institute: Institute;
@@ -28,27 +28,25 @@ export const AdminTeacherSubjectForm: FC<IAdminTeacherSubjectFormProps> = ({
 
   return (
     <div className="subject__container">
-      <FormField
-        labelText="Идентификатор предмета:"
-      >
+      <label className="subject__label">
+        Идентификатор предмета:&nbsp;
         <input
           type="text"
-          className="form-field__input"
+          className=""
           onChange={idChange}
           placeholder="Введите идентификатор предмета"
         />
-      </FormField>
-      <FormField
-        labelText="Название предмета:"
-      >
+      </label>
+      <label className="subject__label">
+        Название предмета:&nbsp;
         <input
           type="text"
-          className="form-field__input"
+          className=""
           onChange={nameChange}
           placeholder="Введите название предмета"
         />
-      </FormField>
-      <label>
+      </label>
+      <label className="subject__label subject__group-label">
         Выберите группу:
         <AdminTeacherSubjectGroupSelect handleGroupIdChange={handleGroupIdChange} index={index} institute={institute}/>
       </label>

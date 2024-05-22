@@ -8,7 +8,6 @@ import { fetchMessagesBySubjectId } from "../../api/Message";
 import { queryClient } from "../../api/QueryClient";
 import { ChatView } from "../ChatView";
 import { Institute, fetchInstitute } from "../../api/Institutes";
-import { FormField } from "../FormField";
 
 interface ITeacherMessagesProps {
   teacher: Teacher;
@@ -61,10 +60,10 @@ export const TeacherMessages: FC<ITeacherMessagesProps> = ({
 
   return (
     <>
-      <FormField
-        labelText="Предмет:"
-      >
+      <label className="message-subject__label">
+        Предмет:&nbsp;
         <select
+          className="message-subject__select"
           onChange={(event) => setSubjectId(event.currentTarget.value)}
           value={subjectId}
         >
@@ -72,7 +71,7 @@ export const TeacherMessages: FC<ITeacherMessagesProps> = ({
             <option key={index} value={item.id}>{item.name} | Группа {getInstituteData(item.groupId)}</option>
           ))}
         </select>
-      </FormField>
+      </label>
 
       <ChatView
         userId={user.id}

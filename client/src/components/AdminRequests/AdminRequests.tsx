@@ -5,6 +5,7 @@ import { queryClient } from "../../api/QueryClient";
 import { AdminStudentRequestView } from "../AdminStudentRequestView";
 import "./AdminRequests.css";
 import { AdminTeacherRequestView } from "../AdminTeacherRequestView";
+import { fetchInstitute } from "../../api/Institutes";
 
 interface IAdminRequestsProps {
   instituteId: string;
@@ -19,12 +20,20 @@ export const AdminRequests: FC<IAdminRequestsProps> = ({
     retry: 0
   }, queryClient);
 
+  const getInstitute = useQuery({
+    queryFn: () => fetchInstitute(instituteId),
+    queryKey: ["institutes", instituteId],
+    retry: 0
+  }, queryClient);
+
   const handleRefetch = () => {
     fetchRequestsQuery.refetch();
   }
 
   return (
     <div className="container requests__container">
+      <h1 className="requests__title">Заявки на регистрацию</h1>
+      <p className="requests__institute">ВУЗ: <span>{getInstitute.isSuccess ? getInstitute.data.name : ""}</span></p>
       <div className="request__list">
         {fetchRequestsQuery.data?.length ? fetchRequestsQuery.data.map((item, index) => {
           switch (item.accountStatus) {

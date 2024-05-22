@@ -61,16 +61,15 @@ export const AdminStudentRequestView: FC<IAdminStudentRequestViewProps> = ({
     <div className="request__container">
       <div className="request__user-info">
         <div className="user-info__main">
-          <p className="p user__fullname">ФИО: {user.surname} {user.name} {user.lastname}</p>
-          <p className="p user__birthday">Дата рождения: {formatDate(user.birthday)}</p>
+          <p className="request__label user__fullname">ФИО: <span>{user.surname} {user.name} {user.lastname}</span></p>
+          <p className="request__label user__birthday">Дата рождения: <span>{formatDate(user.birthday)}</span></p>
         </div>
         <div className="user-info__second">
-          <p className="p user__cred">E-mail: {user.email}</p>
-          <p className="p user__cred">Статус: {user.accountStatus}</p>
+          <p className="request__label user__cred">E-mail: <span>{user.email}</span></p>
+          <p className="request__label user__cred">Статус: <span>Студент</span></p>
         </div>
         <div className="user-info__institute">
-          <p className="p user-info__institute-info">ВУЗ: {fetchInstituteQuery.data?.name}</p>
-          <p className="p user-info__institute-info">Кафедра:&nbsp;
+          <p className="request__label user-info__institute-info">Кафедра:&nbsp;
             <select
               value={cathedraId}
               onChange={(event) => setCathedraId(event.currentTarget.value)}
@@ -81,7 +80,7 @@ export const AdminStudentRequestView: FC<IAdminStudentRequestViewProps> = ({
               ))}
             </select>
           </p>
-          <p className="p user-info__institute-info">Курс:&nbsp;
+          <p className="request__label user-info__institute-info">Курс:&nbsp;
             <select
               value={course}
               onChange={(event) => setCourse(event.currentTarget.value)}
@@ -92,7 +91,7 @@ export const AdminStudentRequestView: FC<IAdminStudentRequestViewProps> = ({
               )) : null}
             </select>
           </p>
-          <p className="p user-info__institute-info">Группа:&nbsp;
+          <p className="request__label user-info__institute-info">Группа:&nbsp;
             <select
               value={groupId}
               onChange={(event) => setGroupId(event.currentTarget.value)}
@@ -106,8 +105,8 @@ export const AdminStudentRequestView: FC<IAdminStudentRequestViewProps> = ({
         </div>
       </div>
       <div className="request__controls">
-        <Button onClick={handleAccept} kind="primary">Принять</Button>
-        <Button onClick={handleReject} kind="primary">Отклонить</Button>
+        <Button className="request__control-button accept" onClick={handleAccept} kind="primary">Принять</Button>
+        <Button className="request__control-button reject" onClick={handleReject} kind="primary">Отклонить</Button>
       </div>
     </div>
   );

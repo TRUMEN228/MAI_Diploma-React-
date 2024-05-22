@@ -1,0 +1,11 @@
+.user-info__subjects {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.request_add-subject-button {
+  width: 150px;
+  height: 25px;
+}

@@ -101,7 +101,7 @@ export const RegisterForm: FC = () => {
 
       createUserMutation.mutate();
 
-      if (createUserMutation.isSuccess) {
+      if (createUserMutation.status === 'success') {
         window.location.pathname = "/";
       }
     }
@@ -210,7 +210,6 @@ export const RegisterForm: FC = () => {
         >
           <option value="student">Студент</option>
           <option value="teacher">Преподаватель</option>
-          <option value="admin">Администратор</option>
         </select>
       </FormField>
       {createUserMutation.error && <span className="form-error__message" >{createUserMutation.error?.message}</span>}

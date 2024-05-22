@@ -1,0 +1,29 @@
+.requests__container {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.requests__title {
+  margin: 0;
+  margin-bottom: 20px;
+  font-size: 40px;
+  color: var(--darker-blue);
+}
+
+.requests__institute {
+  margin-bottom: 40px;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--darker-grey);
+}
+
+.requests__institute span {
+  font-weight: 400;
+  color: var(--grey);
+}
+
+.request__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

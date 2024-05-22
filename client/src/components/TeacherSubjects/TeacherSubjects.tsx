@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Institute, fetchInstitute } from "../../api/Institutes";
 import { queryClient } from "../../api/QueryClient";
 import { TeacherSubjectsTable } from "../TeacherSubjectsTable";
+import "./TeacherSubjects.css";
 
 interface ITeacherSubjectsProps {
   teacher: Teacher;
@@ -25,7 +26,8 @@ export const TeacherSubjects: FC<ITeacherSubjectsProps> = ({
   }, queryClient);
 
   return (
-    <div className="container subjects__container">
+    <div className="container teacher-subjects__container">
+      <h1 className="teacher-subjects__title">Мои предметы</h1>
       <TeacherSubjectsTable
         institute={getInstituteQuery.isSuccess ? getInstituteQuery.data : emptyInstitute}
         subjects={teacher.subjects}

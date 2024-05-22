@@ -1,0 +1,32 @@
+.subject__group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subject__group select {
+  width: 360px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  border: 2px solid var(--lighter-grey);
+  color: var(--dark-grey);
+  transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.subject__group select:hover {
+  background-color: var(--light-grey);
+  border: 2px solid var(--grey);
+}
+
+.subject__group select:focus {
+  outline: none;
+  background-color: var(--white);
+  border: 2px solid var(--black);
+}
+
+.subject__group select:active {
+  background-color: var(--white);
+  border: 2px solid var(--black);
+}

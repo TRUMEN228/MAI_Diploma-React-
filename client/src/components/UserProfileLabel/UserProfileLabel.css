@@ -23,5 +23,6 @@
 }
 
 .profile__secondary-label {
+  font-weight: 700;
   color: var(--dark-grey);
 }

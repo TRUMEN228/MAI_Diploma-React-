@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Subject } from "../../api/Teacher";
 import { Institute } from "../../api/Institutes";
 import { TeacherSubjectsTableRow } from "../TeacherSubjectsTableRow";
+import "./TeacherSubjectsTable.css";
 
 interface ITeacherSubjectsTableProps {
   institute: Institute;
@@ -23,17 +24,17 @@ export const TeacherSubjectsTable: FC<ITeacherSubjectsTableProps> = ({
   }
 
   return (
-    <table>
-      <thead className="table__head">
-        <tr className="table__row">
-          <th className="table__cell header__cell column-1">№ п/п</th>
-          <th className="table__cell header__cell column-2">Предмет</th>
-          <th className="table__cell header__cell column-3">Кафедра</th>
-          <th className="table__cell header__cell column-4">Курс</th>
-          <th className="table__cell header__cell column-5">Группа</th>
+    <table className="subjects-table">
+      <thead className="subjects-table__head">
+        <tr className="subjects-table__row">
+          <th className="subjects-table__head-cell subjects-column-1">№ п/п</th>
+          <th className="subjects-table__head-cell subjects-column-2">Предмет</th>
+          <th className="subjects-table__head-cell subjects-column-3">Кафедра</th>
+          <th className="subjects-table__head-cell subjects-column-4">Курс</th>
+          <th className="subjects-table__head-cell subjects-column-5">Группа</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="subjects-table__body">
         {subjects.map((item, index) => (
           <TeacherSubjectsTableRow
             key={index}

@@ -1,20 +1,22 @@
 .header__item {
   cursor: pointer;
-  width: 20%;
+  width: calc(100% / 3);
   padding: 20px 30px;
   font-size: 18px;
   line-height: 20px;
   text-align: center;
-  background-color: var(--white);
-  transition: background-color 0.2s ease-in-out;
-}
-
-.header__item:hover {
   background-color: var(--light-grey);
   transition: background-color 0.2s ease-in-out;
 }
 
-.header__item-focused {
+.header__item:hover {
   background-color: var(--lighter-grey);
-  transition: background-color 0.2s ease-in-out;
+}
+
+.header__item:focus {
+  background-color: var(--lighter-grey);
+}
+
+.header__item:active {
+  background-color: var(--grey);
 }

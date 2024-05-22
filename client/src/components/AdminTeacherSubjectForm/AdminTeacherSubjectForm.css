@@ -1,0 +1,48 @@
+.subject__container {
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 2px solid var(--lighter-blue);
+  border-radius: 10px;
+}
+
+.subject__label {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--darker-grey);
+}
+
+.subject__label input {
+  width: 360px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  border: 2px solid var(--lighter-grey);
+  color: var(--dark-grey);
+  transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.subject__label input:hover {
+  background-color: var(--light-grey);
+  border: 2px solid var(--grey);
+}
+
+.subject__label input:focus {
+  outline: none;
+  background-color: var(--white);
+  border: 2px solid var(--black);
+}
+
+.subject__label input:active {
+  background-color: var(--white);
+  border: 2px solid var(--black);
+}
+
+.subject__group-label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

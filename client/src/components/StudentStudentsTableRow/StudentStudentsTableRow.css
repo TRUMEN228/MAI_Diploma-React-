@@ -1,0 +1,19 @@
+.students-table__row:nth-child(even) {
+  background-color: var(--lighter-grey);
+}
+
+.students-table__cell {
+  padding: 10px 15px;
+  text-align: left;
+  border-left: 1px solid var(--darker-grey);
+  border-right: 1px solid var(--darker-grey);
+  vertical-align: middle;
+}
+
+.students-table__cell:first-child {
+  border-left: none;
+}
+
+.students-table__cell:last-child {
+  border-right: none;
+}

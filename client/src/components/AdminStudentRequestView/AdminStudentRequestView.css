@@ -1,6 +1,8 @@
 .request__container {
-  width: 100%;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  padding: 15px;
   height: fit-content ;
   border: 3px solid var(--light-blue);
   border-radius: 10px;
@@ -9,13 +11,117 @@
 .request__user-info {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .user-info__main {
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.p {
-  margin: 0;
+.user-info__second {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
+
+.user-info__institute {
+  display: flex;
+  margin-bottom: 15px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.request__label {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--darker-grey);
+}
+
+.request__label span {
+  font-weight: 400;
+  color: var(--dark-grey);
+}
+
+.request__label select {
+  width: 360px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  border: 2px solid var(--lighter-grey);
+  color: var(--dark-grey);
+  transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.request__label select:hover {
+  background-color: var(--light-grey);
+  border: 2px solid var(--grey);
+}
+
+.request__label select:focus {
+  outline: none;
+  background-color: var(--white);
+  border: 2px solid var(--black);
+}
+
+.request__label select:active {
+  background-color: var(--white);
+  border: 2px solid var(--black);
+}
+
+.request__controls {
+  display: flex;
+  gap: 15px;
+  align-self: flex-end;
+}
+
+.request__control-button {
+  width: 100px;
+  height: 30px;
+}
+
+.request__control-button.accept {
+  background-color: var(--green);
+  border-color: var(--darker-green);
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.request__control-button.accept:hover {
+  background-color: var(--darker-green);
+  border-color: var(--dark-green);
+}
+
+.request__control-button.accept:focus {
+  background-color: var(--green);
+  border-color: var(--dark-green);
+}
+
+.request__control-button.accept:active {
+  background-color: var(--green);
+  border-color: var(--darker-green);
+}
+
+.request__control-button.reject {
+  background-color: var(--red);
+  border-color: var(--darker-red);
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.request__control-button.reject:hover {
+  background-color: var(--darker-red);
+  border-color: var(--dark-red);
+}
+
+.request__control-button.reject:focus {
+  background-color: var(--red);
+  border-color: var(--dark-red);
+}
+
+.request__control-button.reject:active {
+  background-color: var(--red);
+  border-color: var(--darker-red);
+}
+

@@ -1,5 +1,6 @@
 import { FC, useState, ChangeEvent } from "react";
 import { Cathedra, Course, Group, Institute } from "../../api/Institutes";
+import "./AdminTeacherSubjectGroupSelect.css";
 
 interface IAdminTeacherSubjectGroupSelectProps {
   institute: Institute;
@@ -88,7 +89,7 @@ export const AdminTeacherSubjectGroupSelect: FC<IAdminTeacherSubjectGroupSelectP
   };
 
   return (
-    <div>
+    <div className="subject__group">
       <select
         onChange={(event) => handleCathedraSelect(institute.cathedras.find(item => item.id === event.target.value)!)}
       >

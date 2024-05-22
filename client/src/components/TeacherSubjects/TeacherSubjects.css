@@ -1,0 +1,10 @@
+.teacher-subjects__container {
+  padding-top: 40px;
+}
+
+.teacher-subjects__title {
+  margin: 0;
+  margin-bottom: 30px;
+  font-size: 40px;
+  color: var(--darker-blue);
+}

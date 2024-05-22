@@ -1,0 +1,39 @@
+.students-table__title {
+  margin: 0;
+  margin-bottom: 20px;
+  color: var(--dark-blue);
+  font-size: 26px;
+}
+
+.students-table {
+  width: 100%;
+  margin-bottom: 40px;
+  border: none;
+  border-collapse: collapse;
+}
+
+.students-table__head-cell {
+  padding: 10px 15px;
+  font-weight: 700;
+  text-align: left;
+  border: none;
+  background-color: var(--lighter-grey);
+  border-left: 1px solid var(--light-grey);
+  border-right: 1px solid var(--light-grey);
+}
+
+.students-table__head-cell:first-child {
+  border-left: none;
+}
+
+.students-table__head-cell:last-child {
+  border-right: none;
+}
+
+.students-column-1 {
+  width: var(--column-1-width);
+}
+
+.students-column-2 {
+  width: var(--column-2-width);
+}

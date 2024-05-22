@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Student } from "../../api/Student";
+import "./StudentStudentsTableRow.css";
 
 interface IStudentStudentsTableRowProps {
   number: number;
@@ -11,10 +12,10 @@ export const StudentStudentsTableRow: FC<IStudentStudentsTableRowProps> = ({
   student
 }) => {
   return (
-    <tr className="table__row">
-      <td className="table__cell">{number}</td>
-      <td className="table__cell">{student.surname} {student.name} {student.lastname}</td>
-      <td className="table__cell">{student.email}</td>
+    <tr className="students-table__row">
+      <td className="students-table__cell students-column-1">{number}</td>
+      <td className="students-table__cell students-column-2">{student.surname} {student.name} {student.lastname}</td>
+      <td className="students-table__cell students-column-3">{student.email}</td>
     </tr>
   )
 }
