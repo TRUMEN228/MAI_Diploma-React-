@@ -32,7 +32,6 @@ export const AdminTeacherSubjectForm: FC<IAdminTeacherSubjectFormProps> = ({
         Идентификатор предмета:&nbsp;
         <input
           type="text"
-          className=""
           onChange={idChange}
           placeholder="Введите идентификатор предмета"
         />
@@ -41,7 +40,6 @@ export const AdminTeacherSubjectForm: FC<IAdminTeacherSubjectFormProps> = ({
         Название предмета:&nbsp;
         <input
           type="text"
-          className=""
           onChange={nameChange}
           placeholder="Введите название предмета"
         />

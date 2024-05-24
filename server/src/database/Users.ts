@@ -25,10 +25,6 @@ export class Users {
     return usersDatabase.data[id];
   }
 
-  static getOneToEdit(id: string): IUser {
-    return usersDatabase.data[id];
-  }
-
   static getAll(): IUser[] {
     return Object.values(usersDatabase.data);
   }
@@ -70,35 +66,5 @@ export class Users {
     });
 
     return user;
-  }
-
-  static async edit(
-    id: string,
-    email?: string,
-    surname?: string,
-    name?: string,
-    lastname?: string,
-    birthday?: string,
-    instituteId?: string
-  ): Promise<void> {
-    if (!Users.findOne((user) => user.id === id)) {
-      throw new Error("Пользователь не найден");
-    }
-
-    const user = Users.getOneToEdit(id);
-
-    const updatedUser: IUser = {
-      ...user,
-      email: email ? email : user.email,
-      surname: surname ? surname : user.surname,
-      name: name ? name : user.name,
-      lastname: lastname ? lastname : user.lastname,
-      birthday: birthday ? birthday : user.birthday,
-      instituteId: instituteId ? instituteId : user.instituteId,
-    }
-
-    await usersDatabase.update((data) => {
-      data[id] = updatedUser;
-    });
   }
 }

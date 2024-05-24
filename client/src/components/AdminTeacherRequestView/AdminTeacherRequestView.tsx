@@ -41,12 +41,19 @@ export const AdminTeacherRequestView: FC<IAdminTeacherRequestViewProps> = ({
 
     if (subjects) {
       acceptTeacherRequestMutation.mutate();
+
+      if (acceptTeacherRequestMutation.status === "success") {
+        handleRefetch();
+      }
     }
   };
 
   const handleReject = () => {
     requestRejectMutation.mutate();
-    handleRefetch();
+
+    if (requestRejectMutation.status === "success") {
+      handleRefetch();
+    }
   };
 
   const handleAddSubject = () => {

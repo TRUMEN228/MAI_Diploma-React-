@@ -49,5 +49,29 @@
         "downloadUrl": "http://localhost:5173/api/messages/download/mai-strela.s20.4.mso-404bck.ppo/20.05.2024/Screenshot_2.png"
       }
     ]
+  },
+  "6fda9677-30e2-422b-8731-d03855814c5f": {
+    "id": "6fda9677-30e2-422b-8731-d03855814c5f",
+    "text": "Файлы",
+    "userId": "aaf2d18d-f028-4872-a5e8-f467cf8cb500",
+    "userStatus": "student",
+    "subjectId": "mai-strela.s20.4.mso-404bck.ssi",
+    "sentAt": 1716467476632,
+    "files": [
+      {
+        "name": "IMG_20200724_221912 (2).jpg",
+        "storageName": "IMG_20200724_221912 (2).jpg",
+        "size": 228981,
+        "type": "image/jpeg",
+        "downloadUrl": "http://localhost:5173/api/messages/download/mai-strela.s20.4.mso-404bck.ssi/23.05.2024/IMG_20200724_221912 (2).jpg"
+      },
+      {
+        "name": "IMG_20200724_221912.jpg",
+        "storageName": "IMG_20200724_221912.jpg",
+        "size": 510890,
+        "type": "image/jpeg",
+        "downloadUrl": "http://localhost:5173/api/messages/download/mai-strela.s20.4.mso-404bck.ssi/23.05.2024/IMG_20200724_221912.jpg"
+      }
+    ]
   }
 }

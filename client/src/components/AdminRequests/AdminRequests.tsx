@@ -16,7 +16,7 @@ export const AdminRequests: FC<IAdminRequestsProps> = ({
 }) => {
   const fetchRequestsQuery = useQuery({
     queryFn: () => fetchRequestsByInstituteId(instituteId),
-    queryKey: ["requests"],
+    queryKey: ["requests", instituteId],
     retry: 0
   }, queryClient);
 
@@ -54,7 +54,7 @@ export const AdminRequests: FC<IAdminRequestsProps> = ({
                 />
               );
           }
-        }) : "Новых заявок нет"}
+        }) : <span className="requests__empty">Новых заявок нет</span>}
       </div>
     </div>
   );

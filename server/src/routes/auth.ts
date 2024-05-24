@@ -23,7 +23,7 @@ const LoginSchema = z.object({
 }).required();
 
 function formatName(name: string): string {
-  return name.slice(0, 1).toUpperCase() + name.slice(1).toLowerCase();
+  return name.trim().slice(0, 1).toUpperCase() + name.trim().slice(1).toLowerCase();
 }
 
 authRouter.post("/register", async (req, res) => {
@@ -38,7 +38,7 @@ authRouter.post("/register", async (req, res) => {
   let user: IUser;
 
   try {
-    user = await Users.createRequest(email, accountStatus, formatName(surname), formatName(name), formatName(lastname), birthday, instituteId);
+    user = await Users.createRequest(email.trim(), accountStatus, formatName(surname), formatName(name), formatName(lastname), birthday, instituteId);
   } catch (error) {
     return res.status(409).send("Этот email уже занят");
   }
@@ -57,7 +57,7 @@ authRouter.post("/login", (req, res) => {
 
   const { email, password } = bodyParseResult.data;
 
-  const user = Users.findOne((user) => user.email === email);
+  const user = Users.findOne((user) => user.email === email.trim());
 
   if (!user || !Passwords.verify(user.id, password)) {
     return res.status(401).send("Неверный email или пароль");

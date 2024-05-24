@@ -39,12 +39,19 @@ export const AdminStudentRequestView: FC<IAdminStudentRequestViewProps> = ({
   const handleAccept = () => {
     if (groupId) {
       acceptStudentRequestMutation.mutate();
+
+      if (acceptStudentRequestMutation.status === "success") {
+        handleRefetch();
+      }
     }
   }
 
   const handleReject = () => {
     requestRejectMutation.mutate();
-    handleRefetch();
+
+    if (requestRejectMutation.status === "success") {
+      handleRefetch();
+    }
   }
 
   const formatDate = (dateStr: string) => {

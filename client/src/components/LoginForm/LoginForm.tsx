@@ -1,4 +1,4 @@
-import { FC, FormEventHandler, useState } from "react";
+import { FC } from "react";
 import "./LoginForm.css";
 import { FormField } from "../FormField";
 import { Button } from "../Button";
@@ -6,73 +6,57 @@ import { useMutation } from "@tanstack/react-query";
 import { login } from "../../api/User";
 import { queryClient } from "../../api/QueryClient";
 import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const LoginSchema = z.object({
   email: z.string().min(1, { message: "Поле должно быть заполнено" }).email({ message: "Некорректный формат e-mail" }),
   password: z.string().min(1, { message: "Поле должно быть заполнено" })
-})
+});
+
+type LoginFormType = z.infer<typeof LoginSchema>;
 
 export const LoginForm: FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const [errors, setErrors] = useState<z.ZodFormattedError<{
-    email: string;
-    password: string;
-  }, string>>({
-    email: { _errors: [] },
-    password: { _errors: [] },
-    _errors: []
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<LoginFormType>({
+    resolver: zodResolver(LoginSchema)
+  })
 
   const loginMutation = useMutation({
-    mutationFn: () => login(email, password),
+    mutationFn: (data: {email: string, password: string}) => login(data.email, data.password),
     onSuccess() {
       queryClient.invalidateQueries({ queryKey: ["users", "me"]})
     }
   }, queryClient);
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
-
-    const result = LoginSchema.safeParse({ email, password });
-
-    if (!result.success) {
-      setErrors(result.error.format());
-    } else {
-      setErrors({
-        email: { _errors: [] },
-        password: { _errors: [] },
-        _errors: []
-      });
-      loginMutation.mutate();
-    }
-  }
-
   return (
-    <form className="login-form" onSubmit={handleSubmit}>
+    <form
+      className="login-form"
+      onSubmit={handleSubmit(({ email, password }) => {
+        loginMutation.mutate({ email, password })
+      })}
+    >
       <FormField
         labelText="E-mail:"
-        errorMessage={errors.email?._errors[0]}
+        errorMessage={errors.email?.message}
       >
         <input
           className="form-field__input"
           type="text"
-          name="email"
-          onChange={event => setEmail(event.currentTarget.value)}
-          value={email}
+          {...register("email")}
         />
       </FormField>
       <FormField
         labelText="Пароль:"
-        errorMessage={errors.password?._errors[0]}
+        errorMessage={errors.password?.message}
       >
         <input
           className="form-field__input"
           type="password"
-          name="password"
-          onChange={event => setPassword(event.currentTarget.value)}
-          value={password}
+          {...register("password")}
         />
       </FormField>
 

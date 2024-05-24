@@ -17,6 +17,15 @@ export class Passwords {
     })
   }
 
+  static async remove(userId: string): Promise<void> {
+    const data = await database.adapter.read();
+
+    if (data) {
+      delete data[userId];
+      await database.adapter.write(data);
+    }
+  }
+
   static verify(userId: string, password: string): boolean {
     return Passwords.getOne(userId) === Passwords._hashPassword(password);
   }

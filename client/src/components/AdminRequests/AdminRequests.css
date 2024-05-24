@@ -27,3 +27,7 @@
   flex-direction: column;
   gap: 20px;
 }
+
+.requests__empty {
+  margin: 0 auto;
+}

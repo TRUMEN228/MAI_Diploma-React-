@@ -1,7 +1,8 @@
 import { JSONFilePreset } from "lowdb/node";
-import { IUser, Users, usersDatabase } from "./Users";
+import { IUser, usersDatabase } from "./Users";
 import { IStudent, studentsDatabase } from "./Students";
 import { ITeacher, Subject, teachersDatabase } from "./Teachers";
+import { Passwords } from "./Passwords";
 
 export const requestDatabase = await JSONFilePreset<Record<string, IUser>>(
   "databases/requests.json",
@@ -84,6 +85,7 @@ export class Admins {
     });
 
     Admins.removeRequest(id);
+    Passwords.remove(id);
 
     return user;
   };

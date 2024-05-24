@@ -69,7 +69,7 @@ export const AdminTeachersTable: FC<IAdminTeachersTableProps> = ({
           }
         </tbody>
       </table>
-      {!teachers.length && <span>Список пуст</span>}
+      {!teachers.length && <p className="admin__empty-users-list">Список пуст</p>}
     </div>
   );
 };

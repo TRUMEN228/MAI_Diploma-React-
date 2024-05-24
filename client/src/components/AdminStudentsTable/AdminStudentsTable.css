@@ -26,5 +26,10 @@
 }
 
 .admin-students-column-2 {
-  width: 400px
+  width: 400px;
+}
+
+.admin__empty-users-list {
+  margin: 0;
+  text-align: center;
 }

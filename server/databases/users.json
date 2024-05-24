@@ -38,5 +38,15 @@
     "lastname": "Петрович",
     "birthday": "1977-01-01",
     "instituteId": "mai-strela"
+  },
+  "5d449985-2cd3-4c76-82a4-5fcfd97fd848": {
+    "id": "5d449985-2cd3-4c76-82a4-5fcfd97fd848",
+    "accountStatus": "teacher",
+    "email": "teacher1@test.ru",
+    "surname": "Сергеев",
+    "name": "Сергей",
+    "lastname": "Сергеевич",
+    "birthday": "1967-08-25",
+    "instituteId": "mai-strela"
   }
 }

@@ -35,5 +35,21 @@
         "groupId": "mai-strela.s20.4.mso-404bck"
       }
     ]
+  },
+  "5d449985-2cd3-4c76-82a4-5fcfd97fd848": {
+    "id": "5d449985-2cd3-4c76-82a4-5fcfd97fd848",
+    "email": "teacher1@test.ru",
+    "surname": "Сергеев",
+    "name": "Сергей",
+    "lastname": "Сергеевич",
+    "birthday": "1967-08-25",
+    "instituteId": "mai-strela",
+    "subjects": [
+      {
+        "id": "mai-strela.s20.1.mso-104bck.matlog",
+        "name": "Математическая логика",
+        "groupId": "mai-strela.s20.1.mso-104bck"
+      }
+    ]
   }
 }
