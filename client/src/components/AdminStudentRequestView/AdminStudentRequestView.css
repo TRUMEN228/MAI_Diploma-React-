@@ -30,10 +30,11 @@
   display: flex;
   margin-bottom: 15px;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 .request__label {
+  position: relative;
   margin: 0;
   font-size: 16px;
   font-weight: 700;
@@ -70,6 +71,20 @@
 .request__label select:active {
   background-color: var(--white);
   border: 2px solid var(--black);
+}
+
+.error select {
+  border-color: var(--red);
+}
+
+.request__label-error {
+  position: absolute;
+  top: 32px;
+  margin-left: -355px;
+  font-size: 10px;
+  line-height: 10px;
+  font-weight: 400;
+  color: var(--red) !important;
 }
 
 .request__controls {

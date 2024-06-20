@@ -32,7 +32,7 @@ adminRouter.post('/requests/accept/student/:userId', (req, res) => {
 
   const request = Admins.acceptStudentRequest(userId, groupId);
 
-  res.status(200).send(request);
+  res.status(201).send(request);
 });
 
 adminRouter.post('/requests/accept/teacher/:userId', (req, res) => {
@@ -41,7 +41,7 @@ adminRouter.post('/requests/accept/teacher/:userId', (req, res) => {
 
   const request = Admins.acceptTeacherRequest(userId, subjects);
 
-  res.status(200).send(request);
+  res.status(201).send(request);
 });
 
 adminRouter.post('/requests/reject/:userId', (req, res) => {
@@ -50,4 +50,4 @@ adminRouter.post('/requests/reject/:userId', (req, res) => {
   Admins.removeRequest(userId);
 
   res.status(200).send("В регистрации отказано");
-})
+});

@@ -73,5 +73,14 @@
         "downloadUrl": "http://localhost:5173/api/messages/download/mai-strela.s20.4.mso-404bck.ssi/23.05.2024/IMG_20200724_221912.jpg"
       }
     ]
+  },
+  "34a1d3fd-ee86-4f08-8c1a-bf4a215dd4ff": {
+    "id": "34a1d3fd-ee86-4f08-8c1a-bf4a215dd4ff",
+    "text": "Принял!",
+    "userId": "399b9f13-3720-46b1-969f-5d7523d24db7",
+    "userStatus": "teacher",
+    "subjectId": "mai-strela.s20.4.mso-404bck.ppo",
+    "sentAt": 1716645893840,
+    "files": []
   }
 }

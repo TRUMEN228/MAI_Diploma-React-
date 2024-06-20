@@ -1,1 +1,22 @@
-{}
+{
+  "d5ed8333-9ba6-4e50-ae3a-d40a36580218": {
+    "id": "d5ed8333-9ba6-4e50-ae3a-d40a36580218",
+    "accountStatus": "student",
+    "email": "student3@test.ru",
+    "surname": "Иванов",
+    "name": "Иван",
+    "lastname": "Иванович",
+    "birthday": "2016-01-01",
+    "instituteId": "mai-strela"
+  },
+  "066f54a4-c596-449b-8276-5010c09be58c": {
+    "id": "066f54a4-c596-449b-8276-5010c09be58c",
+    "accountStatus": "student",
+    "email": "student4@test.ru",
+    "surname": "Петров",
+    "name": "Петр",
+    "lastname": "Петрович",
+    "birthday": "2008-01-01",
+    "instituteId": "mai-strela"
+  }
+}

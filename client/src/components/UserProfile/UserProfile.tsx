@@ -82,16 +82,16 @@ export const UserProfile: FC<IUserProfileProps> = ({ user }) => {
             labelClassName="profile__birthday-label"
             dataClassName="profile__birthday"
           />
-            <Button
-              kind="secondary"
-              onClick={handleClick}
-              className="profile__exit-button"
-              isLoading={logoutMutation.isPending}
-            >
-              <Link className="profile__exit-button-link" to={'/'}>Выйти</Link>
-            </Button>
+          <Button
+            kind="secondary"
+            onClick={handleClick}
+            className="profile__exit-button"
+            isLoading={logoutMutation.isPending}
+          >
+            <Link className="profile__exit-button-link" to={'/'}>Выйти</Link>
+          </Button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -48,5 +48,25 @@
     "lastname": "Сергеевич",
     "birthday": "1967-08-25",
     "instituteId": "mai-strela"
+  },
+  "ed6bd833-3c56-4dbb-87c5-4e134fbbd08c": {
+    "id": "ed6bd833-3c56-4dbb-87c5-4e134fbbd08c",
+    "accountStatus": "student",
+    "email": "student2@test.ru",
+    "surname": "Сергеев",
+    "name": "Сергей",
+    "lastname": "Сергеевич",
+    "birthday": "2003-01-01",
+    "instituteId": "mai-strela"
+  },
+  "fdbbe1dc-58cc-4fbe-80b4-805990de2a44": {
+    "id": "fdbbe1dc-58cc-4fbe-80b4-805990de2a44",
+    "accountStatus": "student",
+    "email": "student1@test.ru",
+    "surname": "Иванов",
+    "name": "Иван",
+    "lastname": "Иванович",
+    "birthday": "2003-07-06",
+    "instituteId": "mai-strela"
   }
 }

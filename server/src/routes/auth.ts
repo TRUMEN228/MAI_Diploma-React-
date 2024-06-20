@@ -60,7 +60,7 @@ authRouter.post("/login", (req, res) => {
   const user = Users.findOne((user) => user.email === email.trim());
 
   if (!user || !Passwords.verify(user.id, password)) {
-    return res.status(401).send("Неверный email или пароль");
+    return res.status(404).send("Неверный email или пароль");
   }
 
   authorizeResponse(res, user.id).status(200).send();

@@ -7,5 +7,23 @@
     "lastname": "Викторович",
     "birthday": "2002-04-01",
     "groupId": "mai-strela.s20.4.mso-404bck"
+  },
+  "ed6bd833-3c56-4dbb-87c5-4e134fbbd08c": {
+    "id": "ed6bd833-3c56-4dbb-87c5-4e134fbbd08c",
+    "surname": "Сергеев",
+    "name": "Сергей",
+    "lastname": "Сергеевич",
+    "email": "student2@test.ru",
+    "birthday": "2003-01-01",
+    "groupId": "mai-strela.s20.4.mso-404bck"
+  },
+  "fdbbe1dc-58cc-4fbe-80b4-805990de2a44": {
+    "id": "fdbbe1dc-58cc-4fbe-80b4-805990de2a44",
+    "surname": "Иванов",
+    "name": "Иван",
+    "lastname": "Иванович",
+    "email": "student1@test.ru",
+    "birthday": "2003-07-06",
+    "groupId": "mai-strela.s20.4.mso-404bck"
   }
 }

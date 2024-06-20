@@ -71,5 +71,5 @@ export const LoginForm: FC = () => {
         Войти
       </Button>
     </form>
-  )
-}
+  );
+};

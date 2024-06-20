@@ -196,7 +196,7 @@ export const RegisterForm: FC = () => {
           <label htmlFor="teacher">преподаватель</label>
         </div>
       </fieldset>
-      {createUserMutation.error && <span className="form-error__message" >{createUserMutation.error?.message}</span>}
+      {createUserMutation.error && <span className="form__error-message" >{createUserMutation.error?.message}</span>}
       <Button
         kind="primary"
         type="submit"
@@ -218,5 +218,5 @@ export const RegisterForm: FC = () => {
       </div>
 
     </form>
-  )
-}
+  );
+};

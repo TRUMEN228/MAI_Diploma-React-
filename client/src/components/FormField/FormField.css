@@ -1,7 +1,7 @@
 .form-field {
   position: relative;
   display: grid;
-  grid-template-columns: 160px 200px;
+  grid-template-columns: 160px 300px;
   grid-template-areas: "label input";
   align-items: last baseline;
   gap: 30px;
@@ -47,7 +47,7 @@
   border: 2px solid var(--black);
 }
 
-.form-field__error {
+.form-field__error{
   position: absolute;
   top: 45px;
   left: 195px;

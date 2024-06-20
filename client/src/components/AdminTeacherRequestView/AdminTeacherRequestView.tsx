@@ -8,11 +8,20 @@ import { acceptTeacherRequest, rejectRequest } from "../../api/Admin";
 import { Subject } from "../../api/Teacher";
 import { AdminTeacherSubjectForm } from "../AdminTeacherSubjectForm";
 import "./AdminTeacherRequestView.css";
+import { z } from "zod";
 
 interface IAdminTeacherRequestViewProps {
   user: User;
   handleRefetch: () => void;
 }
+
+const AdminTeacherAcceptSchema = z.object({
+  subjectId: z.string().min(1, { message: "Поле должно быть заполнено" }).max(6, { message: "Максимальная длина идентификатора: 6 символов" }),
+  subjectName: z.string().min(1, { message: "Поле должно быть заполнено" }),
+  subjects: z.array(z.custom<Subject>()).min(1, { message: "Добавьте хотя бы один предмет" })
+});
+
+type AdminTeacherAcceptType = z.infer<typeof AdminTeacherAcceptSchema>;
 
 export const AdminTeacherRequestView: FC<IAdminTeacherRequestViewProps> = ({
   user,
@@ -99,7 +108,7 @@ export const AdminTeacherRequestView: FC<IAdminTeacherRequestViewProps> = ({
   };
 
   return (
-    <div className="request__container">
+    <form className="request__container">
       <div className="request__user-info">
         <div className="user-info__main">
           <p className="request__label user__fullname">ФИО: <span>{user.surname} {user.name} {user.lastname}</span></p>
@@ -121,13 +130,14 @@ export const AdminTeacherRequestView: FC<IAdminTeacherRequestViewProps> = ({
               handleGroupIdChange={handleGroupIdChange}
             />
           )) : null}
+          {/* <span className="errorka">Должен быть назначен хотя бы один предмет</span> */}
           <Button className="request_add-subject-button" onClick={handleAddSubject} kind="secondary">Добавить предмет</Button>
         </div>
       </div>
       <div className="request__controls">
-        <Button className="request__control-button accept" onClick={handleAccept} kind="primary">Принять</Button>
+        <Button className="request__control-button accept" onClick={handleAccept} kind="primary" type="submit">Принять</Button>
         <Button className="request__control-button reject" onClick={handleReject} kind="primary">Отклонить</Button>
       </div>
-    </div>
+    </form>
   );
 };
